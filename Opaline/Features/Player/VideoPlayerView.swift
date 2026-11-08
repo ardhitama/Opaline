@@ -125,16 +125,14 @@ final class VideoPlayerView: UIView {
 
     let skipButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitleColor(.white, for: .normal)
+        // The plate the duration badge uses, so it reads on any frame;
+        // flat, without an outline.
+        button.setTitleColor(ThemeManager.shared.primaryText, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(
             ofSize: 14,
             weight: .semibold
         )
-        button.backgroundColor = UIColor.black
-            .withAlphaComponent(0.75)
-        button.layer.borderColor = UIColor.white
-            .withAlphaComponent(0.8).cgColor
-        button.layer.borderWidth = 1
+        button.backgroundColor = ThemeManager.shared.durationBackground
         button.layer.cornerRadius = 4
         button.contentEdgeInsets = UIEdgeInsets(
             top: 7,

@@ -3,8 +3,8 @@ import UIKit
 // MARK: - Audio-only toggle
 //
 // The button doubles as the mode's indicator: hidden where the source has no
-// separate audio stream (live, progressive), dimmed when the mode is off,
-// accent-tinted when it is on. The mode carries across videos, and without a
+// separate audio stream (live, progressive), plain when the mode is off, on
+// the selection fill when it is on. The mode carries across videos, and without a
 // visible state that reads as the app having stopped showing video.
 
 extension VideoPlayerView {
@@ -41,7 +41,8 @@ extension VideoPlayerView {
     /// is what "off" already means here.
     func setAudioOnly(active: Bool, available: Bool) {
         audioOnlyButton.isHidden = !available
-        audioOnlyButton.tintColor = active ? ThemeManager.shared.accent : .white
+        audioOnlyButton.tintColor = .white
+        audioOnlyButton.setOnState(active, cornerRadius: 18)
         audioPlaceholderView.isHidden = !active
     }
 

@@ -21,7 +21,7 @@ extension PlayerMenuOverlay {
             for: [.touchUpInside, .touchUpOutside, .touchCancel, .touchDragExit]
         )
 
-        let color = item.isDestructive ? UIColor.systemRed : rowColor
+        let color = item.isDestructive ? ThemeManager.shared.destructive : rowColor
         addRowLabel(item.title, color: color, hasIcons: hasIcons, to: button)
         if let iconName = item.iconName {
             addRowIcon(iconName, color: color, to: button)

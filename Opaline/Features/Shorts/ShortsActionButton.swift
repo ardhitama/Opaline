@@ -1,7 +1,7 @@
 import UIKit
 
-/// One icon-over-count action in the Shorts rail. White on video, so it
-/// ignores the theme — the backdrop is always the playing short.
+/// One icon-over-count action in the Shorts rail. Its icon and count stay
+/// white, as the backdrop is always the playing short.
 final class ShortsActionButton: UIView {
     var onTap: (() -> Void)?
 
@@ -57,9 +57,11 @@ final class ShortsActionButton: UIView {
         ])
     }
 
+    /// White on video either way; a chosen action shows on the selection
+    /// fill.
     private func applyTint() {
-        button.tintColor = isHighlighted
-            ? ThemeManager.shared.accent : .white
+        button.tintColor = .white
+        button.setOnState(isHighlighted, cornerRadius: 16)
     }
 
     @objc

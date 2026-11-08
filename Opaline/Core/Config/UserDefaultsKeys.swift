@@ -3,12 +3,6 @@ import Foundation
 /// Centralised UserDefaults key namespace.
 /// All keys used in the app must be declared here to prevent typos and collisions.
 enum UserDefaultsKeys {
-    enum Theme {
-        static let mode = "themeMode"
-        static let autoDarkStartHour = "theme_autoDarkStartHour"
-        static let autoDarkEndHour = "theme_autoDarkEndHour"
-    }
-
     enum VideoQuality {
         /// The Wi-Fi preference. Keeps its original name so the setting
         /// everyone already made carries over as their Wi-Fi choice.

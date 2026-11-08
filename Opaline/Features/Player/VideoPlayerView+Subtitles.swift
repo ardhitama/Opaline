@@ -11,7 +11,7 @@ extension VideoPlayerView {
         subtitleCues = []
         subtitleLabel.isHidden = true
         subtitleLabel.text = nil
-        ccButton.isSelected = false
+        ccButton.setOnState(false, cornerRadius: 18)
     }
 
     func updateSubtitle(at time: Double) {
@@ -65,7 +65,7 @@ extension VideoPlayerView {
         activeLanguage: String?
     ) {
         setControlAvailability(ccButton, available: !tracks.isEmpty)
-        ccButton.isSelected = activeLanguage != nil
+        ccButton.setOnState(activeLanguage != nil, cornerRadius: 18)
     }
 
     @objc

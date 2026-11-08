@@ -133,8 +133,9 @@ final class QueuePanelController: NSObject {
     }
 
     private func setupButtons() {
-        // Template images, not the player's pre-filled white ones: the
-        // repeat button says it is on by taking the accent tint.
+        // Template images, not the player's pre-filled white ones, so they
+        // take the sheet's text colour. Fixed at 36pt so the on-state fill
+        // is a circle.
         shuffleButton.setImage(
             resizedNavBarIcon("icon_shuffle", size: 22),
             for: .normal
@@ -157,6 +158,11 @@ final class QueuePanelController: NSObject {
         )
         for button in [repeatButton, shuffleButton] {
             button.addTapFeedback()
+            button.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                button.widthAnchor.constraint(equalToConstant: 36),
+                button.heightAnchor.constraint(equalToConstant: 36)
+            ])
         }
         sheet.setHeaderButtons([repeatButton, shuffleButton])
     }
@@ -172,12 +178,8 @@ final class QueuePanelController: NSObject {
     }
 
     private func applyRepeatState() {
-        repeatButton.tintColor = isRepeating
-            ? ThemeManager.shared.accent
-            : ThemeManager.shared.primaryText
-        shuffleButton.tintColor = queue.isShuffled
-            ? ThemeManager.shared.accent
-            : ThemeManager.shared.primaryText
+        repeatButton.setOnState(isRepeating, cornerRadius: 18)
+        shuffleButton.setOnState(queue.isShuffled, cornerRadius: 18)
     }
 }
 

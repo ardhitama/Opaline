@@ -200,22 +200,17 @@
 "settings.section.debug" = "Debug";
 
 /* Section footers */
-"settings.footer.themeAutoSystem" = "Segue automaticamente l'aspetto del sistema.";
-"settings.footer.themeAutoHours" = "Passa automaticamente al tema scuro tra gli orari indicati.";
 "settings.footer.playback" = "Riempimento automatico scala il video a schermo intero in modo che non rimangano barre nere. Il pinch nel player lo sovrascrive per ogni video.\n\nLa riproduzione automatica avvia il video successivo suggerito dopo un conto alla rovescia di 5 secondi. L'interruttore Mix applica lo stesso istantaneamente alle code di mix/playlist.";
 "settings.footer.autoDub" = "Quando la lingua originale di un video differisce dalla lingua di doppiaggio, viene selezionata automaticamente la traccia audio corrispondente.";
 "settings.footer.home" = "Come vengono mostrati i ripiani di raccomandazione: una griglia continua o corsie orizzontali stile TV.";
 "settings.footer.ryd" = "I conteggi dei dislike sono alimentati da Return YouTube Dislike (returnyoutubedislike.com) — un progetto comunitario open source.";
 
 /* Theme rows; segment labels for dark/light/auto modes */
-"settings.row.theme" = "Tema";
 "settings.row.appIcon" = "Icona dell'app";
 "settings.theme.dark" = "Scuro";
 "settings.theme.light" = "Chiaro";
 "settings.theme.auto" = "Auto";
 /* Hour pickers bounding the iOS 12 scheduled dark mode */
-"settings.row.darkFrom" = "Tema scuro dalle";
-"settings.row.darkUntil" = "Tema scuro fino alle";
 
 /* Playback rows */
 "settings.row.defaultQuality" = "Qualità predefinita";

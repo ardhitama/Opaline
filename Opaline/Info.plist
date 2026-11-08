@@ -158,5 +158,7 @@
 		<string>audio</string>
 		<string>fetch</string>
 	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Dark</string>
 </dict>
 </plist>

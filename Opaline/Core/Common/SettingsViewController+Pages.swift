@@ -86,12 +86,8 @@ extension SettingsViewController {
     }
 
     private var appearanceSections: [Section] {
-        var themeRows: [Row] = [.theme]
-        if showsAutoHours {
-            themeRows.append(contentsOf: [.autoDarkStart, .autoDarkEnd])
-        }
-        return [
-            Section(header: nil, footer: themeFooter, rows: themeRows + [.appIcon]),
+        [
+            Section(header: nil, footer: nil, rows: [.appIcon]),
             Section(
                 header: "settings.section.home".localized,
                 footer: "settings.footer.home".localized,

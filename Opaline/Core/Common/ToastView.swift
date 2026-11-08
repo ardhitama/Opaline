@@ -60,8 +60,8 @@ enum ToastView {
         let label = PaddedLabel()
         label.text = text
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .white
-        label.backgroundColor = UIColor(white: 0, alpha: 0.85)
+        label.textColor = ThemeManager.shared.primaryText
+        label.backgroundColor = ThemeManager.shared.elevatedSurface
         label.numberOfLines = 0
         label.textAlignment = .center
         label.layer.cornerRadius = 18

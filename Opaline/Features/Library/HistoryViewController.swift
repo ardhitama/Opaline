@@ -137,7 +137,6 @@ final class HistoryViewController: UIViewController {
         let theme = ThemeManager.shared
         view.backgroundColor = theme.background
         tableView.backgroundColor = theme.background
-        tableView.separatorColor = theme.separator
         if let rc = tableView.refreshControl {
             rc.tintColor = theme.secondaryText
         }

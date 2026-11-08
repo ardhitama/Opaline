@@ -298,6 +298,8 @@ extension WatchViewController {
         }
         btn.tintColor = ThemeManager.shared.primaryText
         btn.translatesAutoresizingMaskIntoConstraints = false
+        // 44×28 gives the on-state fill a capsule around the 22pt icon.
+        btn.widthAnchor.constraint(equalToConstant: 44).isActive = true
         btn.heightAnchor.constraint(equalToConstant: 28).isActive = true
         let label = countLabel ?? UILabel()
         label.font = UIFont.systemFont(ofSize: 11)

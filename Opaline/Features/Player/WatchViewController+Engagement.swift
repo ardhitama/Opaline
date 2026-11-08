@@ -64,11 +64,9 @@ extension WatchViewController {
     private func applyThemeToComments(_ theme: ThemeManager) {
         // The fill lives on `commentsPreviewCard`, not on the stack view —
         // a stack view ignores `backgroundColor` before iOS 14.
+        // The card parts from the page by its tone step alone, never an
+        // outline (Ardvis theming, Flat).
         commentsPreviewCard.backgroundColor = theme.surface
-        // `surface` sits close to `background` in both themes, so the card
-        // needs an outline of its own to read as a separate block.
-        commentsPreviewCard.layer.borderWidth = 1
-        commentsPreviewCard.layer.borderColor = theme.separator.cgColor
         commentPreviewContentView.applyTheme()
         commentsPanel.applyTheme(theme)
         loadedQueuePanel?.applyTheme(theme)
@@ -95,8 +93,8 @@ extension WatchViewController {
             setupNavigationBar()
         }
         updateLikeDislikeUI()
-        // The loop above resets every action tint, including the accent that
-        // marks an already-saved video.
+        // The fills that mark a liked or saved video take the theme's
+        // selection colour, so they are set again too.
         updateSaveButton()
         updateDownloadButton()
     }
@@ -110,7 +108,7 @@ extension WatchViewController {
             subscribeButton.setTitleColor(theme.primaryText, for: .normal)
         } else {
             subscribeButton.backgroundColor = theme.accent
-            subscribeButton.setTitleColor(.white, for: .normal)
+            subscribeButton.setTitleColor(theme.accentText, for: .normal)
         }
     }
 
@@ -139,18 +137,17 @@ extension WatchViewController {
 
     // MARK: - Like / Dislike
 
+    /// The chosen thumb shows on the selection fill and its count steps up
+    /// from secondary to primary text.
     func updateLikeDislikeUI() {
-        let tint = ThemeManager.shared.primaryText
-        let activeTint = ThemeManager.shared.accent
-        let secondary = ThemeManager.shared.secondaryText
-        likeButton.tintColor = currentLikeStatus == .like
-            ? activeTint : tint
-        likeCountLabel.textColor = currentLikeStatus == .like
-            ? activeTint : secondary
-        dislikeButton.tintColor = currentLikeStatus == .dislike
-            ? activeTint : tint
-        dislikeCountLabel.textColor = currentLikeStatus == .dislike
-            ? activeTint : secondary
+        let theme = ThemeManager.shared
+        let liked = currentLikeStatus == .like
+        let disliked = currentLikeStatus == .dislike
+        likeButton.setOnState(liked, cornerRadius: 14)
+        likeCountLabel.textColor = liked ? theme.primaryText : theme.secondaryText
+        dislikeButton.setOnState(disliked, cornerRadius: 14)
+        dislikeCountLabel.textColor = disliked
+            ? theme.primaryText : theme.secondaryText
     }
 
     func handleLikeToggleResult(

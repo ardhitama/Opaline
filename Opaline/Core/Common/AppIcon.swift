@@ -31,12 +31,9 @@ enum AppIcon: String, CaseIterable {
     }
 
     /// The artwork, for the picker rows. Auto has none of its own — it
-    /// shows whichever variant the current theme is wearing.
+    /// shows the dark variant, as the app is dark only.
     var previewImage: UIImage? {
-        let name = self == .auto
-            ? (ThemeManager.shared.isDark ? AppIcon.dark : AppIcon.light).rawValue
-            : rawValue
-        return UIImage(named: name)
+        UIImage(named: self == .auto ? AppIcon.dark.rawValue : rawValue)
     }
 
     var displayName: String {

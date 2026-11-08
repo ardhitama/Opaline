@@ -7,16 +7,7 @@ class ProfileViewController: UIViewController {
     private let handleLabel = UILabel()
     private let subscribersLabel = UILabel()
 
-    // Theme section
-    private let themeSegment = UISegmentedControl(items: [
-        "settings.theme.dark".localized, "settings.theme.light".localized
-    ])
     private let clearImageCacheButton = UIButton(type: .system)
-    private let themeTitleLabel = UILabel()
-    private let separatorLine = UIView()
-
-    // Separator
-    private let headerStack = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,17 +67,6 @@ class ProfileViewController: UIViewController {
     }
 
     private func setupControlViews() {
-        themeTitleLabel.text = "settings.row.theme".localized
-        themeTitleLabel.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
-        themeTitleLabel.textColor = UIColor(white: 0.5, alpha: 1)
-        themeTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(themeTitleLabel)
-
-        themeSegment.selectedSegmentIndex = ThemeManager.shared.isDark ? 0 : 1
-        themeSegment.addTarget(self, action: #selector(themeChanged), for: .valueChanged)
-        themeSegment.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(themeSegment)
-
         clearImageCacheButton.setTitle(
             "profile.clearImageCache".localized, for: .normal
         )
@@ -101,15 +81,10 @@ class ProfileViewController: UIViewController {
             for: .touchUpInside
         )
         view.addSubview(clearImageCacheButton)
-
-        separatorLine.backgroundColor = UIColor(white: 0.3, alpha: 1)
-        separatorLine.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(separatorLine)
     }
 
     private func setupConstraints() {
         let safe = view.safeAreaLayoutGuide
-        let sepLine = separatorLine
         let cacheBtn = clearImageCacheButton
         NSLayoutConstraint.activate([
             avatarView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 32),
@@ -124,17 +99,7 @@ class ProfileViewController: UIViewController {
             handleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             subscribersLabel.topAnchor.constraint(equalTo: handleLabel.bottomAnchor, constant: 4),
             subscribersLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            sepLine.topAnchor.constraint(equalTo: subscribersLabel.bottomAnchor, constant: 32),
-            sepLine.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            sepLine.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            sepLine.heightAnchor.constraint(equalToConstant: 1),
-            themeTitleLabel.topAnchor.constraint(equalTo: sepLine.bottomAnchor, constant: 24),
-            themeTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            themeSegment.topAnchor.constraint(equalTo: themeTitleLabel.bottomAnchor, constant: 12),
-            themeSegment.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            themeSegment.widthAnchor.constraint(equalToConstant: 280),
-            themeSegment.heightAnchor.constraint(equalToConstant: 32),
-            cacheBtn.topAnchor.constraint(equalTo: themeSegment.bottomAnchor, constant: 20),
+            cacheBtn.topAnchor.constraint(equalTo: subscribersLabel.bottomAnchor, constant: 32),
             cacheBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
@@ -146,15 +111,8 @@ class ProfileViewController: UIViewController {
         nameLabel.textColor = theme.primaryText
         handleLabel.textColor = theme.secondaryText
         subscribersLabel.textColor = theme.secondaryText
-        themeSegment.selectedSegmentIndex = theme.isDark ? 0 : 1
-        let darkBg = UIColor(white: 0.16, alpha: 1)
-        clearImageCacheButton.backgroundColor = theme.isDark ? darkBg : .white
-        clearImageCacheButton.setTitleColor(theme.isDark ? .white : theme.accent, for: .normal)
-    }
-
-    @objc
-    private func themeChanged() {
-        ThemeManager.shared.isDark = themeSegment.selectedSegmentIndex == 0
+        clearImageCacheButton.backgroundColor = theme.surface
+        clearImageCacheButton.setTitleColor(theme.primaryText, for: .normal)
     }
 
     @objc

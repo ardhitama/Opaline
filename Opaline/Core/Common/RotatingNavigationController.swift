@@ -52,21 +52,23 @@ final class RotatingNavigationController: UINavigationController {
     /// One bar configuration for every navigation bar in the app — bars
     /// with differing appearance setups use different item-layout metrics
     /// (visibly different chevron insets), so the bar styles itself here
-    /// instead of per screen.
+    /// instead of per screen. The bar keeps the system's own background
+    /// (Liquid Glass on iOS 26+) over the screen's colour; the theme gives
+    /// only its icons and title the text colour. iOS 12 has neither, so it
+    /// keeps an opaque bar.
     @objc
     private func applyBarTheme() {
         let theme = ThemeManager.shared
-        navigationBar.tintColor = theme.isDark ? .white : theme.accent
+        navigationBar.tintColor = theme.primaryText
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = theme.surface
+            appearance.configureWithDefaultBackground()
             appearance.titleTextAttributes = [.foregroundColor: theme.primaryText]
             navigationBar.standardAppearance = appearance
             navigationBar.scrollEdgeAppearance = appearance
             navigationBar.compactAppearance = appearance
         } else {
-            navigationBar.barTintColor = theme.surface
+            navigationBar.barTintColor = theme.background
             navigationBar.isTranslucent = false
             navigationBar.barStyle = theme.barStyle
             navigationBar.titleTextAttributes = [.foregroundColor: theme.primaryText]

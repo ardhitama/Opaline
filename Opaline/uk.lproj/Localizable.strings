@@ -164,21 +164,16 @@
 "settings.section.sponsorblock" = "SponsorBlock";
 "settings.section.debug" = "Налагодження";
 
-"settings.footer.themeAutoSystem" = "«Авто» відповідає оформленню системи.";
-"settings.footer.themeAutoHours" = "«Авто» вмикає темну тему в години, вказані вище.";
 "settings.footer.playback" = "«Заповнення екрана» автоматично масштабує відео в повноекранному режимі, прибираючи чорні смуги. Жест щипка у плеєрі перевизначає це для конкретного відео.\n\n«Автовідтворення» запускає наступне рекомендоване відео після 5-секундного відліку. Перемикач «Мікс» застосовує те саме миттєво до черги міксу чи плейлиста.";
 "settings.footer.autoDub" = "Якщо мова оригіналу відео відрізняється від мови дубляжу, відповідна аудіодоріжка вмикається автоматично.";
 "settings.footer.home" = "Як показувати полиці рекомендацій: суцільна сітка або горизонтальні стрічки у стилі ТБ.";
 "settings.footer.ryd" = "Лічильники дизлайків працюють через Return YouTube Dislike (returnyoutubedislike.com) — відкритий проєкт спільноти.";
 "settings.footer.debug" = "Виберіть, якими способами відтворювати відео та в якому порядку їх пробувати. Сервер-розв’язувач відповідає на перевірку тротлінгу в потоках ТВ-клієнта (і випускає його токен).";
 
-"settings.row.theme" = "Тема";
 "settings.row.appIcon" = "Значок застосунку";
 "settings.theme.dark" = "Темна";
 "settings.theme.light" = "Світла";
 "settings.theme.auto" = "Авто";
-"settings.row.darkFrom" = "Темна тема з";
-"settings.row.darkUntil" = "Темна тема до";
 
 "settings.row.defaultQuality" = "Якість за замовчуванням";
 "settings.section.videoQuality" = "Параметри якості відео";

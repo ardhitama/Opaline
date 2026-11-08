@@ -43,12 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             name: .homeFeedDidSettle,
             object: nil
         )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(applyWindowTheme),
-            name: ThemeManager.didChangeNotification,
-            object: nil
-        )
         return true
     }
 
@@ -58,7 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = window
         window.rootViewController = makeSplashViewController()
         window.makeKeyAndVisible()
-        applyWindowTheme()
+        // Controls UIKit hosts outside a themed view, such as alerts and
+        // popovers, take their tint from the window.
+        window.tintColor = ThemeManager.shared.accent
         // Build the real UI while the splash is still covering the screen.
         // Its fade is a Core Animation animation, so it keeps running on the
         // render server even though this blocks the main thread for a while
@@ -70,21 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    /// System-drawn elements (table section headers/footers, switches,
-    /// segmented controls, alerts) resolve dynamic colors from the window's
-    /// trait, not the app palette — keep the two in sync.
-    @objc
-    private func applyWindowTheme() {
-        if #available(iOS 13.0, *) {
-            window?.overrideUserInterfaceStyle =
-                ThemeManager.shared.isDark ? .dark : .light
-        }
-    }
-
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Auto theme can go stale in the background (schedule boundary or a
-        // system appearance change while suspended).
-        ThemeManager.shared.refreshAutoTheme()
         UpdateNotificationService.shared.checkIfNeeded()
         resolveDeferredAuthIfNeeded()
     }

@@ -148,14 +148,16 @@ final class LibraryViewController: UIViewController {
         let theme = ThemeManager.shared
         view.backgroundColor = theme.background
         contentView.backgroundColor = theme.background
+        // A chosen segment is a state, so it takes the selection fill and
+        // steps its title up from secondary to primary text (Ardvis theming).
         if #available(iOS 13, *) {
-            segmentedControl.selectedSegmentTintColor = theme.accent
+            segmentedControl.selectedSegmentTintColor = theme.selection
             segmentedControl.setTitleTextAttributes(
-                [.foregroundColor: theme.primaryText],
+                [.foregroundColor: theme.secondaryText],
                 for: .normal
             )
             segmentedControl.setTitleTextAttributes(
-                [.foregroundColor: UIColor.white],
+                [.foregroundColor: theme.primaryText],
                 for: .selected
             )
         }

@@ -122,7 +122,6 @@ final class NotificationsViewController: UIViewController {
         let theme = ThemeManager.shared
         view.backgroundColor = theme.background
         tableView.backgroundColor = theme.background
-        tableView.separatorColor = theme.separator
         emptyLabel.textColor = theme.secondaryText
         bannerView.applyTheme()
         applyEditToolbarTheme()

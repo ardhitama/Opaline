@@ -87,18 +87,6 @@ class MainTabBarController: UITabBarController {
         updateMiniPlayerBarBottomInset()
     }
 
-    override func traitCollectionDidChange(
-        _ previousTraitCollection: UITraitCollection?
-    ) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if #available(iOS 13.0, *),
-           traitCollection.hasDifferentColorAppearance(
-               comparedTo: previousTraitCollection
-           ) {
-            ThemeManager.shared.refreshAutoTheme()
-        }
-    }
-
     override func viewWillTransition(
         to size: CGSize,
         with coordinator: UIViewControllerTransitionCoordinator
@@ -118,15 +106,10 @@ class MainTabBarController: UITabBarController {
     @objc
     private func applyTheme() {
         let theme = ThemeManager.shared
+        // The bar is the system's (Liquid Glass on iOS 26+); the theme gives
+        // only the selected tab's accent.
         tabBar.barStyle = theme.barStyle
-        tabBar.tintColor = theme.isDark ? .white : theme.accent
-        if #available(iOS 15.0, *) {
-            let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = theme.surface
-            tabBar.standardAppearance = appearance
-            tabBar.scrollEdgeAppearance = appearance
-        }
+        tabBar.tintColor = theme.accent
         miniPlayerBar?.applyTheme()
     }
 

@@ -74,7 +74,6 @@ final class ShortsCommentsViewController: UIViewController {
         view.backgroundColor = theme.background
         tableView.backgroundColor = theme.background
         titleLabel.textColor = theme.primaryText
-        tableView.separatorColor = theme.separator
     }
 
     private func setupHeader() {

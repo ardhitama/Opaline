@@ -204,22 +204,17 @@
 "settings.section.debug" = "Hata Ayıklama";
 
 /* Section footers */
-"settings.footer.themeAutoSystem" = "Otomatik olarak sistem görünümünü takip eder.";
-"settings.footer.themeAutoHours" = "Yukarıdaki saatler arasında otomatik olarak koyu temaya geçer.";
 "settings.footer.playback" = "Doldurma için yakınlaştırma, tam ekranda siyah çubuk kalmayacak şekilde videoyu otomatik olarak ölçekler. Oynatıcıda sıkıştırma her video için bunu geçersiz kılar.\n\nOtomatik oynatma, 5 saniyelik geri sayımdan sonra önerilen bir sonraki videoyu oynatır. Mix anahtarı bunu mix/oynatma listesi kuyruklarına anında uygular.";
 "settings.footer.autoDub" = "Videonun orijinal dili dublaj dilinden farklıysa uygun ses parçası otomatik olarak seçilir.";
 "settings.footer.home" = "Öneri rafları nasıl gösterilir: sürekli bir ızgara veya TV tarzı yatay raylar.";
 "settings.footer.ryd" = "Beğenmeme sayıları Return YouTube Dislike (returnyoutubedislike.com) tarafından desteklenmektedir — açık bir topluluk projesi.";
 
 /* Theme rows; segment labels for dark/light/auto modes */
-"settings.row.theme" = "Tema";
 "settings.row.appIcon" = "Uygulama simgesi";
 "settings.theme.dark" = "Koyu";
 "settings.theme.light" = "Açık";
 "settings.theme.auto" = "Otomatik";
 /* Hour pickers bounding the iOS 12 scheduled dark mode */
-"settings.row.darkFrom" = "Koyu Tema Başlangıcı";
-"settings.row.darkUntil" = "Koyu Tema Bitişi";
 
 /* Playback rows */
 "settings.row.defaultQuality" = "Varsayılan Kalite";

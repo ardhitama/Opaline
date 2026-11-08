@@ -1,131 +1,76 @@
 import UIKit
 
-// swiftlint:disable redundant_string_enum_value
-enum ThemeMode: String {
-    case dark = "dark"
-    case light = "light"
-    case auto = "auto"
-}
-// swiftlint:enable redundant_string_enum_value
-
-class ThemeManager {
+/// The app's colours: Ardvis Dark, the one theme of the Ardvis products
+/// (Ardvis `docs/design/theming.md`), which is Atom One Dark at 12%
+/// brightness. The app is dark only: `UIUserInterfaceStyle` is `Dark` in
+/// Info.plist, so every system-drawn element matches.
+///
+/// The theme fills only the content layer. Bars, menus, alerts and sheets are
+/// the system's, so `applyGlobal` sets nothing on them but their tint. The
+/// theme is flat: it has no border or divider colour, and regions part by a
+/// step in tone. Text roles read at 4.5:1 and icon roles at 3:1 on every
+/// surface here, `selection` included.
+///
+/// Under Increase Contrast the roles that Ardvis lifts take their twins. The
+/// palette is rebuilt when the setting changes, and `didChangeNotification`
+/// tells views to apply it again.
+final class ThemeManager {
     static let shared = ThemeManager()
     static let didChangeNotification = Notification.Name("ThemeManagerDidChange")
 
-    // Cached resolved colors — recomputed only when theme changes
-    private(set) var background: UIColor   = .black
-    private(set) var surface: UIColor      = UIColor(white: 0.1, alpha: 1)
-    private(set) var primaryText: UIColor  = .white
-    private(set) var secondaryText: UIColor = UIColor(white: 0.55, alpha: 1)
-    private(set) var separator: UIColor    = UIColor(white: 0.15, alpha: 1)
-    private(set) var accent: UIColor       = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
-    private(set) var durationBackground: UIColor = UIColor.black.withAlphaComponent(0.8)
-    private(set) var liveBadgeBackground: UIColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.9)
-    private(set) var thumbnailPlaceholder: UIColor = UIColor(white: 0.15, alpha: 1)
-    private(set) var newContentDot: UIColor = UIColor(
-        red: 62 / 255, green: 166 / 255, blue: 1, alpha: 1
-    )
-    private(set) var skeletonBase: UIColor    = UIColor(white: 0.13, alpha: 1)
-    private(set) var skeletonShimmer: UIColor = UIColor(white: 0.22, alpha: 1)
-    private(set) var skeletonBlock: UIColor   = UIColor(white: 0.18, alpha: 1)
-    private(set) var barStyle: UIBarStyle = .black
-    private(set) var statusBarStyle: UIStatusBarStyle = .lightContent
+    // Surfaces, from the screen up. A container takes one step above its
+    // parent and never repeats its tone.
+    /// Screens, lists and the window: Ardvis's `window`.
+    private(set) var background = UIColor()
+    /// A cell, card or control on the screen: Ardvis's `surface` (`canvas`).
+    private(set) var surface = UIColor()
+    /// A control on a surface.
+    private(set) var elevatedSurface = UIColor()
+    /// A selected row or control, the lightest fill text sits on.
+    private(set) var selection = UIColor()
 
-    /// What `isDark` resolved to when the palette was last rebuilt — lets
-    /// `refreshAutoTheme` detect that the auto answer changed over time.
-    private var resolvedDark = true
-    /// iOS 12 only: fires at the next schedule boundary while the app runs.
-    private var boundaryTimer: Timer?
+    // Text, never faded with opacity: take a weaker role instead.
+    private(set) var primaryText = UIColor()
+    private(set) var secondaryText = UIColor()
+    private(set) var tertiaryText = UIColor()
 
-    var themeMode: ThemeMode {
-        get {
-            let raw = UserDefaults.standard.string(
-                forKey: UserDefaultsKeys.Theme.mode
-            ) ?? ThemeMode.dark.rawValue
-            return ThemeMode(rawValue: raw) ?? .dark
-        }
-        set {
-            UserDefaults.standard.set(newValue.rawValue, forKey: UserDefaultsKeys.Theme.mode)
-            rebuildCache()
-            applyGlobal()
-            scheduleBoundaryRefresh()
-            NotificationCenter.default.post(name: ThemeManager.didChangeNotification, object: nil)
-        }
-    }
+    /// The one accent, a neutral grey: a selected tab, the primary action,
+    /// links and text actions.
+    private(set) var accent = UIColor()
+    /// Text and icons on `accent`, and on the status fills.
+    private(set) var accentText = UIColor()
+    /// The accent dimmed to 75% for marks that ask nothing of the person:
+    /// switches, active rings and progress (Ardvis's `chromeAccent`, 3:1).
+    private(set) var chromeAccent = UIColor()
 
-    var isDark: Bool {
-        get {
-            switch themeMode {
-            case .dark:
-                return true
-            case .light:
-                return false
-            case .auto:
-                return autoResolvesDark
-            }
-        }
-        set { themeMode = newValue ? .dark : .light }
-    }
+    // Status.
+    private(set) var positive = UIColor()
+    private(set) var warning = UIColor()
+    private(set) var destructive = UIColor()
+    private(set) var info = UIColor()
 
-    /// Auto mode: the system appearance where it exists (iOS 13+), a
-    /// user-configurable hour schedule on iOS 12 (Night Shift's schedule has
-    /// no public API).
-    private var autoResolvesDark: Bool {
-        if #available(iOS 13.0, *) {
-            return UIScreen.main.traitCollection.userInterfaceStyle == .dark
-        }
-        return Self.scheduleSaysDark(
-            hour: Calendar.current.component(.hour, from: Date()),
-            start: autoDarkStartHour,
-            end: autoDarkEndHour
-        )
-    }
+    // Plates over artwork, which must read on any image.
+    private(set) var durationBackground = UIColor()
+    private(set) var liveBadgeBackground = UIColor()
+    private(set) var thumbnailPlaceholder = UIColor()
+    private(set) var newContentDot = UIColor()
 
-    /// Hour (0–23) when the iOS 12 auto schedule turns dark. Default 19.
-    var autoDarkStartHour: Int {
-        get {
-            UserDefaults.standard.object(
-                forKey: UserDefaultsKeys.Theme.autoDarkStartHour
-            ) as? Int ?? 19
-        }
-        set {
-            UserDefaults.standard.set(
-                newValue, forKey: UserDefaultsKeys.Theme.autoDarkStartHour
-            )
-            refreshAutoTheme()
-        }
-    }
+    private(set) var skeletonBase = UIColor()
+    private(set) var skeletonShimmer = UIColor()
+    private(set) var skeletonBlock = UIColor()
 
-    /// Hour (0–23) when the iOS 12 auto schedule turns light again. Default 7.
-    var autoDarkEndHour: Int {
-        get {
-            UserDefaults.standard.object(
-                forKey: UserDefaultsKeys.Theme.autoDarkEndHour
-            ) as? Int ?? 7
-        }
-        set {
-            UserDefaults.standard.set(
-                newValue, forKey: UserDefaultsKeys.Theme.autoDarkEndHour
-            )
-            refreshAutoTheme()
-        }
-    }
+    let statusBarStyle: UIStatusBarStyle = .lightContent
+    /// For iOS 12, which has no dark appearance to give bars and keyboards.
+    let barStyle: UIBarStyle = .black
 
     private init() {
         rebuildCache()
-        scheduleBoundaryRefresh()
-    }
-
-    /// Dark between `start` and `end` hours, wrapping past midnight
-    /// (19 → 7 means dark evenings and nights). Equal hours = never dark.
-    static func scheduleSaysDark(hour: Int, start: Int, end: Int) -> Bool {
-        if start == end {
-            return false
-        }
-        if start < end {
-            return hour >= start && hour < end
-        }
-        return hour >= start || hour < end
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(contrastSettingChanged),
+            name: UIAccessibility.darkerSystemColorsStatusDidChangeNotification,
+            object: nil
+        )
     }
 
     /// The one nav-chevron style used everywhere: the global back indicator
@@ -136,88 +81,68 @@ class ThemeManager {
         return UIImage(systemName: systemName, withConfiguration: cfg)
     }
 
-    /// Re-evaluates auto mode (schedule boundary crossed, system appearance
-    /// changed, app foregrounded) and republishes the theme when the answer
-    /// flipped. No-op outside auto mode or when nothing changed.
-    func refreshAutoTheme() {
-        scheduleBoundaryRefresh()
-        guard themeMode == .auto, isDark != resolvedDark else {
-            return
-        }
-        rebuildCache()
-        applyGlobal()
-        NotificationCenter.default.post(
-            name: ThemeManager.didChangeNotification, object: nil
+    /// An sRGB colour as CSS writes it, `0xRRGGBB`.
+    private static func hex(_ rgb: UInt32) -> UIColor {
+        UIColor(
+            red: CGFloat((rgb >> 16) & 0xFF) / 255,
+            green: CGFloat((rgb >> 8) & 0xFF) / 255,
+            blue: CGFloat(rgb & 0xFF) / 255,
+            alpha: 1
         )
     }
 
-    private func scheduleBoundaryRefresh() {
-        boundaryTimer?.invalidate()
-        boundaryTimer = nil
-        if #available(iOS 13.0, *) {
-            return
-        }
-        guard themeMode == .auto else {
-            return
-        }
-        let now = Date()
-        let next = [autoDarkStartHour, autoDarkEndHour]
-            .compactMap {
-                Calendar.current.nextDate(
-                    after: now,
-                    matching: DateComponents(hour: $0, minute: 0),
-                    matchingPolicy: .nextTime
-                )
-            }
-            .min()
-        guard let next else {
-            return
-        }
-        let timer = Timer(
-            fire: next.addingTimeInterval(1), interval: 0, repeats: false
-        ) { [weak self] _ in
-            self?.refreshAutoTheme()
-        }
-        RunLoop.main.add(timer, forMode: .common)
-        boundaryTimer = timer
+    @objc
+    private func contrastSettingChanged() {
+        rebuildCache()
+        applyGlobal()
+        NotificationCenter.default.post(name: Self.didChangeNotification, object: nil)
     }
 
+    /// Ardvis Dark's values, with the Increase Contrast twins Ardvis Kit
+    /// defines in `ArdvisThemePalettes.swift`.
     private func rebuildCache() {
-        let dark = isDark
-        resolvedDark = dark
-        background    = dark ? .black : UIColor(white: 0.96, alpha: 1)
-        surface       = dark ? UIColor(white: 0.1, alpha: 1) : .white
-        primaryText   = dark ? .white : UIColor(white: 0.1, alpha: 1)
-        secondaryText = dark ? UIColor(white: 0.55, alpha: 1) : UIColor(white: 0.45, alpha: 1)
-        separator     = dark ? UIColor(white: 0.15, alpha: 1) : UIColor(white: 0.88, alpha: 1)
-        accent        = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
-        durationBackground = UIColor.black.withAlphaComponent(0.8)
-        liveBadgeBackground = UIColor(red: 1, green: 0, blue: 0, alpha: 0.9)
-        thumbnailPlaceholder = dark
-            ? UIColor(white: 0.15, alpha: 1)
-            : UIColor(white: 0.85, alpha: 1)
-        newContentDot = dark
-            ? UIColor(red: 62 / 255, green: 166 / 255, blue: 1, alpha: 1)
-            : UIColor(red: 6 / 255, green: 95 / 255, blue: 212 / 255, alpha: 1)
-        skeletonBase    = dark ? UIColor(white: 0.13, alpha: 1) : UIColor(white: 0.88, alpha: 1)
-        skeletonShimmer = dark ? UIColor(white: 0.22, alpha: 1) : UIColor(white: 0.78, alpha: 1)
-        skeletonBlock   = dark ? UIColor(white: 0.18, alpha: 1) : UIColor(white: 0.82, alpha: 1)
-        barStyle = dark ? .black : .default
-        statusBarStyle = dark ? .lightContent : .default
+        let high = UIAccessibility.isDarkerSystemColorsEnabled
+        func pick(_ standard: UInt32, _ increased: UInt32) -> UIColor {
+            Self.hex(high ? increased : standard)
+        }
+        background = pick(0x14161A, 0x0D0F11)
+        surface = Self.hex(0x1B1D23)
+        elevatedSurface = Self.hex(0x282C34)
+        selection = Self.hex(0x2C313A)
+
+        primaryText = pick(0xABB2BF, 0xC8CDD5)
+        secondaryText = pick(0x9DA5B4, 0xBAC0CA)
+        tertiaryText = pick(0x9398A1, 0xAEB2B9)
+
+        accent = pick(0xA3A3A3, 0xBCBCBC)
+        accentText = Self.hex(0x14161A)
+        chromeAccent = accent.withAlphaComponent(0.75)
+
+        positive = pick(0x73C990, 0x98D7AD)
+        warning = pick(0xE2C08D, 0xECD6B6)
+        destructive = pick(0xFF664A, 0xFF917D)
+        info = pick(0x6897ED, 0x96B6F2)
+
+        // The window's tone, translucent enough to show it's on the image and
+        // dark enough that the text reads at 4.5:1 over white.
+        durationBackground = background.withAlphaComponent(0.85)
+        liveBadgeBackground = destructive
+        thumbnailPlaceholder = surface
+        newContentDot = info
+
+        skeletonBase = surface
+        skeletonShimmer = selection
+        skeletonBlock = elevatedSurface
     }
 
     func applyGlobal() {
+        // Bars draw their own Liquid Glass; an icon on them keeps the text's
+        // colour, and the selected tab takes the accent.
         let nav = UINavigationBar.appearance()
-        nav.barStyle = barStyle
-        nav.tintColor = isDark ? .white : accent
+        nav.tintColor = primaryText
         nav.titleTextAttributes = [.foregroundColor: primaryText]
-
-        let tab = UITabBar.appearance()
-        tab.barStyle = barStyle
-        tab.tintColor = isDark ? .white : accent
-
-        // Appearance only affects fields created afterwards; long-lived
-        // fields (e.g. the search bar) re-apply it on theme change.
-        UITextField.appearance().keyboardAppearance = isDark ? .dark : .default
+        UITabBar.appearance().tintColor = accent
+        UISwitch.appearance().onTintColor = chromeAccent
+        UITextField.appearance().keyboardAppearance = .dark
     }
 }

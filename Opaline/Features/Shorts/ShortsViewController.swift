@@ -132,7 +132,6 @@ final class ShortsViewController: UIViewController {
         super.viewWillAppear(animated)
         visibleNavigationController?
             .setNavigationBarHidden(true, animated: animated)
-        setTabBarDark(true)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -147,7 +146,6 @@ final class ShortsViewController: UIViewController {
         super.viewWillDisappear(animated)
         visibleNavigationController?
             .setNavigationBarHidden(false, animated: animated)
-        setTabBarDark(false)
         playerView.stop()
     }
 

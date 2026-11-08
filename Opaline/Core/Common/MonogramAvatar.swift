@@ -2,19 +2,27 @@ import UIKit
 
 /// Renders letter-on-color fallback avatars for channels and
 /// comment authors that have no avatar image.
+///
+/// The hues are Ardvis Dark's syntax colours, and the letter takes the
+/// window's tone, which reads at 4.5:1 or better on every one of them.
 enum MonogramAvatar {
     private static let palette: [UIColor] = [
-        UIColor(red: 0.91, green: 0.30, blue: 0.24, alpha: 1), // red
-        UIColor(red: 0.86, green: 0.39, blue: 0.60, alpha: 1), // pink
-        UIColor(red: 0.61, green: 0.35, blue: 0.71, alpha: 1), // purple
-        UIColor(red: 0.40, green: 0.42, blue: 0.78, alpha: 1), // indigo
-        UIColor(red: 0.20, green: 0.51, blue: 0.90, alpha: 1), // blue
-        UIColor(red: 0.00, green: 0.59, blue: 0.65, alpha: 1), // teal
-        UIColor(red: 0.15, green: 0.62, blue: 0.35, alpha: 1), // green
-        UIColor(red: 0.94, green: 0.54, blue: 0.09, alpha: 1), // orange
-        UIColor(red: 0.75, green: 0.42, blue: 0.27, alpha: 1), // brown
-        UIColor(red: 0.42, green: 0.51, blue: 0.58, alpha: 1) // blue gray
-    ]
+        0xC678DD, // keyword
+        0x98C379, // string
+        0xD19A66, // number
+        0x61AFEF, // function
+        0xE5C07B, // type
+        0xE06C75, // variable
+        0x56B6C2, // link
+        0x828A99 // comment
+    ].map { (rgb: UInt32) in
+        UIColor(
+            red: CGFloat((rgb >> 16) & 0xFF) / 255,
+            green: CGFloat((rgb >> 8) & 0xFF) / 255,
+            blue: CGFloat(rgb & 0xFF) / 255,
+            alpha: 1
+        )
+    }
 
     // ponytail: main-thread-only cache (no lock) — MonogramAvatar.image is
     // always called from UIView setup (ThumbnailImageView.setAvatar), never
@@ -59,7 +67,7 @@ enum MonogramAvatar {
                     ofSize: side * 0.42,
                     weight: .semibold
                 ),
-                .foregroundColor: UIColor.white
+                .foregroundColor: ThemeManager.shared.accentText
             ]
         )
         return UIGraphicsImageRenderer(size: size).image { ctx in

@@ -12,8 +12,8 @@ final class DownloadProgressBar: UIView {
 
     init() {
         super.init(frame: .zero)
-        backgroundColor = UIColor.black.withAlphaComponent(0.35)
-        fill.backgroundColor = ThemeManager.shared.accent
+        backgroundColor = ThemeManager.shared.durationBackground
+        fill.backgroundColor = ThemeManager.shared.chromeAccent
         addSubview(fill)
         isHidden = true
         translatesAutoresizingMaskIntoConstraints = false

@@ -109,7 +109,6 @@ final class ChipBarView: UIView {
         btn.setTitle(label, for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 13, weight: .medium)
         btn.layer.cornerRadius = 14
-        btn.layer.borderWidth = 1
         btn.contentEdgeInsets = UIEdgeInsets(
             top: 6, left: 14, bottom: 6, right: 14
         )
@@ -156,17 +155,13 @@ final class ChipBarView: UIView {
         onSelect?(idx)
     }
 
+    /// A chip parts from the bar by its fill, never an outline; the chosen
+    /// one takes the selection fill and the primary text (Ardvis theming).
     private func styleButton(_ btn: UIButton, selected: Bool) {
-        let accent = ThemeManager.shared.accent
-        let textColor = ThemeManager.shared.primaryText
-        if selected {
-            btn.backgroundColor = accent
-            btn.setTitleColor(ThemeManager.shared.background, for: .normal)
-            btn.layer.borderColor = accent.cgColor
-        } else {
-            btn.backgroundColor = .clear
-            btn.setTitleColor(textColor, for: .normal)
-            btn.layer.borderColor = textColor.withAlphaComponent(0.3).cgColor
-        }
+        let theme = ThemeManager.shared
+        btn.backgroundColor = selected ? theme.selection : theme.surface
+        btn.setTitleColor(
+            selected ? theme.primaryText : theme.secondaryText, for: .normal
+        )
     }
 }

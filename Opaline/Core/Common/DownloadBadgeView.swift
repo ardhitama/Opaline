@@ -65,16 +65,16 @@ final class DownloadBadgeView: UIImageView {
         apply(DownloadStatus.of(videoId))
     }
 
-    /// The same colours the player uses: accent means the video is here,
-    /// plain white means it is on its way, yellow means it stopped and wants
-    /// a decision.
+    /// The same colours the player uses: positive means the video is here,
+    /// plain white means it is on its way, warning means it stopped and
+    /// wants a decision.
     private func apply(_ status: DownloadStatus) {
         isHidden = status == .none
         switch status {
         case .ready:
-            tintColor = ThemeManager.shared.accent
+            tintColor = ThemeManager.shared.positive
         case .failed:
-            tintColor = .systemYellow
+            tintColor = ThemeManager.shared.warning
         default:
             tintColor = .white
         }

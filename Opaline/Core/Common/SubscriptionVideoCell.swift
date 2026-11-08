@@ -51,19 +51,18 @@ class SubscriptionVideoCell: UITableViewCell {
     }
 
     private func setupProgressBar() {
-        progressTrack.backgroundColor = UIColor.black
-            .withAlphaComponent(0.3)
+        // The duration plate's tone under the dimmed accent: the fill reads at
+        // 3:1 over a black or a white frame alike.
+        progressTrack.backgroundColor = ThemeManager.shared.durationBackground
         progressTrack.isHidden = true
         thumbnail.addSubview(progressTrack)
-        progressFill.backgroundColor = UIColor(
-            red: 1, green: 0, blue: 0, alpha: 1
-        )
+        progressFill.backgroundColor = ThemeManager.shared.chromeAccent
         thumbnail.addSubview(progressFill)
     }
 
     private func setupDurationLabel() {
         durationLabel.font = UIFont.systemFont(ofSize: 11, weight: .semibold)
-        durationLabel.textColor = .white
+        durationLabel.textColor = ThemeManager.shared.primaryText
         durationLabel.backgroundColor = ThemeManager.shared.durationBackground
         durationLabel.layer.cornerRadius = 3
         durationLabel.layer.masksToBounds = true

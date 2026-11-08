@@ -66,7 +66,7 @@ final class ChannelAvatarItemView: UIView {
     func setSelected(_ selected: Bool) {
         isRingSelected = selected
         ringView.layer.borderWidth = selected ? 2 : 0
-        ringView.layer.borderColor = ThemeManager.shared.accent.cgColor
+        ringView.layer.borderColor = ThemeManager.shared.chromeAccent.cgColor
         nameLabel.font = .systemFont(
             ofSize: 11,
             weight: selected ? .semibold : .regular

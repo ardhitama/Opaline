@@ -330,10 +330,6 @@ extension VideoPlayerView {
         )
         ccButton.tintColor = .white
         ccButton.setTitleColor(.white, for: .normal)
-        ccButton.setTitleColor(
-            UIColor(red: 1, green: 0.84, blue: 0, alpha: 1),
-            for: .selected
-        )
     }
 
     private func setupSubtitleLabel() {

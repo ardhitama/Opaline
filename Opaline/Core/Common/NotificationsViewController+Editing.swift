@@ -26,7 +26,7 @@ extension NotificationsViewController {
         let theme = ThemeManager.shared
         editToolbar.barTintColor = theme.surface
         editToolbar.tintColor = theme.primaryText
-        deleteToolbarItem.tintColor = .systemRed
+        deleteToolbarItem.tintColor = ThemeManager.shared.destructive
     }
 
     @objc

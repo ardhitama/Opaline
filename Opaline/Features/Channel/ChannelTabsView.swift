@@ -29,7 +29,6 @@ final class ChannelTabsView: UIView {
 
     private let stack = UIStackView()
     private let underline = UIView()
-    private let hairline = UIView()
     private var buttons: [UIButton] = []
     private var underlineRefs: [NSLayoutConstraint] = []
     private var selectedIndex = 0
@@ -55,7 +54,6 @@ final class ChannelTabsView: UIView {
         let theme = ThemeManager.shared
         backgroundColor = theme.background
         underline.backgroundColor = theme.accent
-        hairline.backgroundColor = theme.separator
         for (index, button) in buttons.enumerated() {
             let selected = index == selectedIndex
             button.setTitleColor(
@@ -76,11 +74,8 @@ final class ChannelTabsView: UIView {
         buttons.forEach { stack.addArrangedSubview($0) }
         // Trailing spacer keeps the tabs left-aligned on wide screens.
         stack.addArrangedSubview(UIView())
-        [underline, hairline].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
+        underline.translatesAutoresizingMaskIntoConstraints = false
         addSubview(stack)
-        addSubview(hairline)
         addSubview(underline)
         activateConstraints()
     }
@@ -108,10 +103,6 @@ final class ChannelTabsView: UIView {
                 equalTo: trailingAnchor, constant: -16
             ),
             stack.bottomAnchor.constraint(equalTo: bottomAnchor),
-            hairline.leadingAnchor.constraint(equalTo: leadingAnchor),
-            hairline.trailingAnchor.constraint(equalTo: trailingAnchor),
-            hairline.bottomAnchor.constraint(equalTo: bottomAnchor),
-            hairline.heightAnchor.constraint(equalToConstant: 1),
             underline.bottomAnchor.constraint(equalTo: bottomAnchor),
             underline.heightAnchor.constraint(equalToConstant: 2)
         ])

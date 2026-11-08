@@ -132,7 +132,7 @@ extension VideoCell {
     private static func makeBadgeLabel() -> UILabel {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 11, weight: .semibold)
-        label.textColor = .white
+        label.textColor = ThemeManager.shared.primaryText
         label.backgroundColor = ThemeManager.shared.durationBackground
         label.layer.cornerRadius = 3
         label.layer.masksToBounds = true
@@ -150,12 +150,12 @@ extension VideoCell {
         thumbnail.layer.masksToBounds = true
         contentView.addSubview(thumbnail)
 
-        progressTrack.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        // The duration plate's tone under the dimmed accent: the fill reads at
+        // 3:1 over a black or a white frame alike.
+        progressTrack.backgroundColor = ThemeManager.shared.durationBackground
         progressTrack.isHidden = true
         thumbnail.addSubview(progressTrack)
-        progressFill.backgroundColor = UIColor(
-            red: 1, green: 0, blue: 0, alpha: 1
-        )
+        progressFill.backgroundColor = ThemeManager.shared.chromeAccent
         thumbnail.addSubview(progressFill)
 
         thumbnail.addSubview(durationLabel)
@@ -164,7 +164,7 @@ extension VideoCell {
         thumbnail.addSubview(mixBadge)
 
         liveBadgeView.text = "● LIVE"
-        liveBadgeView.textColor = .white
+        liveBadgeView.textColor = ThemeManager.shared.accentText
         liveBadgeView.font = UIFont.systemFont(ofSize: 10, weight: .bold)
         liveBadgeView.backgroundColor = ThemeManager.shared.liveBadgeBackground
         liveBadgeView.layer.cornerRadius = 3

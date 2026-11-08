@@ -54,9 +54,6 @@ final class SBCategoryCell: UITableViewCell {
 
     private func configureSwatch() {
         colorSwatch.layer.cornerRadius = 3
-        colorSwatch.layer.borderWidth  = 0.5
-        colorSwatch.layer.borderColor =
-            UIColor.white.withAlphaComponent(0.3).cgColor
         colorSwatch.translatesAutoresizingMaskIntoConstraints = false
     }
 

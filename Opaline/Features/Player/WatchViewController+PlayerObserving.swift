@@ -231,7 +231,7 @@ extension WatchViewController {
             self?.playerStatusLabel.text =
                 "player.error.withMessage".localized(with: message)
             self?.playerStatusLabel.textColor =
-                .systemRed
+                ThemeManager.shared.destructive
         }
     }
 }

@@ -7,15 +7,15 @@ extension WatchViewController {
         watchPage?.video ?? initialVideo
     }
 
-    /// Accent once the video is here, plain while it is on its way, yellow
-    /// when it stopped and wants a decision — the same three colours the
-    /// badge on a video card uses.
+    /// Positive once the video is here, plain while it is on its way,
+    /// warning when it stopped and wants a decision — the same three colours
+    /// the badge on a video card uses.
     private static func tint(for status: DownloadStatus) -> UIColor {
         switch status {
         case .ready:
-            return ThemeManager.shared.accent
+            return ThemeManager.shared.positive
         case .failed:
-            return .systemYellow
+            return ThemeManager.shared.warning
         default:
             return ThemeManager.shared.primaryText
         }

@@ -204,22 +204,17 @@
 "settings.section.debug" = "调试";
 
 /* Section footers */
-"settings.footer.themeAutoSystem" = "自动跟随系统外观。";
-"settings.footer.themeAutoHours" = "在上述时间段自动切换到深色主题。";
 "settings.footer.playback" = "缩放以填充会自动缩放全屏视频以消除黑边。在播放器中捏合可按视频覆盖。\n\n自动播放会在5秒倒计时后播放下一个推荐视频。混剪开关会立即将同样的行为应用于混剪/播放列表队列。";
 "settings.footer.autoDub" = "当视频的原始语言与配音语言不同时，会自动选择对应的音轨。";
 "settings.footer.home" = "推荐栏显示方式：连续网格或电视风格水平轨道。";
 "settings.footer.ryd" = "不喜欢次数由 Return YouTube Dislike (returnyoutubedislike.com) 提供 — 开放社区项目。";
 
 /* Theme rows; segment labels for dark/light/auto modes */
-"settings.row.theme" = "主题";
 "settings.row.appIcon" = "应用图标";
 "settings.theme.dark" = "深色";
 "settings.theme.light" = "浅色";
 "settings.theme.auto" = "自动";
 /* Hour pickers bounding the iOS 12 scheduled dark mode */
-"settings.row.darkFrom" = "深色主题开始";
-"settings.row.darkUntil" = "深色主题结束";
 
 /* Playback rows */
 "settings.row.defaultQuality" = "默认画质";

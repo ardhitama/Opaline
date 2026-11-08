@@ -20,7 +20,7 @@ final class AuthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = ThemeManager.shared.background
         setupUI()
         startAuth()
     }
@@ -78,18 +78,18 @@ final class AuthViewController: UIViewController {
 private extension AuthViewController {
     func configureLabels() {
         titleLabel.text = "auth.title".localized
-        titleLabel.textColor = .white
+        titleLabel.textColor = ThemeManager.shared.primaryText
         titleLabel.font = UIFont.boldSystemFont(ofSize: 22)
         titleLabel.textAlignment = .center
 
         instructionLabel.text = "auth.instruction".localized
-        instructionLabel.textColor = .lightGray
+        instructionLabel.textColor = ThemeManager.shared.secondaryText
         instructionLabel.font = UIFont.systemFont(ofSize: 15)
         instructionLabel.textAlignment = .center
         instructionLabel.numberOfLines = 0
         instructionLabel.isHidden = true
 
-        codeLabel.textColor = .white
+        codeLabel.textColor = ThemeManager.shared.primaryText
         codeLabel.font = UIFont(
             name: "Menlo-Bold",
             size: 36
@@ -97,7 +97,7 @@ private extension AuthViewController {
         codeLabel.textAlignment = .center
 
         statusLabel.text = "auth.fetchingCode".localized
-        statusLabel.textColor = .lightGray
+        statusLabel.textColor = ThemeManager.shared.secondaryText
         statusLabel.font = UIFont.systemFont(ofSize: 14)
         statusLabel.textAlignment = .center
         statusLabel.numberOfLines = 0
@@ -116,7 +116,7 @@ private extension AuthViewController {
         )
         openButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         openButton.backgroundColor = ThemeManager.shared.accent
-        openButton.setTitleColor(.white, for: .normal)
+        openButton.setTitleColor(ThemeManager.shared.accentText, for: .normal)
         openButton.layer.cornerRadius = 10
         openButton.contentEdgeInsets = UIEdgeInsets(
             top: 14, left: 28, bottom: 14, right: 28
@@ -136,7 +136,7 @@ private extension AuthViewController {
         )
         anonymousButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         anonymousButton.setTitleColor(
-            UIColor(white: 0.55, alpha: 1),
+            ThemeManager.shared.secondaryText,
             for: .normal
         )
         anonymousButton.addTarget(

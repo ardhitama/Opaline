@@ -165,21 +165,16 @@
 "settings.section.debug" = "Gỡ lỗi";
 
 /* Section footers */
-"settings.footer.themeAutoSystem" = "Chế độ tự động sẽ theo giao diện của hệ thống.";
-"settings.footer.themeAutoHours" = "Chế độ tự động sẽ chuyển sang giao diện tối trong khoảng thời gian ở trên.";
 "settings.footer.playback" = "Thu phóng vừa màn hình sẽ tự động điều chỉnh video ở chế độ toàn màn hình để không còn viền đen. Chụm hai ngón tay trong trình phát sẽ ghi đè chế độ này cho từng video.\n\nTự động phát sẽ phát video được đề xuất tiếp theo sau khi đếm ngược 5 giây. Tùy chọn Mix áp dụng điều tương tự cho hàng đợi mix/danh sách phát nhưng phát ngay lập tức.";
 "settings.footer.autoDub" = "Khi ngôn ngữ gốc của video khác với ngôn ngữ lồng tiếng, bản âm thanh tương ứng sẽ được chọn tự động.";
 "settings.footer.home" = "Cách hiển thị các kệ nội dung đề xuất: một lưới liền mạch hoặc các hàng ngang theo kiểu TV.";
 "settings.footer.ryd" = "Số lượt không thích được cung cấp bởi Return YouTube Dislike (returnyoutubedislike.com) — một dự án cộng đồng mở.";
 
 /* Theme rows; segment labels for dark/light/auto modes */
-"settings.row.theme" = "Giao diện";
 "settings.row.appIcon" = "Biểu tượng ứng dụng";
 "settings.theme.dark" = "Tối";
 "settings.theme.light" = "Sáng";
 "settings.theme.auto" = "Tự động";
-"settings.row.darkFrom" = "Giao diện tối từ";
-"settings.row.darkUntil" = "Giao diện tối đến";
 
 /* Playback rows */
 "settings.row.defaultQuality" = "Chất lượng mặc định";

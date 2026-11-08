@@ -204,22 +204,17 @@
 "settings.section.debug" = "デバッグ";
 
 /* Section footers */
-"settings.footer.themeAutoSystem" = "システムの外観に自動で従います。";
-"settings.footer.themeAutoHours" = "上記の時間帯に暗いテーマに自動で切り替わります。";
 "settings.footer.playback" = "ズームでフィルは全画面表示時に動画を拡大し、黒帯が残らないようにします。プレーヤーでピンチすると動画ごとに上書きされます。\n\n自動再生は5秒のカウントダウン後に次のおすすめ動画を再生します。ミックスのスイッチは、ミックスや再生リストのキューに同じ動作をすぐに適用します。";
 "settings.footer.autoDub" = "動画の元の言語が吹き替え言語と異なる場合、対応する音声トラックが自動的に選択されます。";
 "settings.footer.home" = "おすすめシェルフの表示方法: 連続したグリッドまたはTVスタイルの水平レール。";
 "settings.footer.ryd" = "低評価数は Return YouTube Dislike (returnyoutubedislike.com) によって提供されています — オープンコミュニティプロジェクト。";
 
 /* Theme rows; segment labels for dark/light/auto modes */
-"settings.row.theme" = "テーマ";
 "settings.row.appIcon" = "Appアイコン";
 "settings.theme.dark" = "ダーク";
 "settings.theme.light" = "ライト";
 "settings.theme.auto" = "自動";
 /* Hour pickers bounding the iOS 12 scheduled dark mode */
-"settings.row.darkFrom" = "ダークテーマ開始";
-"settings.row.darkUntil" = "ダークテーマ終了";
 
 /* Playback rows */
 "settings.row.defaultQuality" = "デフォルトの画質";

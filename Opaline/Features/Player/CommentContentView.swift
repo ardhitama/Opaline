@@ -135,20 +135,20 @@ final class CommentContentView: UIView {
 
 /// Linkifying a comment runs an `NSDataDetector` and a regex over its body —
 /// far too much to redo on every cell reuse while scrolling a long list. The
-/// result depends only on the text and the theme's colours, so it is kept
-/// until the theme flips.
+/// result depends only on the text and the theme's text colour, so it is kept
+/// until that colour changes (Increase Contrast turned on or off).
 private enum CommentBodyCache {
     /// ponytail: dropped wholesale when full; comments are short-lived
     /// per-video state, so an LRU would buy nothing here.
     private static let limit = 500
 
     private static var entries: [String: NSAttributedString] = [:]
-    private static var isDark = ThemeManager.shared.isDark
+    private static var textColor = ThemeManager.shared.primaryText
 
     static func body(for comment: Comment) -> NSAttributedString {
         let theme = ThemeManager.shared
-        if isDark != theme.isDark {
-            isDark = theme.isDark
+        if textColor != theme.primaryText {
+            textColor = theme.primaryText
             entries.removeAll()
         }
         if let cached = entries[comment.id] {

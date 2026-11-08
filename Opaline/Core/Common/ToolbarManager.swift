@@ -185,7 +185,7 @@ final class ProfileAvatarButton: UIButton {
         contentMode = .scaleAspectFill
         imageView?.contentMode = .scaleAspectFill
         setImage(defaultImage(), for: .normal)
-        tintColor = ThemeManager.shared.isDark ? .white : .darkGray
+        tintColor = ThemeManager.shared.primaryText
         translatesAutoresizingMaskIntoConstraints = false
         widthAnchor.constraint(equalToConstant: size).isActive = true
         heightAnchor.constraint(equalToConstant: size).isActive = true
@@ -204,7 +204,7 @@ final class ProfileAvatarButton: UIButton {
 
     @objc
     func refresh() {
-        tintColor = ThemeManager.shared.isDark ? .white : .darkGray
+        tintColor = ThemeManager.shared.primaryText
         if let avatar = UserProfileStore.shared.avatarImage {
             setImage(avatar, for: .normal)
         } else {
@@ -223,8 +223,7 @@ final class ProfileAvatarButton: UIButton {
                 withConfiguration: config
             )
         }
-        let color = ThemeManager.shared.isDark ? UIColor.white : UIColor.darkGray
-        return drawPersonPlaceholder(color: color)
+        return drawPersonPlaceholder(color: ThemeManager.shared.primaryText)
     }
 
     private func drawPersonPlaceholder(color: UIColor) -> UIImage {

@@ -7,7 +7,7 @@ final class SettingsViewController: UIViewController {
     enum Row {
         case pageAppearance, pageLanguage, pagePlayback, pageShorts
         case pageSponsorBlock, pageCache, pageDebug, pageDownloads
-        case theme, autoDarkStart, autoDarkEnd, appIcon
+        case appIcon
         case appLanguage, region
         case quality, qualityCellular
         case backgroundPlayback, pipEnabled, hideStatusBar
@@ -49,27 +49,6 @@ final class SettingsViewController: UIViewController {
             return UITableView(frame: .zero, style: .grouped)
         }
     }()
-
-    /// iOS 12 auto mode is hour-scheduled; iOS 13+ follows the system.
-    var showsAutoHours: Bool {
-        guard ThemeManager.shared.themeMode == .auto else {
-            return false
-        }
-        if #available(iOS 13.0, *) {
-            return false
-        }
-        return true
-    }
-
-    var themeFooter: String? {
-        guard ThemeManager.shared.themeMode == .auto else {
-            return nil
-        }
-        if #available(iOS 13.0, *) {
-            return "settings.footer.themeAutoSystem".localized
-        }
-        return "settings.footer.themeAutoHours".localized
-    }
 
     private var solverEndpointDisplay: String {
         let custom = UserDefaults.standard.string(
@@ -131,7 +110,6 @@ final class SettingsViewController: UIViewController {
         let theme = ThemeManager.shared
         view.backgroundColor = theme.background
         tableView.backgroundColor = theme.background
-        tableView.separatorColor  = theme.separator
         tableView.reloadData()
     }
 
@@ -191,8 +169,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         case .pageAppearance, .pageLanguage, .pagePlayback, .pageShorts,
              .pageSponsorBlock, .pageCache, .pageDebug, .pageDownloads:
             return UITableViewCell()  // unreachable: makePageCell handles these
-        case .theme:
-            return makeThemeCell()
         case .appIcon:
             return makeDisclosureCell(
                 "settings.row.appIcon".localized,
@@ -202,16 +178,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             return makeAppLanguageCell()
         case .region:
             return makeRegionCell()
-        case .autoDarkStart:
-            return makeDisclosureCell(
-                "settings.row.darkFrom".localized,
-                value: hourLabel(ThemeManager.shared.autoDarkStartHour)
-            )
-        case .autoDarkEnd:
-            return makeDisclosureCell(
-                "settings.row.darkUntil".localized,
-                value: hourLabel(ThemeManager.shared.autoDarkEndHour)
-            )
         case .quality:
             return makeDisclosureCell(
                 "settings.row.qualityWiFi".localized,
@@ -575,27 +541,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         let theme = ThemeManager.shared
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         cell.textLabel?.text      = title
-        cell.textLabel?.textColor = .systemRed
+        cell.textLabel?.textColor = theme.destructive
         cell.textLabel?.textAlignment = .center
         cell.backgroundColor      = theme.surface
-        return cell
-    }
-    private func makeThemeCell() -> UITableViewCell {
-        let theme = ThemeManager.shared
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text      = "settings.row.theme".localized
-        cell.textLabel?.textColor = theme.primaryText
-        cell.backgroundColor      = theme.surface
-        cell.selectionStyle       = .none
-        let seg = UISegmentedControl(items: [
-            "settings.theme.dark".localized,
-            "settings.theme.light".localized,
-            "settings.theme.auto".localized
-        ])
-        let modeMap: [ThemeMode: Int] = [.dark: 0, .light: 1, .auto: 2]
-        seg.selectedSegmentIndex = modeMap[theme.themeMode, default: 2]
-        seg.addTarget(self, action: #selector(themeChanged(_:)), for: .valueChanged)
-        cell.accessoryView = seg
         return cell
     }
     private func makeSponsorBlockToggle() -> UITableViewCell {
@@ -618,23 +566,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         present(nav, animated: true)
     }
 
-    @objc
-    private func themeChanged(_ seg: UISegmentedControl) {
-        let modes: [ThemeMode] = [.dark, .light, .auto]
-        let idx = seg.selectedSegmentIndex
-        ThemeManager.shared.themeMode = idx >= 0 && idx < modes.count ? modes[idx] : .auto
-    }
-
-    private func hourLabel(_ hour: Int) -> String {
-        String(format: "%02d:00", hour)
-    }
-
     private func handleThemeSelection(_ row: Row) -> Bool {
         switch row {
-        case .autoDarkStart:
-            showAutoHourPicker(isStart: true)
-        case .autoDarkEnd:
-            showAutoHourPicker(isStart: false)
         case .homeLayout:
             showHomeLayoutPicker()
         case .appIcon:
@@ -647,44 +580,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             return false
         }
         return true
-    }
-
-    private func showAutoHourPicker(isStart: Bool) {
-        let sheet = UIAlertController(
-            title: isStart
-                ? "settings.row.darkFrom".localized
-                : "settings.row.darkUntil".localized,
-            message: nil,
-            preferredStyle: .actionSheet
-        )
-        let manager = ThemeManager.shared
-        let current = isStart
-            ? manager.autoDarkStartHour
-            : manager.autoDarkEndHour
-        for hour in 0..<24 {
-            let action = autoHourAction(hour: hour, isStart: isStart)
-            if hour == current {
-                action.setValue(true, forKey: "checked")
-            }
-            sheet.addAction(action)
-        }
-        sheet.addAction(UIAlertAction(title: "common.cancel".localized, style: .cancel))
-        configureCenteredPopover(sheet)
-        present(sheet, animated: true)
-    }
-
-    private func autoHourAction(hour: Int, isStart: Bool) -> UIAlertAction {
-        UIAlertAction(
-            title: hourLabel(hour),
-            style: .default
-        ) { [weak self] _ in
-            if isStart {
-                ThemeManager.shared.autoDarkStartHour = hour
-            } else {
-                ThemeManager.shared.autoDarkEndHour = hour
-            }
-            self?.tableView.reloadData()
-        }
     }
 
     private func showQualityPicker(forCellular: Bool) {

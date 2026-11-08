@@ -91,7 +91,7 @@ final class ChannelAboutViewController: UIViewController {
         }
         if !statsStack.arrangedSubviews.isEmpty {
             stack.addArrangedSubview(statsStack)
-            addSeparator(to: stack)
+            endSection(in: stack)
         }
     }
 
@@ -108,7 +108,7 @@ final class ChannelAboutViewController: UIViewController {
         let descLabel = makeLabel(text: desc, style: .body, color: theme.primaryText)
         descLabel.numberOfLines = 0
         stack.addArrangedSubview(descLabel)
-        addSeparator(to: stack)
+        endSection(in: stack)
     }
 
     private func addContactSection(to stack: UIStackView) {
@@ -182,10 +182,11 @@ final class ChannelAboutViewController: UIViewController {
         return resultLabel
     }
 
-    private func addSeparator(to stack: UIStackView) {
-        let sep = UIView()
-        sep.backgroundColor = theme.separator
-        sep.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-        stack.addArrangedSubview(sep)
+    /// Sections part by space, not a drawn line: twice the stack's spacing.
+    private func endSection(in stack: UIStackView) {
+        guard let last = stack.arrangedSubviews.last else {
+            return
+        }
+        stack.setCustomSpacing(stack.spacing * 2, after: last)
     }
 }

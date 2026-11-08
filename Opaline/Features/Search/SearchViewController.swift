@@ -151,10 +151,9 @@ class SearchViewController: UIViewController {
         let theme = ThemeManager.shared
         view.backgroundColor = theme.background
         tableView.backgroundColor = theme.background
-        tableView.separatorColor = theme.separator
         searchBar.barStyle = theme.barStyle
         searchBar.backgroundColor = theme.background
-        searchBar.keyboardAppearance = theme.isDark ? .dark : .default
+        searchBar.keyboardAppearance = .dark
         tableView.reloadData()
     }
 

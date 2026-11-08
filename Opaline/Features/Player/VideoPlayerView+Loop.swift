@@ -3,8 +3,8 @@ import UIKit
 // MARK: - Loop toggle
 //
 // Sits in the top control row next to speed / CC / PiP so repeating a video
-// costs one tap. The button is its own indicator: accent-tinted when on,
-// white when off, like the audio-only toggle. The end-of-item handler in
+// costs one tap. The button is its own indicator: on the selection fill when
+// on, plain when off, like the audio-only toggle. The end-of-item handler in
 // `WatchViewController+PlayerObserving` reads `isLooping`, so the restart
 // also happens with the app backgrounded or in PiP.
 
@@ -37,9 +37,8 @@ extension VideoPlayerView {
     }
 
     func updateLoopButton() {
-        loopButton.tintColor = isLooping
-            ? ThemeManager.shared.accent
-            : .white
+        loopButton.tintColor = .white
+        loopButton.setOnState(isLooping, cornerRadius: 18)
     }
 
     @objc

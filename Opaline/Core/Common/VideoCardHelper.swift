@@ -45,7 +45,9 @@ enum VideoCardHelper {
         liveBadgeView: UILabel?,
         mixBadge: UILabel? = nil
     ) {
-        durationLabel.backgroundColor = ThemeManager.shared.durationBackground
+        let theme = ThemeManager.shared
+        durationLabel.backgroundColor = theme.durationBackground
+        durationLabel.textColor = theme.primaryText
         if let mixBadge, video.playlistId != nil {
             // One chip in the corner, not two: the mix label takes the
             // duration's place, the way the official app does it.
@@ -60,7 +62,8 @@ enum VideoCardHelper {
             // Cells without a badge view of their own reuse the duration slot.
             durationLabel.isHidden = liveBadgeView != nil
             durationLabel.text = " ● LIVE "
-            durationLabel.backgroundColor = ThemeManager.shared.liveBadgeBackground
+            durationLabel.backgroundColor = theme.liveBadgeBackground
+            durationLabel.textColor = theme.accentText
         } else if let duration = video.duration, !duration.isEmpty {
             durationLabel.text = " \(duration) "
             durationLabel.isHidden = false

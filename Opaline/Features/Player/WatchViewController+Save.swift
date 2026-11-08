@@ -45,12 +45,10 @@ extension WatchViewController {
         }
     }
 
-    /// Accent when the video sits in at least one playlist.
+    /// On the selection fill when the video sits in at least one playlist.
     func updateSaveButton() {
         let saved = playlistOptions?.contains { $0.isAdded } == true
-        saveButton.tintColor = saved
-            ? ThemeManager.shared.accent
-            : ThemeManager.shared.primaryText
+        saveButton.setOnState(saved, cornerRadius: 14)
     }
 
     private func presentPlaylistPicker(

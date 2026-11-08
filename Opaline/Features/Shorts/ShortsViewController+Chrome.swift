@@ -26,33 +26,6 @@ extension ShortsViewController {
         ])
     }
 
-    /// Shorts play edge to edge over black, and a light tab bar under them is
-    /// a bright band the official app does not have. Restoring goes through
-    /// the theme notification — the tab bar controller owns its colours.
-    func setTabBarDark(_ dark: Bool) {
-        guard let tabBar = tabBarController?.tabBar else {
-            return
-        }
-        if #available(iOS 13.0, *) {
-            tabBar.overrideUserInterfaceStyle = dark ? .dark : .unspecified
-        }
-        guard dark else {
-            NotificationCenter.default.post(
-                name: ThemeManager.didChangeNotification, object: nil
-            )
-            return
-        }
-        tabBar.barStyle = .black
-        tabBar.tintColor = .white
-        if #available(iOS 15.0, *) {
-            let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = .black
-            tabBar.standardAppearance = appearance
-            tabBar.scrollEdgeAppearance = appearance
-        }
-    }
-
     @objc
     func backTapped() {
         navigationController?.popViewController(animated: true)
@@ -75,7 +48,8 @@ extension ShortsViewController {
             overlay.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
         ])
         progressBar.translatesAutoresizingMaskIntoConstraints = false
-        progressBar.backgroundColor = ThemeManager.shared.accent
+        // A mark that asks nothing, so the dimmed accent (Ardvis theming).
+        progressBar.backgroundColor = ThemeManager.shared.chromeAccent
         view.addSubview(progressBar)
         let width = progressBar.widthAnchor.constraint(equalToConstant: 0)
         progressWidth = width

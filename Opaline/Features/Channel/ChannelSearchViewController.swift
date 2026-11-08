@@ -63,7 +63,7 @@ final class ChannelSearchViewController: VideosViewController {
         super.applyTheme()
         let theme = ThemeManager.shared
         searchBar.barStyle = theme.barStyle
-        searchBar.keyboardAppearance = theme.isDark ? .dark : .default
+        searchBar.keyboardAppearance = .dark
         emptyLabel.textColor = theme.secondaryText
     }
 

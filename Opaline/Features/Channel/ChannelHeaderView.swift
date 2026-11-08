@@ -8,7 +8,6 @@ final class ChannelHeaderView: UIView {
     var verifiedBadgeView = UIImageView()
     var subscribersLabel = UILabel()
     let subscribeButton = UIButton(type: .system)
-    var separatorView = UIView()
     var nameSkeleton = SkeletonBlockView(cornerRadius: 6)
     var subsSkeleton = SkeletonBlockView(cornerRadius: 4)
     var btnSkeleton = SkeletonBlockView(cornerRadius: 16)
@@ -72,7 +71,6 @@ final class ChannelHeaderView: UIView {
         bannerImageView.backgroundColor = theme.surface
         nameLabel.textColor = theme.primaryText
         subscribersLabel.textColor = theme.secondaryText
-        separatorView.backgroundColor = theme.separator
         applyButtonTheme(subscribed: isSubscribed, theme: theme)
     }
 
@@ -133,7 +131,7 @@ final class ChannelHeaderView: UIView {
                 systemName: "checkmark.seal.fill"
             )
         }
-        verifiedBadgeView.tintColor = .systemBlue
+        verifiedBadgeView.tintColor = ThemeManager.shared.info
         verifiedBadgeView.contentMode = .scaleAspectFit
         verifiedBadgeView.isHidden = true
         verifiedBadgeView.translatesAutoresizingMaskIntoConstraints = false
@@ -158,13 +156,12 @@ final class ChannelHeaderView: UIView {
         )
         subscribeButton.isEnabled = !OAuthClient.shared.isAnonymous
         subscribeButton.translatesAutoresizingMaskIntoConstraints = false
-        separatorView.translatesAutoresizingMaskIntoConstraints = false
     }
 
     private func addContentSubviews() {
         [
             avatarView, nameLabel, verifiedBadgeView,
-            subscribersLabel, subscribeButton, separatorView,
+            subscribersLabel, subscribeButton,
             nameSkeleton, subsSkeleton, btnSkeleton
         ].forEach { addSubview($0) }
     }
@@ -178,7 +175,6 @@ final class ChannelHeaderView: UIView {
         verifiedBadgeView.alpha = fade
         subscribersLabel.alpha = fade
         subscribeButton.alpha = fade
-        separatorView.alpha = fade
         bannerImageView.alpha = max(0, 1 - progress * 2.0)
         bannerOverlay.alpha = bannerImageView.alpha
     }
@@ -195,7 +191,7 @@ final class ChannelHeaderView: UIView {
             )
         } else {
             subscribeButton.backgroundColor = theme.accent
-            subscribeButton.setTitleColor(.white, for: .normal)
+            subscribeButton.setTitleColor(theme.accentText, for: .normal)
         }
     }
 

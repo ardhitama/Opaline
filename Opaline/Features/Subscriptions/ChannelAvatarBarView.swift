@@ -44,7 +44,6 @@ final class ChannelAvatarBarView: UIView {
     }()
 
     private let allButton = UIButton(type: .system)
-    private let separator = UIView()
     private var channels: [SubscribedChannel] = []
     private var selectedChannelId: String?
     private var newContentChannelIds: Set<String> = []
@@ -77,7 +76,6 @@ final class ChannelAvatarBarView: UIView {
     func applyTheme() {
         let theme = ThemeManager.shared
         backgroundColor = theme.background
-        separator.backgroundColor = theme.separator
         allButton.setTitleColor(theme.accent, for: .normal)
         for case let cell as ChannelAvatarCell in collectionView.visibleCells {
             cell.applyTheme()
@@ -115,8 +113,6 @@ final class ChannelAvatarBarView: UIView {
     private func setup() {
         addSubview(collectionView)
         setupAllButton()
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(separator)
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -124,11 +120,7 @@ final class ChannelAvatarBarView: UIView {
             collectionView.trailingAnchor.constraint(
                 equalTo: allButton.leadingAnchor,
                 constant: -4
-            ),
-            separator.leadingAnchor.constraint(equalTo: leadingAnchor),
-            separator.trailingAnchor.constraint(equalTo: trailingAnchor),
-            separator.bottomAnchor.constraint(equalTo: bottomAnchor),
-            separator.heightAnchor.constraint(equalToConstant: 0.5)
+            )
         ])
         applyTheme()
     }

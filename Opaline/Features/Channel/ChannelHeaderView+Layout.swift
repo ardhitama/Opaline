@@ -55,7 +55,6 @@ extension ChannelHeaderView {
     private func bannerConstraints() -> [NSLayoutConstraint] {
         let biv = bannerImageView
         let bov = bannerOverlay
-        let sv = separatorView
         return [
             biv.topAnchor.constraint(equalTo: topAnchor),
             biv.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -64,11 +63,7 @@ extension ChannelHeaderView {
             bov.topAnchor.constraint(equalTo: biv.topAnchor),
             bov.leadingAnchor.constraint(equalTo: biv.leadingAnchor),
             bov.trailingAnchor.constraint(equalTo: biv.trailingAnchor),
-            bov.bottomAnchor.constraint(equalTo: biv.bottomAnchor),
-            sv.leadingAnchor.constraint(equalTo: leadingAnchor),
-            sv.trailingAnchor.constraint(equalTo: trailingAnchor),
-            sv.heightAnchor.constraint(equalToConstant: 1),
-            sv.bottomAnchor.constraint(equalTo: bottomAnchor)
+            bov.bottomAnchor.constraint(equalTo: biv.bottomAnchor)
         ]
     }
 

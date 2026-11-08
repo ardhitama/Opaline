@@ -55,7 +55,6 @@ final class SponsorBlockSettingsViewController: UIViewController {
         let theme = ThemeManager.shared
         view.backgroundColor       = theme.background
         tableView.backgroundColor  = theme.background
-        tableView.separatorColor   = theme.separator
         tableView.reloadData()
     }
 

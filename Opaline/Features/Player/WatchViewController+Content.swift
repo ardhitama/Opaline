@@ -195,7 +195,7 @@ extension WatchViewController {
         let theme = ThemeManager.shared
         if let cached = descriptionAttributedCache,
            cached.text == descriptionText,
-           cached.isDark == theme.isDark {
+           cached.textColor == theme.secondaryText {
             descriptionLabel.attributedText = cached.attributed
             descriptionLabel.linkTextAttributes = [.foregroundColor: theme.accent]
             return
@@ -208,7 +208,7 @@ extension WatchViewController {
         )
         descriptionAttributedCache = DescriptionAttributedCache(
             text: descriptionText,
-            isDark: theme.isDark,
+            textColor: theme.secondaryText,
             attributed: attributed
         )
         descriptionLabel.attributedText = attributed

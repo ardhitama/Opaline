@@ -301,8 +301,6 @@
 "settings.section.debug" = "Debug";
 
 /* Section footers */
-"settings.footer.themeAutoSystem" = "Auto follows the system appearance.";
-"settings.footer.themeAutoHours" = "Auto switches to the dark theme between the hours above.";
 "settings.footer.playback" = "Zoom to Fill automatically scales the video in fullscreen so no black bars remain. Pinch in the player overrides it per video.\n\nAutoplay plays the next suggested video after a 5s countdown. The Mix toggle applies the same instantly to mix/playlist queues.";
 "settings.footer.autoDub" = "When a video's original language differs from the dub language, the matching audio track is selected automatically.";
 "settings.footer.home" = "How recommendation shelves are shown: one continuous grid or TV-style horizontal rails.";
@@ -310,14 +308,11 @@
 "settings.footer.debug" = "Choose which ways of playing a video are used, and the order they are tried in. The solver server answers the throttling challenge the TV client's streams carry (and mints its token).";
 
 /* Theme rows; segment labels for dark/light/auto modes */
-"settings.row.theme" = "Theme";
 "settings.row.appIcon" = "App Icon";
 "settings.theme.dark" = "Dark";
 "settings.theme.light" = "Light";
 "settings.theme.auto" = "Auto";
 /* Hour pickers bounding the iOS 12 scheduled dark mode */
-"settings.row.darkFrom" = "Dark Theme From";
-"settings.row.darkUntil" = "Dark Theme Until";
 
 /* Playback rows */
 "settings.row.defaultQuality" = "Default Quality";

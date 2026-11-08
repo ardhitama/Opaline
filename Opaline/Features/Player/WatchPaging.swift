@@ -18,9 +18,9 @@ enum WatchPaging {
 }
 
 /// Memoizes the last `applyDescriptionText()` output so repeat calls with
-/// the same text and theme reuse it instead of re-running `LinkifiedText`.
+/// the same text and colour reuse it instead of re-running `LinkifiedText`.
 struct DescriptionAttributedCache {
     let text: String
-    let isDark: Bool
+    let textColor: UIColor
     let attributed: NSAttributedString
 }
