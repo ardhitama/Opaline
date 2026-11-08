@@ -8,6 +8,10 @@ final class ChipBarView: UIView {
     static let preferredHeight: CGFloat = 44
 
     var onSelect: ((Int) -> Void)?
+    /// On Liquid Glass the bar has no fill of its own: it rides in the
+    /// scroll view's top edge effect, which blurs the content under it the
+    /// way it does under the navigation bar (`floatOverEdge(of:)`).
+    private var floatsOverContent = false
 
     private let scrollView: UIScrollView = {
         let sv = UIScrollView()
@@ -80,9 +84,24 @@ final class ChipBarView: UIView {
         applyTheme()
     }
 
+    /// Joins the bar to `scrollView`'s top edge effect on iOS 26+, so the bar
+    /// and the navigation bar above it read as one glass top bar instead of
+    /// a solid band with content showing between the two.
+    func floatOverEdge(of scrollView: UIScrollView) {
+        guard #available(iOS 26.0, *) else {
+            return
+        }
+        let interaction = UIScrollEdgeElementContainerInteraction()
+        interaction.scrollView = scrollView
+        interaction.edge = .top
+        addInteraction(interaction)
+        floatsOverContent = true
+        applyTheme()
+    }
+
     @objc
     func applyTheme() {
-        backgroundColor = ThemeManager.shared.background
+        backgroundColor = floatsOverContent ? .clear : ThemeManager.shared.background
         for (idx, btn) in buttons.enumerated() {
             if placeholderIndices.contains(idx) {
                 stylePlaceholder(btn)

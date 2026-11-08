@@ -103,19 +103,18 @@ private extension SubscriptionsViewController {
         guard !isFilterBackInstalled else {
             return
         }
-        // The bell steps aside for the chevron; it used to block it, leaving
-        // the filter with no way back, and leaving the filter then dropped
-        // the bell too.
+        // Whatever held the left slot steps aside for the chevron and comes
+        // back when the filter is left.
         itemBehindFilterBack = navigationItem.leftBarButtonItem
         isFilterBackInstalled = true
-        navigationItem.setLeftBarButton(
-            NavChevron.barButton(
-                kind: .back,
-                target: self,
-                action: #selector(exitChannelFilterTapped)
-            ),
-            animated: true
+        let back = UIBarButtonItem(
+            image: NavChevron.image(kind: .back),
+            style: .plain,
+            target: self,
+            action: #selector(exitChannelFilterTapped)
         )
+        back.accessibilityLabel = "a11y.back".localized
+        navigationItem.setLeftBarButton(back, animated: true)
     }
 }
 

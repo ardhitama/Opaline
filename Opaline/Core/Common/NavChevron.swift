@@ -1,23 +1,13 @@
 import UIKit
 
-/// The single factory for navigation chevrons. Every screen builds its
-/// back/minimize button here — and `RotatingNavigationController` replaces
-/// the system back button on push — so the glyph and edge inset are
-/// identical on every screen and iOS version.
+/// The chevron glyphs for buttons the system does not draw: a back button
+/// over full-screen video and the player's minimize button. Bar buttons use
+/// the system's own back button, or a plain `UIBarButtonItem` with
+/// `image(kind:)`.
 enum NavChevron {
     enum Kind {
         case back
         case minimize
-    }
-
-    static func barButton(
-        kind: Kind,
-        target: Any?,
-        action: Selector
-    ) -> UIBarButtonItem {
-        UIBarButtonItem(
-            customView: NavChevronButton(kind: kind, target: target, action: action)
-        )
     }
 
     static func image(kind: Kind) -> UIImage? {

@@ -21,15 +21,24 @@ final class PlayerSheetView: UIView {
     var onClose: (() -> Void)?
 
     private let handle = UIView()
-    private let closeButton = UIButton(type: .system)
+    /// The system's close button where there is one (iOS 13+).
+    private let closeButton: UIButton = {
+        if #available(iOS 13.0, *) {
+            return UIButton(type: .close)
+        }
+        return UIButton(type: .system)
+    }()
     private let headerStack = UIStackView()
     /// A row of its own under the title, not beside it — a long queue name
     /// squeezed the buttons off the edge.
     private let buttonRow = UIView()
     private let buttonStack = UIStackView()
-    private let sortBar = ChipBarView()
-    /// Grab handle, title and sort bar stacked together — a stack view so
-    /// hiding the sort bar collapses the space it took with it.
+    /// The server's sort orders as a system segmented control on the sheet's
+    /// own surface: one tap to switch, and no band of a second tone.
+    private let sortControl = UISegmentedControl()
+    private let sortRow = UIView()
+    /// Grab handle, title and sort row stacked together — a stack view so
+    /// hiding the sort row collapses the space it took with it.
     private let chrome = UIStackView()
     /// The list itself: a table view for comments, a collection view for the
     /// queue. Both are scroll views and the chrome treats them the same.
@@ -52,6 +61,9 @@ final class PlayerSheetView: UIView {
         titleLabel.textColor = theme.primaryText
         list.backgroundColor = theme.surface
         closeButton.tintColor = theme.secondaryText
+        if #unavailable(iOS 13.0) {
+            sortControl.tintColor = theme.secondaryText
+        }
         for button in buttonStack.arrangedSubviews {
             button.tintColor = theme.primaryText
         }
@@ -68,17 +80,18 @@ final class PlayerSheetView: UIView {
         buttonRow.isHidden = buttons.isEmpty
     }
 
-    /// Shows the server's sort choices; an empty list hides the bar (replies
+    /// Shows the server's sort choices; an empty list hides the row (replies
     /// pages and videos with a single order don't send one).
     func setSortOptions(_ options: [CommentSortOption]) {
-        sortBar.isHidden = options.count < 2
+        sortRow.isHidden = options.count < 2
         guard options.count > 1 else {
             return
         }
-        sortBar.setLabels(
-            options.map(\.title),
-            selected: options.firstIndex(where: \.isSelected) ?? 0
-        )
+        sortControl.removeAllSegments()
+        for (index, option) in options.enumerated() {
+            sortControl.insertSegment(withTitle: option.title, at: index, animated: false)
+        }
+        sortControl.selectedSegmentIndex = options.firstIndex(where: \.isSelected) ?? 0
     }
 
     private func setup() {
@@ -97,10 +110,7 @@ final class PlayerSheetView: UIView {
         headerStack.spacing = 8
         headerStack.addArrangedSubview(titleLabel)
         chrome.axis = .vertical
-        sortBar.isHidden = true
-        sortBar.onSelect = { [weak self] index in
-            self?.onSelectSort?(index)
-        }
+        setupSortRow()
         addSubviews()
         activateConstraints()
     }
@@ -123,6 +133,19 @@ final class PlayerSheetView: UIView {
         onClose?()
     }
 
+    private func setupSortRow() {
+        sortRow.isHidden = true
+        sortControl.translatesAutoresizingMaskIntoConstraints = false
+        sortControl.addTarget(self, action: #selector(sortChanged), for: .valueChanged)
+        sortRow.addSubview(sortControl)
+    }
+
+    @objc
+    private func sortChanged() {
+        Feedback.select()
+        onSelectSort?(sortControl.selectedSegmentIndex)
+    }
+
     private func setupButtonRow() {
         buttonStack.axis = .horizontal
         buttonStack.spacing = 20
@@ -142,7 +165,7 @@ final class PlayerSheetView: UIView {
         }
         chrome.addArrangedSubview(dragRegion)
         chrome.addArrangedSubview(buttonRow)
-        chrome.addArrangedSubview(sortBar)
+        chrome.addArrangedSubview(sortRow)
     }
 
     private func activateButtonRowConstraints() {
@@ -154,7 +177,14 @@ final class PlayerSheetView: UIView {
             buttonStack.bottomAnchor.constraint(
                 equalTo: buttonRow.bottomAnchor, constant: -12
             ),
-            buttonStack.heightAnchor.constraint(equalToConstant: 36)
+            buttonStack.heightAnchor.constraint(equalToConstant: 36),
+
+            sortControl.topAnchor.constraint(equalTo: sortRow.topAnchor),
+            sortControl.leadingAnchor.constraint(equalTo: sortRow.leadingAnchor, constant: 16),
+            sortControl.trailingAnchor.constraint(
+                equalTo: sortRow.trailingAnchor, constant: -16
+            ),
+            sortControl.bottomAnchor.constraint(equalTo: sortRow.bottomAnchor, constant: -12)
         ])
     }
 

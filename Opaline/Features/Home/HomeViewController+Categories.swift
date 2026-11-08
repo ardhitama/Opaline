@@ -70,6 +70,9 @@ extension HomeViewController {
         ])
         collectionView?.contentInset.top = ChipBarView.preferredHeight
         collectionView?.scrollIndicatorInsets.top = ChipBarView.preferredHeight
+        if let collectionView {
+            chipBar.floatOverEdge(of: collectionView)
+        }
     }
 
     func selectCategory(at index: Int) {

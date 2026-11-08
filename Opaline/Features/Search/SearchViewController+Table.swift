@@ -92,6 +92,16 @@ extension SearchViewController: UITableViewDataSource {
         cell.textLabel?.text = isClear
             ? "search.clearHistory".localized
             : panelItems[indexPath.row]
+        if #available(iOS 13.0, *) {
+            // A clock for what was searched before, a magnifier for a
+            // completion, as in Safari's suggestions.
+            let item = isClear ? nil : panelItems[indexPath.row]
+            let symbol = item.map {
+                searchHistory.queries.contains($0) ? "clock" : "magnifyingglass"
+            }
+            cell.imageView?.image = symbol.flatMap { UIImage(systemName: $0) }
+            cell.imageView?.tintColor = theme.secondaryText
+        }
         return cell
     }
 

@@ -90,8 +90,8 @@ final class ThemeManager {
         )
     }
 
-    /// The one nav-chevron style used everywhere: the global back indicator
-    /// and the watch screen's custom back/minimize buttons.
+    /// The chevron style for buttons the system does not draw (see
+    /// `NavChevron`).
     @available(iOS 13.0, *)
     static func navChevron(systemName: String) -> UIImage? {
         let cfg = UIImage.SymbolConfiguration(pointSize: 21, weight: .semibold)

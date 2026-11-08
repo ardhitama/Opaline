@@ -6,8 +6,9 @@ extension SearchViewController {
     enum PanelMode {
         case hidden
         case history
-        /// Past searches narrowed to what is typed. Local only: nothing typed
-        /// leaves the device before the search itself.
+        /// Past searches narrowed to what is typed, then on-device word
+        /// completions. Local only: nothing typed leaves the device before
+        /// the search itself.
         case matches
     }
 
@@ -18,7 +19,7 @@ extension SearchViewController {
         case .history:
             return searchHistory.queries
         case .matches:
-            return historyMatches
+            return suggestions
         }
     }
 
@@ -40,7 +41,8 @@ extension SearchViewController {
     }
 
     /// Derives the panel from the current input: history for an empty
-    /// query, the past searches that contain it otherwise.
+    /// query; otherwise the past searches that contain it, then queries that
+    /// finish its last word.
     func updatePanel(for text: String) {
         let trimmed = text.trimmingCharacters(
             in: .whitespacesAndNewlines
@@ -48,13 +50,23 @@ extension SearchViewController {
         if trimmed.isEmpty {
             // Clearing the field is how the user asks for history back,
             // whether or not the keyboard is still up.
-            historyMatches = []
+            suggestions = []
             showHistoryIfIdle()
         } else if searchBar.isFirstResponder {
-            historyMatches = searchHistory.queries.filter {
+            let history = searchHistory.queries.filter {
                 $0.localizedCaseInsensitiveContains(trimmed)
             }
-            setPanel(historyMatches.isEmpty ? .hidden : .matches)
+            let completions = SearchCompletions.queries(
+                completing: String(text.drop { $0.isWhitespace }),
+                inputLanguage: searchBar.textInputMode?.primaryLanguage
+            )
+            let new = completions.filter { completion in
+                !history.contains {
+                    $0.caseInsensitiveCompare(completion) == .orderedSame
+                }
+            }
+            suggestions = history + new
+            setPanel(suggestions.isEmpty ? .hidden : .matches)
         }
     }
 
@@ -72,8 +84,8 @@ extension SearchViewController {
     /// Row tap in the panel: fill the bar and run the search.
     func executePanelQuery(_ query: String) {
         searchBar.text = query
-        searchBar.resignFirstResponder()
         search(query: query)
+        searchController.isActive = false
     }
 
     func isClearHistoryRow(_ index: Int) -> Bool {

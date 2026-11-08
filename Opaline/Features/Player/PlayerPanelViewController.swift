@@ -6,8 +6,8 @@ final class PlayerPanelViewController: UIViewController, UIGestureRecognizerDele
     private let navigationWrapper: RotatingNavigationController
     private lazy var expandedPanGesture: UIPanGestureRecognizer = makeExpandedPanGesture()
     private lazy var miniPanGesture: UIPanGestureRecognizer = makeMiniPanGesture()
-    // Covers the status-bar area above the nav wrapper, in the screen's own
-    // background so it reads as one surface with the page under it.
+    // Covers the status-bar area above the nav wrapper. See
+    // `statusBarBackdropColor`.
     private let statusBarBackdrop = UIView()
     // Top constraint for navigationWrapper; updated to window.safeAreaInsets.top
     // so the nav bar always starts below the status bar / Dynamic Island.
@@ -154,6 +154,13 @@ final class PlayerPanelViewController: UIViewController, UIGestureRecognizerDele
 }
 
 private extension PlayerPanelViewController {
+    /// In portrait the video starts right under the status bar, so the strip
+    /// takes the player's black and the two read as one band, the way video
+    /// apps draw it. In landscape the page's columns run under it instead.
+    var statusBarBackdropColor: UIColor {
+        view.bounds.height > view.bounds.width ? .black : ThemeManager.shared.background
+    }
+
     /// UITabBarController does not always forward the full status-bar / Dynamic
     /// Island safe-area top to child VCs inserted outside the official
     /// `viewControllers` mechanism.  On iPad (small status bar) this is benign,
@@ -162,20 +169,20 @@ private extension PlayerPanelViewController {
     ///
     /// Fix: read the window's safeAreaInsets.top (always authoritative) and use
     /// it as the explicit top offset for the navigation wrapper.  A backdrop view
-    /// fills the gap with the navigation bar's background colour.
+    /// fills the gap (see `statusBarBackdropColor`).
     func updateNavWrapperTop() {
         guard let window = view.window else {
             return
         }
         let top = window.safeAreaInsets.top
         navWrapperTopConstraint?.constant = top
-        statusBarBackdrop.backgroundColor = ThemeManager.shared.background
+        statusBarBackdrop.backgroundColor = statusBarBackdropColor
     }
 
     func installNavigationWrapper() {
         // Backdrop for the status-bar / Dynamic Island region above the nav bar.
         statusBarBackdrop.translatesAutoresizingMaskIntoConstraints = false
-        statusBarBackdrop.backgroundColor = ThemeManager.shared.background
+        statusBarBackdrop.backgroundColor = statusBarBackdropColor
         view.addSubview(statusBarBackdrop)
 
         addChild(navigationWrapper)
@@ -403,6 +410,6 @@ extension PlayerPanelViewController {
 
     @objc
     func handleThemeChange() {
-        statusBarBackdrop.backgroundColor = ThemeManager.shared.background
+        statusBarBackdrop.backgroundColor = statusBarBackdropColor
     }
 }
