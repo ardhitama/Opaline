@@ -9,7 +9,6 @@
 /* ===== Player: settings menu ===== */
 
 "player.menu.settings" = "Cài đặt trình phát";
-"player.menu.quality" = "Chất lượng";
 "player.quality.audioOnly" = "Chỉ âm thanh";
 "player.loop" = "Phát video theo vòng lặp";
 "player.menu.audioTrack" = "Bản âm thanh";
@@ -464,3 +463,6 @@
 "a11y.back" = "Quay lại";
 "a11y.like" = "Thích";
 "a11y.dislike" = "Không thích";
+"common.remove" = "Gỡ";
+"a11y.position" = "Vị trí";
+"a11y.position.value" = "%1$@ / %2$@";

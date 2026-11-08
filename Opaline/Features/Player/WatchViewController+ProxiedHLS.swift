@@ -72,19 +72,16 @@ extension WatchViewController {
         )
     }
 
-    /// Source-agnostic quality menu: renders `source.availableQualities` and
-    /// applies the pick via `source.selectQuality`. No source-specific code.
-    func showSourceQualityPicker(source: VideoSource) {
-        let items = source.availableQualities.map { quality -> PlayerMenuItem in
+    /// Source-agnostic quality rows: one per `source.availableQualities`,
+    /// applied via `source.selectQuality`. No source-specific code.
+    func sourceQualityItems(source: VideoSource) -> [PlayerMenuItem] {
+        source.availableQualities.map { quality -> PlayerMenuItem in
             let isCurrent = quality == source.currentQuality
             let title = isCurrent ? "✓ \(quality.label)" : quality.label
             return PlayerMenuItem(title: title) { [weak self] in
                 self?.selectSourceQuality(quality, source: source)
             }
         }
-        presentPlayerMenu(
-            title: "player.menu.quality".localized, items: items
-        )
     }
 
     func selectSourceQuality(

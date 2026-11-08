@@ -13,8 +13,8 @@ final class VideoSeekBar: UIControl {
     private let progressView = UIView()
     private let thumbView    = UIView()
 
-    private var progress: Double = 0
-    private var buffer: Double   = 0
+    private(set) var progress: Double = 0
+    private var buffer: Double = 0
     private var segments: [SeekBarSegment] = []
     /// Track width the segment bars were last built for, or -1 when the
     /// segment list changed. `layoutSubviews` runs 10x/sec off `setProgress`,
@@ -24,6 +24,8 @@ final class VideoSeekBar: UIControl {
     private var segmentsLayoutWidth: CGFloat = -1
     private var bufferWidthConstraint: NSLayoutConstraint?
     private var progressWidthConstraint: NSLayoutConstraint?
+    /// Seconds, for VoiceOver's value and its swipe-up/down steps.
+    var duration: Double = 0
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -125,6 +127,9 @@ final class VideoSeekBar: UIControl {
     }
 
     private func setupViews() {
+        isAccessibilityElement = true
+        accessibilityTraits = .adjustable
+        accessibilityLabel = "a11y.position".localized
         configureTrackViews()
         addTrackSubviews()
         activateTrackConstraints()

@@ -7,7 +7,6 @@
 /* ===== Player: settings menu ===== */
 
 "player.menu.settings" = "Параметри відтворення";
-"player.menu.quality" = "Якість";
 /* Quality tier that drops the video track to save data */
 "player.quality.audioOnly" = "Лише звук";
 "player.loop" = "Повторювати відео";
@@ -461,3 +460,6 @@
 "a11y.back" = "Назад";
 "a11y.like" = "Подобається";
 "a11y.dislike" = "Не подобається";
+"common.remove" = "Прибрати";
+"a11y.position" = "Позиція";
+"a11y.position.value" = "%1$@ з %2$@";

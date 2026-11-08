@@ -157,25 +157,12 @@ extension WatchViewController {
         videoRouter.openChannel(id: channelId, name: sourceVideo.channelName)
     }
 
-    /// The chevron always minimizes, so putting the player away is one tap
-    /// wherever you are in it. Going back to the video before is the
-    /// player's own Previous button, which used to share this job.
-    @objc
-    func closeTapped() {
+    /// The player's chevron always minimizes, so putting the player away is
+    /// the same wherever you are in it. Going back to the video before is
+    /// the player's own Previous button, which used to share this job.
+    func minimize() {
         exitFullscreenIfNeeded()
         videoRouter.minimize()
-    }
-
-    func updateLeftBarButton() {
-        navigationItem.leftBarButtonItem = makeMinimizeButton()
-    }
-
-    func makeMinimizeButton() -> UIBarButtonItem {
-        NavChevron.barButton(
-            kind: .minimize,
-            target: self,
-            action: #selector(closeTapped)
-        )
     }
 
     func exitFullscreenIfNeeded() {

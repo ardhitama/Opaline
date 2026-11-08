@@ -11,7 +11,6 @@
 /* Title of the gear menu in the player */
 "player.menu.settings" = "Playback settings";
 /* Menu item + picker title: video quality */
-"player.menu.quality" = "Quality";
 /* Quality tier that drops the video track to save data */
 "player.quality.audioOnly" = "Audio only";
 /* Player control-row toggle: repeat the current video */
@@ -606,3 +605,6 @@
 "a11y.back" = "Back";
 "a11y.like" = "Like";
 "a11y.dislike" = "Dislike";
+"common.remove" = "Remove";
+"a11y.position" = "Position";
+"a11y.position.value" = "%1$@ of %2$@";

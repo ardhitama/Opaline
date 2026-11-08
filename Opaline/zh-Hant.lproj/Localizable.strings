@@ -11,7 +11,6 @@
 /* Title of the gear menu in the player */
 "player.menu.settings" = "播放設定";
 /* Menu item + picker title: video quality */
-"player.menu.quality" = "畫質";
 /* Quality tier that drops the video track to save data */
 "player.quality.audioOnly" = "僅音訊";
 "player.loop" = "循環播放影片";
@@ -550,3 +549,6 @@
 "a11y.back" = "返回";
 "a11y.like" = "喜歡";
 "a11y.dislike" = "不喜歡";
+"common.remove" = "移除";
+"a11y.position" = "播放位置";
+"a11y.position.value" = "%1$@，共 %2$@";

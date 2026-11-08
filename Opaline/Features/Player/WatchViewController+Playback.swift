@@ -123,6 +123,12 @@ extension WatchViewController {
             captionTracks,
             activeLanguage: activeSubtitleLanguage
         )
+        wireCallbacks(of: playerView)
+        updateTransportAvailability()
+        return playerView
+    }
+
+    private func wireCallbacks(of playerView: VideoPlayerView) {
         playerView.onCCTapped = { [weak self] in
             self?.showSubtitlePicker()
         }
@@ -136,8 +142,9 @@ extension WatchViewController {
         playerView.onNext = { [weak self] in
             self?.playNextFromRemote()
         }
-        updateTransportAvailability()
-        return playerView
+        playerView.onMinimize = { [weak self] in
+            self?.minimize()
+        }
     }
 
     func configureSponsorBlock(

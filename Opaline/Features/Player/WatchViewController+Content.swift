@@ -393,7 +393,6 @@ extension WatchViewController {
     func loadVideo(_ video: Video) {
         videoHistory.removeAll()
         loadVideoInternal(video)
-        updateLeftBarButton()
     }
 
     /// Navigate within player (related, autoplay) — pushes current to history.
@@ -401,7 +400,6 @@ extension WatchViewController {
         let current = displayedVideo
         videoHistory.append(current)
         loadVideoInternal(video, keepFullscreen: isPlayerFullscreen)
-        updateLeftBarButton()
         updateTransportAvailability()
     }
 
@@ -410,7 +408,6 @@ extension WatchViewController {
         guard let previous = videoHistory.popLast()
         else { return }
         loadVideoInternal(previous)
-        updateLeftBarButton()
         updateTransportAvailability()
     }
 

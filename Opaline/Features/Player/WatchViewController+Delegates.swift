@@ -24,13 +24,15 @@ extension WatchViewController: VideoPlayerViewDelegate {
         }
     }
 
+    /// Quality is what this menu is opened for most, so its choices are the
+    /// top of the menu itself, current one ticked, instead of a second menu
+    /// behind a "Quality" row.
     private func playbackSettingsItems() -> [PlayerMenuItem] {
         let stats = "player.menu.stats".localized
-        var items = [
-            menuItem("player.menu.quality".localized) {
-                $0.showQualityPicker()
-            }
-        ]
+        var items: [PlayerMenuItem] = []
+        if let source = playbackFacade.activeVideoSource, source.supportsQualitySelection {
+            items = sourceQualityItems(source: source)
+        }
         if playbackFacade.activeVideoSource?
             .supportsAudioTrackSelection == true {
             items.append(

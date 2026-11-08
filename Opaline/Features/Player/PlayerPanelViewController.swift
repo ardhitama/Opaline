@@ -6,8 +6,8 @@ final class PlayerPanelViewController: UIViewController, UIGestureRecognizerDele
     private let navigationWrapper: RotatingNavigationController
     private lazy var expandedPanGesture: UIPanGestureRecognizer = makeExpandedPanGesture()
     private lazy var miniPanGesture: UIPanGestureRecognizer = makeMiniPanGesture()
-    // Covers the status-bar area above the nav wrapper so the background
-    // colour matches the navigation bar instead of showing through.
+    // Covers the status-bar area above the nav wrapper, in the screen's own
+    // background so it reads as one surface with the page under it.
     private let statusBarBackdrop = UIView()
     // Top constraint for navigationWrapper; updated to window.safeAreaInsets.top
     // so the nav bar always starts below the status bar / Dynamic Island.
@@ -169,13 +169,13 @@ private extension PlayerPanelViewController {
         }
         let top = window.safeAreaInsets.top
         navWrapperTopConstraint?.constant = top
-        statusBarBackdrop.backgroundColor = ThemeManager.shared.surface
+        statusBarBackdrop.backgroundColor = ThemeManager.shared.background
     }
 
     func installNavigationWrapper() {
         // Backdrop for the status-bar / Dynamic Island region above the nav bar.
         statusBarBackdrop.translatesAutoresizingMaskIntoConstraints = false
-        statusBarBackdrop.backgroundColor = ThemeManager.shared.surface
+        statusBarBackdrop.backgroundColor = ThemeManager.shared.background
         view.addSubview(statusBarBackdrop)
 
         addChild(navigationWrapper)
@@ -403,6 +403,6 @@ extension PlayerPanelViewController {
 
     @objc
     func handleThemeChange() {
-        statusBarBackdrop.backgroundColor = ThemeManager.shared.surface
+        statusBarBackdrop.backgroundColor = ThemeManager.shared.background
     }
 }

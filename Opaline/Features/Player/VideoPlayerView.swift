@@ -34,6 +34,7 @@ final class VideoPlayerView: UIView {
     var onNeedsFreshPlayer: (() -> Void)?
     var onPrevious: (() -> Void)?
     var onNext: (() -> Void)?
+    var onMinimize: (() -> Void)?
 
     /// End screen: the centre controls become Previous / Replay / Next.
     /// Set when a video ends without anything playing after it; cleared as
@@ -107,6 +108,7 @@ final class VideoPlayerView: UIView {
     let currentTimeLabel = UILabel()
     let durationLabel = UILabel()
     let fullscreenButton = UIButton(type: .system)
+    let minimizeButton = UIButton(type: .system)
 
     // MARK: - Dim Overlay
 
@@ -253,7 +255,10 @@ final class VideoPlayerView: UIView {
     var wasPlayingOnResign = false, pipStartPending = false
     let multitaskPause = MultitaskPauseState()
     var pipIsStarting = false, playerNeedsRebuildForPiP = false, pipIsRestoring = false
-    var duration: Double = 0
+    /// The seek bar keeps its own copy for VoiceOver's value and steps.
+    var duration: Double = 0 {
+        didSet { seekBar.duration = duration }
+    }
     var rateObservation: NSKeyValueObservation?
     var statusObservation: NSKeyValueObservation?
     var timeControlObservation: NSKeyValueObservation?

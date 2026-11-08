@@ -7,7 +7,6 @@
 /* Title of the gear menu in the player */
 "player.menu.settings" = "Wiedergabeeinstellungen";
 /* Menu item + picker title: video quality */
-"player.menu.quality" = "Qualität";
 /* Quality tier that drops the video track to save data */
 "player.quality.audioOnly" = "Nur Audio";
 "player.loop" = "Video wiederholen";
@@ -548,3 +547,6 @@
 "a11y.back" = "Zurück";
 "a11y.like" = "Mag ich";
 "a11y.dislike" = "Mag ich nicht";
+"common.remove" = "Entfernen";
+"a11y.position" = "Position";
+"a11y.position.value" = "%1$@ von %2$@";

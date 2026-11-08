@@ -66,6 +66,15 @@ final class DownloadsViewController: UIViewController {
             videos = fresh
             return
         }
+        // Only deletions (a swipe, the menu): the rows slide out of the list
+        // instead of the whole list being swapped.
+        let kept = Set(fresh.map(\.id))
+        if videos.filter({ kept.contains($0.id) }).map(\.id) == fresh.map(\.id) {
+            let gone = videos.indices.filter { !kept.contains(videos[$0].id) }
+            videos = fresh
+            tableView.deleteRows(at: gone.map { IndexPath(row: $0, section: 0) }, with: .automatic)
+            return
+        }
         videos = fresh
         // The thumbnails outlive the image cache, which expires and can be
         // purged; hand them back to it before the cells ask.

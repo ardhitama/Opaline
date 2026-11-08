@@ -41,6 +41,28 @@ extension DownloadsViewController: UITableViewDataSource, UITableViewDelegate {
         open(videos[indexPath.row])
     }
 
+    /// Swipe to delete, the system's way to drop a row, instead of the menu
+    /// and its Delete row.
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let videoId = videos[indexPath.row].id
+        let delete = UIContextualAction(
+            style: .destructive,
+            title: "common.delete".localized
+        ) { [weak self] _, _, done in
+            guard let self else {
+                return done(false)
+            }
+            // The store's change notification reloads the list, which
+            // animates the row out.
+            DownloadMenu.remove(videoId, from: self)
+            done(true)
+        }
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
+
     func tableView(
         _ tableView: UITableView,
         heightForRowAt indexPath: IndexPath

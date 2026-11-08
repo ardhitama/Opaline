@@ -40,11 +40,11 @@ extension WatchViewController {
         adjustForFloatingNavBar()
     }
 
+    /// No bar: all it held was the minimize chevron, which now sits on the
+    /// player's controls, so the video gets the bar's height. Swiping the
+    /// screen down still minimizes too.
     func setupNavigationBar() {
-        // Bar styling (appearance, tint, margins) is owned by
-        // RotatingNavigationController so every bar lays out identically.
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        updateLeftBarButton()
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     func addNotificationObservers() {

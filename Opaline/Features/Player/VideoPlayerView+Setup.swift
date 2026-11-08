@@ -210,6 +210,7 @@ extension VideoPlayerView {
         configureSpeedButton()
         configureAudioOnlyButton()
         configureLoopButton()
+        configureMinimizeButton()
         activateTopBarConstraints()
     }
 

@@ -72,6 +72,36 @@ extension PlaylistVideosViewController: UITableViewDataSource, UITableViewDelega
         }
     }
 
+    /// Swipe to remove from this playlist, the same as the menu's Remove row.
+    /// The row leaves once the server confirms; the swipe closes right away.
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        guard !isLoading, indexPath.row < videos.count else {
+            return nil
+        }
+        let video = videos[indexPath.row]
+        let remove = UIContextualAction(
+            style: .normal,
+            title: "common.remove".localized
+        ) { [weak self] _, _, done in
+            guard let self else {
+                return done(false)
+            }
+            VideoActionMenu.removeFromPlaylist(
+                video,
+                playlist: (id: self.playlist.id, title: self.playlist.title),
+                from: self
+            ) { [weak self] in
+                self?.removeVideoFromList(videoId: video.id)
+            }
+            done(true)
+        }
+        remove.backgroundColor = ThemeManager.shared.destructive
+        return UISwipeActionsConfiguration(actions: [remove])
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard !isLoading else {
             return
