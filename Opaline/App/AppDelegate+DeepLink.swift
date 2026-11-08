@@ -1,15 +1,19 @@
 import UIKit
 
-/// Handles `ytlite://` and youtube.com links passed to the app via
-/// `application(_:open:options:)`. The pre-scene, single-window
-/// `AppDelegate` hook is correct here (see `CLAUDE.md`: no scene delegates,
-/// iOS 12 is the primary target).
+/// Handles `ytlite://` and youtube.com links. iOS 12 delivers them through
+/// `application(_:open:options:)`; on iOS 13+ the scene lifecycle delivers
+/// them to `SceneDelegate`, which forwards them to `handleIncomingURL(_:)`.
 extension AppDelegate {
     func application(
         _ app: UIApplication,
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey: Any] = [:]
     ) -> Bool {
+        handleIncomingURL(url)
+    }
+
+    @discardableResult
+    func handleIncomingURL(_ url: URL) -> Bool {
         guard YouTubeLinkParser.handles(url) else {
             return false
         }
