@@ -1,5 +1,4 @@
 import UIKit
-import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -67,7 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        UpdateNotificationService.shared.checkIfNeeded()
         resolveDeferredAuthIfNeeded()
     }
 
@@ -104,10 +102,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BackgroundPlaybackService.apply()
         application.beginReceivingRemoteControlEvents()
         configureLegacyBackgroundFetch(application)
-        UNUserNotificationCenter.current().delegate = self
-        if ReturnYouTubeDislikeService.enabled {
-            ReturnYouTubeDislikeService.shared.prepareIfNeeded()
-        }
         if UserDefaults.standard.bool(forKey: UserDefaultsKeys.Debug.mainThreadWatchdog) {
             startMainThreadWatchdog()
         }
@@ -122,9 +116,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self, name: .homeFeedDidSettle, object: nil
         )
         BackgroundRefreshService.shared.warmSecondaryCaches()
-        // The same idle moment suits the TV n-solver: waiting for it here costs
-        // nobody anything, waiting for it at playback costs the first video.
-        TVSolverWarmup.warmIfNeeded()
     }
 
     private func makeSplashViewController() -> SplashViewController {

@@ -73,15 +73,14 @@ final class WatchViewController: UIViewController {
     /// empty message must not flash before the first result lands.
     var isLoadingComments = false, hasLoadedComments = false
     /// The watch page is applied twice (cache, then network) but its
-    /// one-shot side effects — RYD/SponsorBlock, playlist prefetch,
-    /// comments — must start only once per video. Set to the videoId whose
+    /// one-shot side effects — playlist prefetch and comments — must
+    /// start only once per video. Set to the videoId whose
     /// side effects already started; nil once the controller moves on.
     var sideEffectsStartedForVideoId: String?
     /// Cached result of the last `applyDescriptionText()` run, keyed by the
     /// inputs that affect it, so an unrelated re-apply (e.g. the watch page
     /// landing twice) doesn't re-run the linkify pass.
     var descriptionAttributedCache: DescriptionAttributedCache?
-    let sponsorBlock = SponsorBlockController()
     var autoplayOverlay: AutoplayOverlayView?
     let playbackFacade = PlaybackFacade()
     var pageLoadToken = CancellationToken()
@@ -153,7 +152,6 @@ final class WatchViewController: UIViewController {
     let downloadStatusLabel = UILabel()
     let likeCountLabel = UILabel()
     let dislikeCountLabel = UILabel()
-    var likeCount: String?, dislikeCount: String?
     var currentLikeStatus: LikeStatus = .indifferent
 
     // MARK: - Constraints

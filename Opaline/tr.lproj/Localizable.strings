@@ -55,8 +55,6 @@
 "common.cancel" = "İptal";
 /* Generic confirmation button */
 "common.ok" = "Tamam";
-/* Generic save action */
-"common.save" = "Kaydet";
 /* Generic done action */
 "common.done" = "Bitti";
 /* Fallback title/label of a playlist tile */
@@ -147,45 +145,6 @@
 /* Accumulated seek offset shown while tapping ±10s repeatedly; %1$@ = signed seconds, e.g. "-90" */
 "player.seek.offset" = "%1$@ sn";
 
-/* ===== SponsorBlock ===== */
-
-/* Skip button; %1$@ = localized category name, e.g. "Skip Sponsor" */
-"sponsorblock.skip" = "%1$@ atla";
-
-/* Skip-behavior options (per-category setting) */
-"sponsorblock.behavior.autoSkip" = "Otomatik atla";
-"sponsorblock.behavior.showButton" = "Düğmeyi göster";
-"sponsorblock.behavior.disabled" = "Devre dışı bırak";
-
-/* Footer under the SponsorBlock section (project attribution) */
-"sponsorblock.attribution" = "SponsorBlock (sponsor.ajay.app) tarafından desteklenmektedir — açık bir topluluk projesi.";
-/* Header above the per-category skip settings */
-"sponsorblock.segmentCategories" = "Segment Kategorileri";
-
-/* Category names (SponsorBlock project terms) and their descriptions */
-"sponsorblock.category.sponsor.name" = "Sponsor";
-"sponsorblock.category.sponsor.description" = "Ücretli tanıtım, ücretli yönlendirmeler ve doğrudan reklamlar. Kişisel tanıtım veya beğendikleri nedenler/yaratıcılar/web siteleri/ürünler için ücretsiz tanıtım için değildir.";
-"sponsorblock.category.selfpromo.name" = "Ücretsiz/Kişisel Tanıtım";
-"sponsorblock.category.selfpromo.description" = "\"Sponsor\"a benzer, ücretsiz veya kişisel tanıtım hariç. Ürünler, bağışlar veya işbirliği yaptıkları kişiler hakkında bilgi bölümleri dahildir.";
-"sponsorblock.category.exclusive_access.name" = "Özel Erişim";
-"sponsorblock.category.exclusive_access.description" = "Yalnızca tüm videoları etiketlemek için kullanılır. Bir video, ücretsiz veya sübvansiyonlu erişim elde ettikleri bir ürünü, hizmeti veya konumu sergilediğinde kullanılır.";
-"sponsorblock.category.interaction.name" = "Etkileşim Hatırlatması (Abone Ol)";
-"sponsorblock.category.interaction.description" = "İçeriğin ortasında beğenme, abone olma veya takip etme hatırlatması olduğunda. Uzun veya belirli bir şey hakkındaysa, kişisel tanıtım altında olmalıdır.";
-"sponsorblock.category.highlight.name" = "Öne Çıkan";
-"sponsorblock.category.highlight.description" = "Çoğu kişinin aradığı video kısmı. \"Video x'te başlar\" yorumlarına benzer.";
-"sponsorblock.category.intro.name" = "Ara/Giriş Animasyonu";
-"sponsorblock.category.intro.description" = "Gerçek içerik olmadan bir aralık. Duraklama, statik kare veya tekrarlayan animasyon olabilir. Bilgi içeren geçişler için kullanılmamalıdır.";
-"sponsorblock.category.outro.name" = "Son Kartları/Jenerik";
-"sponsorblock.category.outro.description" = "Jenerik veya YouTube son kartları göründüğünde. Bilgi içeren sonuçlar için değildir.";
-"sponsorblock.category.preview.name" = "Önizleme/Özet";
-"sponsorblock.category.preview.description" = "Bu videoda veya bir dizideki diğer videolarda nelerin geleceğini gösteren klip koleksiyonu.";
-"sponsorblock.category.filler.name" = "Yan Konular/Şakalar";
-"sponsorblock.category.filler.description" = "Videonun ana içeriğini anlamak için gerekli olmayan yan sahneler veya şakalar. Bağlam veya arka plan ayrıntıları sağlayan segmentleri içermemelidir.";
-"sponsorblock.category.music_offtopic.name" = "Müzik Dışı Bölüm";
-"sponsorblock.category.music_offtopic.description" = "Yalnızca müzik videoları için. Müzik videosunun müzik dışı kısmı.";
-"sponsorblock.category.chapter.name" = "Bölüm";
-"sponsorblock.category.chapter.description" = "Videonun özel adlandırılmış bölümleri.";
-
 /* ===== Settings ===== */
 
 /* Settings sheet title */
@@ -198,15 +157,12 @@
 "settings.section.autoDub" = "Dublaj";
 "settings.section.home" = "Ana Sayfa";
 "settings.section.cache" = "Önbellek";
-"settings.section.ryd" = "Return YouTube Dislike";
-"settings.section.sponsorblock" = "SponsorBlock";
 "settings.section.debug" = "Hata Ayıklama";
 
 /* Section footers */
 "settings.footer.playback" = "Doldurma için yakınlaştırma, tam ekranda siyah çubuk kalmayacak şekilde videoyu otomatik olarak ölçekler. Oynatıcıda sıkıştırma her video için bunu geçersiz kılar.\n\nOtomatik oynatma, 5 saniyelik geri sayımdan sonra önerilen bir sonraki videoyu oynatır. Mix anahtarı bunu mix/oynatma listesi kuyruklarına anında uygular.";
 "settings.footer.autoDub" = "Videonun orijinal dili dublaj dilinden farklıysa uygun ses parçası otomatik olarak seçilir.";
 "settings.footer.home" = "Öneri rafları nasıl gösterilir: sürekli bir ızgara veya TV tarzı yatay raylar.";
-"settings.footer.ryd" = "Beğenmeme sayıları Return YouTube Dislike (returnyoutubedislike.com) tarafından desteklenmektedir — açık bir topluluk projesi.";
 
 /* Theme rows; segment labels for dark/light/auto modes */
 "settings.row.appIcon" = "Uygulama simgesi";
@@ -242,10 +198,6 @@
 "settings.homeLayout.grid" = "Düz Izgara";
 "settings.homeLayout.rails" = "Raf Rayları";
 
-/* Notifications section */
-"settings.section.notifications" = "Bildirimler";
-"settings.row.notifications" = "Bildirimler";
-
 /* Cache rows */
 "settings.row.feedCache" = "Akış Önbelleği";
 "settings.row.feedCacheDuration" = "Akış Önbellek Süresi";
@@ -256,16 +208,8 @@
 "settings.cache.clearedTitle" = "Önbellek Temizlendi";
 "settings.cache.clearedMessage" = "Tüm önbellek temizlendi.";
 
-/* Integration rows */
-"settings.row.ryd" = "Return YouTube Dislike";
-"settings.row.sponsorblock" = "SponsorBlock";
-"settings.row.sponsorblockSettings" = "SponsorBlock Ayarları";
-
 /* Debug rows (values stay technical/English) */
-"settings.row.solverServer" = "Solver server";
 "settings.row.shareLog" = "Hata Ayıklama Kaydını Paylaş";
-"settings.row.support" = "Geliştirmeyi destekle";
-"settings.row.feedback" = "Geri bildirim gönder";
 
 /* About section: values an issue report asks for, copied on tap */
 "settings.section.about" = "Hakkında";
@@ -273,11 +217,6 @@
 "settings.about.version" = "Sürüm";
 "settings.about.system" = "Sistem";
 "settings.about.model" = "Model";
-/* Solver-server URL alert */
-"settings.solver.message" = "Çözücü sunucusunun URL'si.";
-"settings.solver.reset" = "Varsayılana sıfırla";
-/* Suffix shown after the solver URL when it is the built-in default */
-"settings.solver.defaultSuffix" = " (varsayılan)";
 /* Alert when no debug logs exist yet */
 "settings.log.noneTitle" = "Kayıt Yok";
 "settings.log.noneMessage" = "Henüz hata ayıklama kaydı mevcut değil.";
@@ -285,9 +224,6 @@
 /* ===== Profile ===== */
 
 "profile.title" = "Profil";
-"profile.signOut" = "Çıkış Yap";
-"profile.clearImageCache" = "Görsel Önbelleğini Temizle";
-"profile.imageCacheCleared" = "Görsel önbelleği temizlendi.";
 
 /* ===== Search ===== */
 
@@ -421,27 +357,6 @@
 "settings.language.restartTitle" = "Yeniden Başlatma Gerekli";
 "settings.language.restartMessage" = "Değişiklikler uygulama yeniden başlatıldıktan sonra tam olarak uygulanır.";
 
-/* Notification settings screen (pushed from Settings > Home) */
-"settings.row.appUpdates" = "Uygulama Güncellemeleri";
-"settings.footer.notifications" = "Teslimat gecikebilir — iOS arka plan kontrolleri planlar, ancak bunları hemen çalıştırmaz.";
-
-/* ===== Notifications ===== */
-
-/* Inbox item + system notification title when a newer app version is available; %@ = version */
-"notifications.update.title" = "Güncelleme mevcut: %@";
-
-/* Bell button inbox, presented as a sheet */
-"notifications.title" = "Bildirimler";
-/* Shown when the inbox has no notifications yet */
-"notifications.empty" = "Henüz bildirim yok";
-/* Left nav bar button in the inbox; marks every notification as read */
-"notifications.markAllRead" = "Tümünü okundu işaretle";
-/* Banner shown when system notifications are off */
-"notifications.permissionBanner.message" = "Sistem bildirimleri kapalı, bu nedenle uyarılar uygulamanın dışında ulaşmayabilir.";
-"notifications.permissionBanner.enable" = "Bildirimleri Etkinleştir";
-/* Detail screen action opening the notification's link */
-"notifications.detail.openLink" = "Aç";
-
 /* ===== Sign-in (OAuth device code) screen ===== */
 
 "auth.title" = "YouTube'da oturum aç";
@@ -464,7 +379,6 @@
 "common.delete" = "Sil";
 /* Toast shown after a value is copied */
 "common.copied" = "Kopyalandı";
-"common.edit" = "Düzenle";
 "player.menu.queue" = "Sıra";
 "player.queue.shuffle" = "Karıştır";
 "player.queue.repeat" = "Tekrarla";
@@ -495,7 +409,6 @@
 "player.status.switchingToSABR" = "SABR'ye geçiliyor...";
 "player.status.switchingToRanges" = "Doğrudan akışlara geçiliyor...";
 "player.status.openingSABR" = "SABR oturumu açılıyor...";
-"player.status.solving" = "İmzalar çözülüyor...";
 "settings.section.downloads" = "İndirilenler";
 "settings.footer.downloads" = "Bir videoyla birlikte nelerin kaydedileceği. Yorumlar ve altyazılar indirme anındaki haliyle saklanır.";
 "settings.row.downloadQuality" = "Kalite";
@@ -529,9 +442,8 @@
 "downloads.error.failed" = "Video indirilemedi";
 "downloads.error.noOptions" = "Bu video indirilemez";
 "player.related.downloaded" = "Diğer indirilenler";
-"settings.footer.debug" = "Bir videonun hangi yollarla oynatılacağını ve bunların hangi sırayla deneneceğini seçin. Çözücü sunucu, TV istemcisinin akışlarındaki hız sınırlama sorgusunu yanıtlar (ve jetonunu üretir).";
+"settings.footer.debug" = "Bir videonun hangi yollarla oynatılacağını ve bunların hangi sırayla deneneceğini seçin.";
 "settings.row.playbackChain" = "Oynatma kaynakları";
-"settings.playbackChain.signInNeeded" = "Bu kaynağı kullanmak için oturum açın";
 "settings.playbackChain.footer" = "Biri oynatana kadar yukarıdan aşağıya denenir. Sıralamak için sürükleyin, istemediklerinizi kapatın.";
 "settings.row.resetIdentity" = "Visitor identity’yi sıfırla";
 "library.downloads.empty" = "İndirdiğiniz videolar burada gösterilir";

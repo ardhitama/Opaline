@@ -55,8 +55,6 @@
 "common.cancel" = "取消";
 /* Generic confirmation button */
 "common.ok" = "确定";
-/* Generic save action */
-"common.save" = "保存";
 /* Generic done action */
 "common.done" = "完成";
 /* Fallback title/label of a playlist tile */
@@ -147,45 +145,6 @@
 /* Accumulated seek offset shown while tapping ±10s repeatedly; %1$@ = signed seconds, e.g. "-90" */
 "player.seek.offset" = "%1$@ 秒";
 
-/* ===== SponsorBlock ===== */
-
-/* Skip button; %1$@ = localized category name, e.g. "Skip Sponsor" */
-"sponsorblock.skip" = "跳过%1$@";
-
-/* Skip-behavior options (per-category setting) */
-"sponsorblock.behavior.autoSkip" = "自动跳过";
-"sponsorblock.behavior.showButton" = "显示按钮";
-"sponsorblock.behavior.disabled" = "禁用";
-
-/* Footer under the SponsorBlock section (project attribution) */
-"sponsorblock.attribution" = "Powered by SponsorBlock (sponsor.ajay.app) — an open community project.";
-/* Header above the per-category skip settings */
-"sponsorblock.segmentCategories" = "片段分类";
-
-/* Category names (SponsorBlock project terms) and their descriptions */
-"sponsorblock.category.sponsor.name" = "赞助";
-"sponsorblock.category.sponsor.description" = "付费推广、付费推荐和直接广告。不适用于自我推广或对创作者/网站/产品的免费推荐。";
-"sponsorblock.category.selfpromo.name" = "免费/自我推广";
-"sponsorblock.category.selfpromo.description" = "与「赞助」类似，但为免费或自我推广。包括关于商品、捐赠或合作方的信息。";
-"sponsorblock.category.exclusive_access.name" = "独家访问";
-"sponsorblock.category.exclusive_access.description" = "仅用于标记整个视频。当视频展示免费或补贴的产品、服务或地点时使用。";
-"sponsorblock.category.interaction.name" = "互动提醒（订阅）";
-"sponsorblock.category.interaction.description" = "在内容中间简短提醒点赞、订阅或关注。如果较长或涉及特定内容，应归入自我推广。";
-"sponsorblock.category.highlight.name" = "精彩片段";
-"sponsorblock.category.highlight.description" = "大多数人在找的视频部分。类似于「x处开始」的评论。";
-"sponsorblock.category.intro.name" = "片头动画";
-"sponsorblock.category.intro.description" = "没有实际内容的间隔。可能是停顿、静止帧或重复动画。不应用于包含信息的转场。";
-"sponsorblock.category.outro.name" = "片尾画面/鸣谢";
-"sponsorblock.category.outro.description" = "鸣谢或YouTube片尾画面出现的部分。不适用于包含信息的总结。";
-"sponsorblock.category.preview.name" = "预览/回顾";
-"sponsorblock.category.preview.description" = "展示本视频或系列中其他视频即将出现内容的片段集。所有信息稍后会在视频中重复。";
-"sponsorblock.category.filler.name" = "闲聊/笑话";
-"sponsorblock.category.filler.description" = "理解视频主要内容所不需要的闲聊或笑话。不应用于提供背景或上下文信息的片段。";
-"sponsorblock.category.music_offtopic.name" = "非音乐部分";
-"sponsorblock.category.music_offtopic.description" = "仅适用于音乐视频。音乐视频中的非音乐部分。";
-"sponsorblock.category.chapter.name" = "章节";
-"sponsorblock.category.chapter.description" = "视频的自定义命名部分。";
-
 /* ===== Settings ===== */
 
 /* Settings sheet title */
@@ -198,15 +157,12 @@
 "settings.section.autoDub" = "配音";
 "settings.section.home" = "首页";
 "settings.section.cache" = "缓存";
-"settings.section.ryd" = "Return YouTube Dislike";
-"settings.section.sponsorblock" = "SponsorBlock";
 "settings.section.debug" = "调试";
 
 /* Section footers */
 "settings.footer.playback" = "缩放以填充会自动缩放全屏视频以消除黑边。在播放器中捏合可按视频覆盖。\n\n自动播放会在5秒倒计时后播放下一个推荐视频。混剪开关会立即将同样的行为应用于混剪/播放列表队列。";
 "settings.footer.autoDub" = "当视频的原始语言与配音语言不同时，会自动选择对应的音轨。";
 "settings.footer.home" = "推荐栏显示方式：连续网格或电视风格水平轨道。";
-"settings.footer.ryd" = "不喜欢次数由 Return YouTube Dislike (returnyoutubedislike.com) 提供 — 开放社区项目。";
 
 /* Theme rows; segment labels for dark/light/auto modes */
 "settings.row.appIcon" = "应用图标";
@@ -242,10 +198,6 @@
 "settings.homeLayout.grid" = "网格";
 "settings.homeLayout.rails" = "横向轨道";
 
-/* Notifications section */
-"settings.section.notifications" = "通知";
-"settings.row.notifications" = "通知";
-
 /* Cache rows */
 "settings.row.feedCache" = "动态缓存";
 "settings.row.feedCacheDuration" = "动态缓存时长";
@@ -256,16 +208,8 @@
 "settings.cache.clearedTitle" = "缓存已清除";
 "settings.cache.clearedMessage" = "所有缓存已清除。";
 
-/* Integration rows */
-"settings.row.ryd" = "Return YouTube Dislike";
-"settings.row.sponsorblock" = "SponsorBlock";
-"settings.row.sponsorblockSettings" = "SponsorBlock 设置";
-
 /* Debug rows (values stay technical/English) */
-"settings.row.solverServer" = "Solver server";
 "settings.row.shareLog" = "分享调试日志";
-"settings.row.support" = "支持开发";
-"settings.row.feedback" = "发送反馈";
 
 /* About section: values an issue report asks for, copied on tap */
 "settings.section.about" = "关于";
@@ -273,11 +217,6 @@
 "settings.about.version" = "版本";
 "settings.about.system" = "系统";
 "settings.about.model" = "型号";
-/* Solver-server URL alert */
-"settings.solver.message" = "求解器服务器的 URL。";
-"settings.solver.reset" = "恢复默认值";
-/* Suffix shown after the solver URL when it is the built-in default */
-"settings.solver.defaultSuffix" = "（默认）";
 /* Alert when no debug logs exist yet */
 "settings.log.noneTitle" = "无日志";
 "settings.log.noneMessage" = "暂无调试日志。";
@@ -285,9 +224,6 @@
 /* ===== Profile ===== */
 
 "profile.title" = "个人资料";
-"profile.signOut" = "退出登录";
-"profile.clearImageCache" = "清除图片缓存";
-"profile.imageCacheCleared" = "图片缓存已清除。";
 
 /* ===== Search ===== */
 
@@ -421,27 +357,6 @@
 "settings.language.restartTitle" = "需要重新启动";
 "settings.language.restartMessage" = "更改在重新启动应用后完全生效。";
 
-/* Notification settings screen (pushed from Settings > Home) */
-"settings.row.appUpdates" = "应用更新";
-"settings.footer.notifications" = "投递可能延迟 — iOS 会计划后台检查，但不会立即运行。";
-
-/* ===== Notifications ===== */
-
-/* Inbox item + system notification title when a newer app version is available; %@ = version */
-"notifications.update.title" = "新版本可用：%@";
-
-/* Bell button inbox, presented as a sheet */
-"notifications.title" = "通知";
-/* Shown when the inbox has no notifications yet */
-"notifications.empty" = "暂无通知";
-/* Left nav bar button in the inbox; marks every notification as read */
-"notifications.markAllRead" = "全部标为已读";
-/* Banner shown when system notifications are off */
-"notifications.permissionBanner.message" = "系统通知已关闭，因此警报可能无法在应用外送达。";
-"notifications.permissionBanner.enable" = "启用通知";
-/* Detail screen action opening the notification's link */
-"notifications.detail.openLink" = "打开";
-
 /* ===== Sign-in (OAuth device code) screen ===== */
 
 "auth.title" = "登录 YouTube";
@@ -464,7 +379,6 @@
 "common.delete" = "删除";
 /* Toast shown after a value is copied */
 "common.copied" = "已复制";
-"common.edit" = "修改";
 "player.menu.queue" = "队列";
 "player.queue.shuffle" = "随机播放";
 "player.queue.repeat" = "循环播放";
@@ -495,7 +409,6 @@
 "player.status.switchingToSABR" = "正在切换到 SABR...";
 "player.status.switchingToRanges" = "正在切换到直连流...";
 "player.status.openingSABR" = "正在打开 SABR 会话...";
-"player.status.solving" = "正在解算签名...";
 "settings.section.downloads" = "下载内容";
 "settings.footer.downloads" = "随视频一起保存的内容。评论和字幕会保持下载时的状态。";
 "settings.row.downloadQuality" = "质量";
@@ -529,9 +442,8 @@
 "downloads.error.failed" = "未能下载视频";
 "downloads.error.noOptions" = "无法下载此视频";
 "player.related.downloaded" = "其他已下载的视频";
-"settings.footer.debug" = "选择用哪些方式播放视频，以及按什么顺序尝试。解算服务器负责应答 TV 客户端流中的限速质询，并签发它的令牌。";
+"settings.footer.debug" = "选择用哪些方式播放视频，以及按什么顺序尝试。";
 "settings.row.playbackChain" = "播放源";
-"settings.playbackChain.signInNeeded" = "登录后才能使用此播放源";
 "settings.playbackChain.footer" = "从上到下依次尝试，直到有一个能播放。拖动可调整顺序，不需要的可以关掉。";
 "settings.row.resetIdentity" = "重置 visitor identity";
 "library.downloads.empty" = "你下载的视频将显示在这里";

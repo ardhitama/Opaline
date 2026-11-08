@@ -83,12 +83,6 @@ protocol SearchService: AnyObject {
         cancellationToken: CancellationToken?,
         completion: @escaping (Result<SearchPage, Error>) -> Void
     )
-    /// Autocomplete suggestions for a partial query.
-    func fetchSearchSuggestions(
-        query: String,
-        cancellationToken: CancellationToken?,
-        completion: @escaping (Result<[String], Error>) -> Void
-    )
 }
 
 protocol PlaylistService: AnyObject {

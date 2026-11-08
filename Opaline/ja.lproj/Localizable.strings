@@ -55,8 +55,6 @@
 "common.cancel" = "キャンセル";
 /* Generic confirmation button */
 "common.ok" = "OK";
-/* Generic save action */
-"common.save" = "保存";
 /* Generic done action */
 "common.done" = "完了";
 /* Fallback title/label of a playlist tile */
@@ -147,45 +145,6 @@
 /* Accumulated seek offset shown while tapping ±10s repeatedly; %1$@ = signed seconds, e.g. "-90" */
 "player.seek.offset" = "%1$@ 秒";
 
-/* ===== SponsorBlock ===== */
-
-/* Skip button; %1$@ = localized category name, e.g. "Skip Sponsor" */
-"sponsorblock.skip" = "%1$@をスキップ";
-
-/* Skip-behavior options (per-category setting) */
-"sponsorblock.behavior.autoSkip" = "自動スキップ";
-"sponsorblock.behavior.showButton" = "ボタンを表示";
-"sponsorblock.behavior.disabled" = "無効";
-
-/* Footer under the SponsorBlock section (project attribution) */
-"sponsorblock.attribution" = "Powered by SponsorBlock (sponsor.ajay.app) — an open community project.";
-/* Header above the per-category skip settings */
-"sponsorblock.segmentCategories" = "セグメントカテゴリ";
-
-/* Category names (SponsorBlock project terms) and their descriptions */
-"sponsorblock.category.sponsor.name" = "スポンサー";
-"sponsorblock.category.sponsor.description" = "有料プロモーション、有料紹介、および直接の広告。自己プロモーションや、好きなクリエイター/ウェブサイト/製品への無料の紹介ではありません。";
-"sponsorblock.category.selfpromo.name" = "無報酬/自己プロモーション";
-"sponsorblock.category.selfpromo.description" = "「スポンサー」と似ていますが、無報酬または自己プロモーションです。グッズ、寄付、コラボレーション相手に関する情報が含まれます。";
-"sponsorblock.category.exclusive_access.name" = "限定アクセス";
-"sponsorblock.category.exclusive_access.description" = "動画全体にのみ使用。無償または補助を受けた製品、サービス、場所を紹介する動画に使用されます。";
-"sponsorblock.category.interaction.name" = "エンゲージメントリマインダー（チャンネル登録）";
-"sponsorblock.category.interaction.description" = "コンテンツの途中で「いいね」「チャンネル登録」「フォロー」を短く促す部分。長い場合や特定の内容については、自己プロモーションに分類してください。";
-"sponsorblock.category.highlight.name" = "ハイライト";
-"sponsorblock.category.highlight.description" = "ほとんどの人が見たい動画の箇所。「xから動画」というコメントと同様です。";
-"sponsorblock.category.intro.name" = "イントロ/イントロアニメーション";
-"sponsorblock.category.intro.description" = "実質的なコンテンツのない区間。一時停止、静止画、繰り返しのアニメーション。情報を含む遷移には使用しないでください。";
-"sponsorblock.category.outro.name" = "エンディング/クレジット";
-"sponsorblock.category.outro.description" = "クレジットやYouTubeエンドカードの部分。情報を含む結論ではありません。";
-"sponsorblock.category.preview.name" = "プレビュー/まとめ";
-"sponsorblock.category.preview.description" = "この動画やシリーズ内の他の動画の今後の内容を示すクリップの集まり。すべての情報は後で繰り返されます。";
-"sponsorblock.category.filler.name" = "オフ Topic/ジョーク";
-"sponsorblock.category.filler.description" = "動画のメインコンテンツを理解するのに必須ではない、本題から逸れたシーンやジョーク。コンテキストや背景情報を提供するセグメントは含めないでください。";
-"sponsorblock.category.music_offtopic.name" = "ノンミュージックセクション";
-"sponsorblock.category.music_offtopic.description" = "ミュージックビデオのみ。ミュージックビデオのノンミュージック部分。";
-"sponsorblock.category.chapter.name" = "チャプター";
-"sponsorblock.category.chapter.description" = "動画のカスタム名付きセクション。";
-
 /* ===== Settings ===== */
 
 /* Settings sheet title */
@@ -198,15 +157,12 @@
 "settings.section.autoDub" = "吹き替え";
 "settings.section.home" = "ホーム";
 "settings.section.cache" = "キャッシュ";
-"settings.section.ryd" = "Return YouTube Dislike";
-"settings.section.sponsorblock" = "SponsorBlock";
 "settings.section.debug" = "デバッグ";
 
 /* Section footers */
 "settings.footer.playback" = "ズームでフィルは全画面表示時に動画を拡大し、黒帯が残らないようにします。プレーヤーでピンチすると動画ごとに上書きされます。\n\n自動再生は5秒のカウントダウン後に次のおすすめ動画を再生します。ミックスのスイッチは、ミックスや再生リストのキューに同じ動作をすぐに適用します。";
 "settings.footer.autoDub" = "動画の元の言語が吹き替え言語と異なる場合、対応する音声トラックが自動的に選択されます。";
 "settings.footer.home" = "おすすめシェルフの表示方法: 連続したグリッドまたはTVスタイルの水平レール。";
-"settings.footer.ryd" = "低評価数は Return YouTube Dislike (returnyoutubedislike.com) によって提供されています — オープンコミュニティプロジェクト。";
 
 /* Theme rows; segment labels for dark/light/auto modes */
 "settings.row.appIcon" = "Appアイコン";
@@ -242,10 +198,6 @@
 "settings.homeLayout.grid" = "グリッド";
 "settings.homeLayout.rails" = "シェルフレール";
 
-/* Notifications section */
-"settings.section.notifications" = "通知";
-"settings.row.notifications" = "通知";
-
 /* Cache rows */
 "settings.row.feedCache" = "フィードキャッシュ";
 "settings.row.feedCacheDuration" = "フィードキャッシュの期間";
@@ -256,16 +208,8 @@
 "settings.cache.clearedTitle" = "キャッシュがクリアされました";
 "settings.cache.clearedMessage" = "すべてのキャッシュがクリアされました。";
 
-/* Integration rows */
-"settings.row.ryd" = "Return YouTube Dislike";
-"settings.row.sponsorblock" = "SponsorBlock";
-"settings.row.sponsorblockSettings" = "SponsorBlock設定";
-
 /* Debug rows (values stay technical/English) */
-"settings.row.solverServer" = "Solver server";
 "settings.row.shareLog" = "デバッグログを共有";
-"settings.row.support" = "開発を支援";
-"settings.row.feedback" = "フィードバックの送信";
 
 /* About section: values an issue report asks for, copied on tap */
 "settings.section.about" = "情報";
@@ -273,11 +217,6 @@
 "settings.about.version" = "バージョン";
 "settings.about.system" = "システム";
 "settings.about.model" = "機種";
-/* Solver-server URL alert */
-"settings.solver.message" = "ソルバーサーバーのURL。";
-"settings.solver.reset" = "デフォルトにリセット";
-/* Suffix shown after the solver URL when it is the built-in default */
-"settings.solver.defaultSuffix" = "（デフォルト）";
 /* Alert when no debug logs exist yet */
 "settings.log.noneTitle" = "ログなし";
 "settings.log.noneMessage" = "デバッグログはまだありません。";
@@ -285,9 +224,6 @@
 /* ===== Profile ===== */
 
 "profile.title" = "プロフィール";
-"profile.signOut" = "サインアウト";
-"profile.clearImageCache" = "画像キャッシュをクリア";
-"profile.imageCacheCleared" = "画像キャッシュがクリアされました。";
 
 /* ===== Search ===== */
 
@@ -421,27 +357,6 @@
 "settings.language.restartTitle" = "再起動が必要です";
 "settings.language.restartMessage" = "変更はアプリの再起動後に完全に適用されます。";
 
-/* Notification settings screen (pushed from Settings > Home) */
-"settings.row.appUpdates" = "アプリの更新";
-"settings.footer.notifications" = "配信は遅延する可能性があります — iOSはバックグラウンドチェックをスケジュール設定していますが、すぐには実行しません。";
-
-/* ===== Notifications ===== */
-
-/* Inbox item + system notification title when a newer app version is available; %@ = version */
-"notifications.update.title" = "更新可能: %@";
-
-/* Bell button inbox, presented as a sheet */
-"notifications.title" = "通知";
-/* Shown when the inbox has no notifications yet */
-"notifications.empty" = "まだ通知がありません";
-/* Left nav bar button in the inbox; marks every notification as read */
-"notifications.markAllRead" = "すべて既読にする";
-/* Banner shown when system notifications are off */
-"notifications.permissionBanner.message" = "システム通知がオフになっているため、アラートはアプリ外に到達しない可能性があります。";
-"notifications.permissionBanner.enable" = "通知を有効にする";
-/* Detail screen action opening the notification's link */
-"notifications.detail.openLink" = "開く";
-
 /* ===== Sign-in (OAuth device code) screen ===== */
 
 "auth.title" = "YouTube にログイン";
@@ -464,7 +379,6 @@
 "common.delete" = "削除";
 /* Toast shown after a value is copied */
 "common.copied" = "コピーしました";
-"common.edit" = "編集";
 "player.menu.queue" = "キュー";
 "player.queue.shuffle" = "シャッフル";
 "player.queue.repeat" = "リピート";
@@ -495,7 +409,6 @@
 "player.status.switchingToSABR" = "SABR に切り替えています...";
 "player.status.switchingToRanges" = "直接ストリームに切り替えています...";
 "player.status.openingSABR" = "SABR セッションを開いています...";
-"player.status.solving" = "署名を解読しています...";
 "settings.section.downloads" = "ダウンロード";
 "settings.footer.downloads" = "動画と一緒に保存される内容です。コメントと字幕はダウンロードした時点のまま保存されます。";
 "settings.row.downloadQuality" = "品質";
@@ -529,9 +442,8 @@
 "downloads.error.failed" = "動画をダウンロードできませんでした";
 "downloads.error.noOptions" = "この動画はダウンロードできません";
 "player.related.downloaded" = "他のダウンロード済み動画";
-"settings.footer.debug" = "動画をどの方法で再生するか、どの順で試すかを選びます。ソルバーサーバーは TV クライアントのストリームに含まれる速度制限チャレンジに応答し、そのトークンも発行します。";
+"settings.footer.debug" = "動画をどの方法で再生するか、どの順で試すかを選びます。";
 "settings.row.playbackChain" = "再生ソース";
-"settings.playbackChain.signInNeeded" = "このソースを使うにはログインしてください";
 "settings.playbackChain.footer" = "上から順に試して、再生できたものが使われます。ドラッグで並べ替え、不要なものはオフにしてください。";
 "settings.row.resetIdentity" = "visitor identity をリセット";
 "library.downloads.empty" = "ダウンロードした動画がここに表示されます";

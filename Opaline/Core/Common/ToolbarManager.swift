@@ -6,7 +6,7 @@ import UIKit
 private var resizedNavBarIconCache: [String: UIImage] = [:]
 
 /// Nav-bar icons are PNG assets drawn at their point size and tinted by the
-/// bar; shared with `NotificationsBellButton`.
+/// bar.
 func resizedNavBarIcon(_ name: String, size: CGFloat) -> UIImage? {
     let key = "\(name)@\(size)"
     if let cached = resizedNavBarIconCache[key] {
@@ -58,10 +58,6 @@ final class ToolbarManager {
         )
 
         vc.navigationItem.rightBarButtonItems = [profileBtn, settingsBtn, searchBtn]
-        vc.navigationItem.leftBarButtonItem = makeBellButton(
-            target: vc,
-            action: #selector(UIViewController.toolbarOpenNotifications)
-        )
         NotificationCenter.default.addObserver(
             vc,
             selector: #selector(UIViewController.toolbarRefreshProfileButton),
@@ -78,14 +74,6 @@ final class ToolbarManager {
         button.addTapFeedback()
         return UIBarButtonItem(customView: button)
     }
-
-    private func makeBellButton(target: AnyObject, action: Selector) -> UIBarButtonItem {
-        let button = NotificationsBellButton()
-        button.accessibilityLabel = "notifications.title".localized
-        button.addTarget(target, action: action, for: .touchUpInside)
-        button.addTapFeedback()
-        return UIBarButtonItem(customView: button)
-    }
 }
 
 // MARK: - UIViewController extension for toolbar actions
@@ -93,8 +81,8 @@ final class ToolbarManager {
 extension UIViewController {
     @objc
     func toolbarOpenSearch() {
-        // System bar items expose no view to animate, so these three get the
-        // haptic only; the custom bell/avatar buttons pop as well.
+        // System bar items expose no view to animate, so these get the
+        // haptic only; the custom avatar button pops as well.
         Feedback.tap()
         let searchVC = ToolbarManager.shared.searchViewControllerFactory?()
         guard let searchVC else {
@@ -102,11 +90,6 @@ extension UIViewController {
             return
         }
         navigationController?.pushViewController(searchVC, animated: true)
-    }
-
-    @objc
-    func toolbarOpenNotifications() {
-        NotificationsViewController.present(from: self)
     }
 
     @objc

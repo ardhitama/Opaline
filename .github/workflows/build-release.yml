@@ -48,27 +48,6 @@ jobs:
       - name: Configure local build settings
         run: |
           cp Config/Local.xcconfig.example Config/Local.xcconfig
-          # Point the update-notification check at this repository's own
-          # feed, so a fork ships with its own without editing anything.
-          # `//` starts a comment in xcconfig — hence the `$()` splits.
-          sed -i '' '/^APP_MANIFEST_URL/d' Config/Local.xcconfig
-          if [ "${GITHUB_REPOSITORY%%/*}" = "verback2308" ]; then
-            # Upstream polls its own domain: the URL is baked into every
-            # shipped binary and can never be changed afterwards, so it must
-            # survive a repo rename or a move off GitHub. Matched on the owner,
-            # not the full name, so it keeps holding after a rename.
-            #
-            # Builds up to 1.7.x carry a custom domain that is now retired --
-            # they keep polling a host that stops answering and can never be
-            # told otherwise. That break is one-off; it must not happen twice,
-            # so this URL is now frozen, and with it the name of the repository
-            # it points into.
-            printf 'APP_MANIFEST_URL = https:/$()/verback2308.github.io/repo/apps.json\n' \
-              >> Config/Local.xcconfig
-          else
-            printf 'APP_MANIFEST_URL = https:/$()/raw.githubusercontent.com/%s/main/source/apps.json\n' \
-              "$GITHUB_REPOSITORY" >> Config/Local.xcconfig
-          fi
           cat Config/Local.xcconfig
 
       - name: Compute release version

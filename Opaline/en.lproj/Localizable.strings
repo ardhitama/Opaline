@@ -48,7 +48,6 @@
 "player.status.switchingToSABR" = "Switching to SABR...";
 "player.status.switchingToRanges" = "Switching to direct streams...";
 "player.status.openingSABR" = "Opening SABR session...";
-"player.status.solving" = "Solving signatures...";
 /* Status label while a bot check is being retried with a fresh session */
 "player.status.botCheckRetry" = "Bot check — renewing session, retrying...";
 /* Shown when a video cannot be played at all */
@@ -71,12 +70,8 @@
 "common.close" = "Close";
 /* Generic confirmation button */
 "common.ok" = "OK";
-/* Generic save action */
-"common.save" = "Save";
 /* Generic done action */
 "common.done" = "Done";
-/* Generic edit action, e.g. entering multi-select editing mode */
-"common.edit" = "Edit";
 /* Generic delete action */
 "common.delete" = "Delete";
 /* Toast shown after a value is copied */
@@ -244,45 +239,6 @@
 /* Accumulated seek offset shown while tapping ±10s repeatedly; %1$@ = signed seconds, e.g. "-90" */
 "player.seek.offset" = "%1$@ s";
 
-/* ===== SponsorBlock ===== */
-
-/* Skip button; %1$@ = localized category name, e.g. "Skip Sponsor" */
-"sponsorblock.skip" = "Skip %1$@";
-
-/* Skip-behavior options (per-category setting) */
-"sponsorblock.behavior.autoSkip" = "Auto skip";
-"sponsorblock.behavior.showButton" = "Show button";
-"sponsorblock.behavior.disabled" = "Disable";
-
-/* Footer under the SponsorBlock section (project attribution) */
-"sponsorblock.attribution" = "Powered by SponsorBlock (sponsor.ajay.app) — an open community project.";
-/* Header above the per-category skip settings */
-"sponsorblock.segmentCategories" = "Segment Categories";
-
-/* Category names (SponsorBlock project terms) and their descriptions */
-"sponsorblock.category.sponsor.name" = "Sponsor";
-"sponsorblock.category.sponsor.description" = "Paid promotion, paid referrals and direct advertisements. Not for self-promotion or free shoutouts to causes/creators/websites/products they like.";
-"sponsorblock.category.selfpromo.name" = "Unpaid/Self Promotion";
-"sponsorblock.category.selfpromo.description" = "Similar to \"sponsor\" except for unpaid or self promotion. This includes sections about merchandise, donations, or information about who they collaborated with.";
-"sponsorblock.category.exclusive_access.name" = "Exclusive Access";
-"sponsorblock.category.exclusive_access.description" = "Only for labeling entire videos. Used when a video showcases a product, service or location that they've received free or subsidized access to.";
-"sponsorblock.category.interaction.name" = "Interaction Reminder (Subscribe)";
-"sponsorblock.category.interaction.description" = "When there is a short reminder to like, subscribe or follow in the middle of content. If it is long or about something specific, it should be under self promotion instead.";
-"sponsorblock.category.highlight.name" = "Highlight";
-"sponsorblock.category.highlight.description" = "The part of the video that most people are looking for. Similar to \"Video starts at x\" comments.";
-"sponsorblock.category.intro.name" = "Intermission/Intro Animation";
-"sponsorblock.category.intro.description" = "An interval without actual content. Could be a pause, static frame, or repeating animation. This should not be used for transitions containing information.";
-"sponsorblock.category.outro.name" = "Endcards/Credits";
-"sponsorblock.category.outro.description" = "Credits or when the YouTube endcards appear. Not for conclusions with information.";
-"sponsorblock.category.preview.name" = "Preview/Recap";
-"sponsorblock.category.preview.description" = "Collection of clips that show what is coming up in this video or other videos in a series where all information is repeated later in the video.";
-"sponsorblock.category.filler.name" = "Tangents/Jokes";
-"sponsorblock.category.filler.description" = "Tangential scenes or jokes that are not required to understand the main content of the video. This should not include segments providing context or background details.";
-"sponsorblock.category.music_offtopic.name" = "Non-Music Section";
-"sponsorblock.category.music_offtopic.description" = "Only for music videos. Non-music part of a music video.";
-"sponsorblock.category.chapter.name" = "Chapter";
-"sponsorblock.category.chapter.description" = "Custom named sections of the video.";
-
 /* ===== Settings ===== */
 
 /* Settings sheet title */
@@ -295,16 +251,13 @@
 "settings.section.autoDub" = "Dubbing";
 "settings.section.home" = "Home";
 "settings.section.cache" = "Cache";
-"settings.section.ryd" = "Return YouTube Dislike";
-"settings.section.sponsorblock" = "SponsorBlock";
 "settings.section.debug" = "Debug";
 
 /* Section footers */
 "settings.footer.playback" = "Zoom to Fill automatically scales the video in fullscreen so no black bars remain. Pinch in the player overrides it per video.\n\nAutoplay plays the next suggested video after a 5s countdown. The Mix toggle applies the same instantly to mix/playlist queues.";
 "settings.footer.autoDub" = "When a video's original language differs from the dub language, the matching audio track is selected automatically.";
 "settings.footer.home" = "How recommendation shelves are shown: one continuous grid or TV-style horizontal rails.";
-"settings.footer.ryd" = "Dislike counts are powered by Return YouTube Dislike (returnyoutubedislike.com) — an open community project.";
-"settings.footer.debug" = "Choose which ways of playing a video are used, and the order they are tried in. The solver server answers the throttling challenge the TV client's streams carry (and mints its token).";
+"settings.footer.debug" = "Choose which ways of playing a video are used, and the order they are tried in.";
 
 /* Theme rows; segment labels for dark/light/auto modes */
 "settings.row.appIcon" = "App Icon";
@@ -345,10 +298,6 @@
 "settings.homeLayout.grid" = "Plain Grid";
 "settings.homeLayout.rails" = "Shelf Rails";
 
-/* Notifications section */
-"settings.section.notifications" = "Notifications";
-"settings.row.notifications" = "Notifications";
-
 /* Cache rows */
 "settings.row.feedCache" = "Feed Cache";
 "settings.row.feedCacheDuration" = "Feed Cache Duration";
@@ -359,21 +308,12 @@
 "settings.cache.clearedTitle" = "Cache Cleared";
 "settings.cache.clearedMessage" = "All cache has been cleared.";
 
-/* Integration rows */
-"settings.row.ryd" = "Return YouTube Dislike";
-"settings.row.sponsorblock" = "SponsorBlock";
-"settings.row.sponsorblockSettings" = "SponsorBlock Settings";
-
 /* Debug rows (values stay technical/English) */
 "settings.row.playbackChain" = "Playback sources";
-"settings.playbackChain.signInNeeded" = "Sign in to use this source";
 "settings.playbackChain.footer" = "Tried from top to bottom until one plays. Drag to reorder, switch off what you do not want.";
 "settings.row.resetIdentity" = "Reset visitor identity";
-"settings.row.solverServer" = "Solver Server";
 "settings.row.mainThreadWatchdog" = "Main Thread Watchdog";
 "settings.row.shareLog" = "Share Debug Log";
-"settings.row.support" = "Support Development";
-"settings.row.feedback" = "Send feedback";
 
 /* About section: values an issue report asks for, copied on tap */
 "settings.section.about" = "About";
@@ -381,11 +321,6 @@
 "settings.about.version" = "Version";
 "settings.about.system" = "System";
 "settings.about.model" = "Model";
-/* Solver-server URL alert */
-"settings.solver.message" = "URL of the solver server.";
-"settings.solver.reset" = "Reset to default";
-/* Suffix shown after the solver URL when it is the built-in default */
-"settings.solver.defaultSuffix" = " (default)";
 /* Alert when no debug logs exist yet */
 "settings.log.noneTitle" = "No Logs";
 "settings.log.noneMessage" = "No debug logs available yet.";
@@ -393,9 +328,6 @@
 /* ===== Profile ===== */
 
 "profile.title" = "Profile";
-"profile.signOut" = "Sign Out";
-"profile.clearImageCache" = "Clear Image Cache";
-"profile.imageCacheCleared" = "Image cache cleared.";
 
 /* ===== Search ===== */
 
@@ -542,27 +474,6 @@
 /* Alert after changing a language setting */
 "settings.language.restartTitle" = "Restart Required";
 "settings.language.restartMessage" = "Changes apply fully after restarting the app.";
-
-/* ===== Notifications ===== */
-
-/* Inbox item + system notification title when a newer app version is available; %@ = version */
-"notifications.update.title" = "Update available: %@";
-
-/* Bell button inbox, presented as a sheet */
-"notifications.title" = "Notifications";
-/* Shown when the inbox has no notifications yet */
-"notifications.empty" = "No notifications yet";
-/* Left nav bar button in the inbox; marks every notification as read */
-"notifications.markAllRead" = "Mark All Read";
-/* Banner shown when system notifications are off */
-"notifications.permissionBanner.message" = "System notifications are off, so alerts may not reach you outside the app.";
-"notifications.permissionBanner.enable" = "Enable Notifications";
-/* Detail screen action opening the notification's link */
-"notifications.detail.openLink" = "Open";
-
-/* Notification settings screen (pushed from Settings > Home) */
-"settings.row.appUpdates" = "App Updates";
-"settings.footer.notifications" = "Delivery may be delayed — iOS schedules background checks and does not run them immediately.";
 
 /* ===== Sign-in (OAuth device code) screen ===== */
 

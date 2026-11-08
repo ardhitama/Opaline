@@ -34,7 +34,6 @@
 "player.status.switchingToSABR" = "Переход на SABR...";
 "player.status.switchingToRanges" = "Переход на прямые потоки...";
 "player.status.openingSABR" = "Открытие сессии SABR...";
-"player.status.solving" = "Расшифровка подписей...";
 "player.status.botCheckRetry" = "Проверка на бота — обновляю сессию, пробую снова...";
 "player.error.playback" = "Не удалось воспроизвести видео.";
 "player.error.botCheck" = "YouTube требует подтвердить, что вы не бот. Повторите попытку через минуту.";
@@ -47,9 +46,7 @@
 "common.subscribed" = "Вы подписаны";
 "common.cancel" = "Отмена";
 "common.ok" = "ОК";
-"common.save" = "Сохранить";
 "common.done" = "Готово";
-"common.edit" = "Изменить";
 "common.delete" = "Удалить";
 /* Toast shown after a value is copied */
 "common.copied" = "Скопировано";
@@ -159,40 +156,6 @@
 /* Accumulated seek offset shown while tapping ±10s repeatedly; %1$@ = signed seconds, e.g. "-90" */
 "player.seek.offset" = "%1$@ с";
 
-/* ===== SponsorBlock ===== */
-
-"sponsorblock.skip" = "Пропустить: %1$@";
-
-"sponsorblock.behavior.autoSkip" = "Автопропуск";
-"sponsorblock.behavior.showButton" = "Показывать кнопку";
-"sponsorblock.behavior.disabled" = "Отключить";
-
-"sponsorblock.attribution" = "Работает на основе SponsorBlock (sponsor.ajay.app) — открытого проекта сообщества.";
-"sponsorblock.segmentCategories" = "Категории сегментов";
-
-"sponsorblock.category.sponsor.name" = "Спонсор";
-"sponsorblock.category.sponsor.description" = "Платное продвижение, платные рефералы и прямая реклама. Не для саморекламы и бесплатных упоминаний понравившихся авторов, сайтов или продуктов.";
-"sponsorblock.category.selfpromo.name" = "Бесплатная/самореклама";
-"sponsorblock.category.selfpromo.description" = "Как «Спонсор», но для бесплатного продвижения или саморекламы: мерч, донаты, информация о коллаборациях.";
-"sponsorblock.category.exclusive_access.name" = "Эксклюзивный доступ";
-"sponsorblock.category.exclusive_access.description" = "Только для пометки целых видео. Когда в видео показан продукт, услуга или место, доступ к которым автор получил бесплатно или со скидкой.";
-"sponsorblock.category.interaction.name" = "Напоминание о взаимодействии";
-"sponsorblock.category.interaction.description" = "Короткое напоминание поставить лайк, подписаться или подписаться на соцсети посреди контента. Если оно длинное или о чём-то конкретном — это самореклама.";
-"sponsorblock.category.highlight.name" = "Основной момент";
-"sponsorblock.category.highlight.description" = "Часть видео, ради которой большинство его открывает. Аналог комментариев «видео начинается с X».";
-"sponsorblock.category.intro.name" = "Заставка/интро";
-"sponsorblock.category.intro.description" = "Интервал без содержания: пауза, статичный кадр, повторяющаяся анимация. Не для переходов с информацией.";
-"sponsorblock.category.outro.name" = "Титры/концовка";
-"sponsorblock.category.outro.description" = "Титры или конечные заставки YouTube. Не для выводов с информацией.";
-"sponsorblock.category.preview.name" = "Превью/повтор";
-"sponsorblock.category.preview.description" = "Нарезка кадров о том, что будет дальше в этом или других видео серии, если вся информация повторяется позже.";
-"sponsorblock.category.filler.name" = "Отступления/шутки";
-"sponsorblock.category.filler.description" = "Отступления и шутки, не нужные для понимания основного содержания. Не включает сегменты с контекстом или деталями.";
-"sponsorblock.category.music_offtopic.name" = "Немузыкальная часть";
-"sponsorblock.category.music_offtopic.description" = "Только для клипов. Немузыкальная часть музыкального видео.";
-"sponsorblock.category.chapter.name" = "Глава";
-"sponsorblock.category.chapter.description" = "Именованные разделы видео.";
-
 /* ===== Settings ===== */
 
 "settings.title" = "Настройки";
@@ -203,15 +166,12 @@
 "settings.section.autoDub" = "Дубляж";
 "settings.section.home" = "Главная";
 "settings.section.cache" = "Кэш";
-"settings.section.ryd" = "Return YouTube Dislike";
-"settings.section.sponsorblock" = "SponsorBlock";
 "settings.section.debug" = "Отладка";
 
 "settings.footer.playback" = "«Заполнять экран» автоматически масштабирует видео в полноэкранном режиме, убирая чёрные полосы. Жест щипка в плеере переопределяет это для конкретного видео.\n\n«Автовоспроизведение» запускает следующее рекомендованное видео после 5-секундного отсчёта. Переключатель «Джем» применяет то же самое мгновенно к очереди джема или плейлиста.";
 "settings.footer.autoDub" = "Если язык оригинала видео отличается от языка дубляжа, подходящая аудиодорожка включается автоматически.";
 "settings.footer.home" = "Как показывать полки рекомендаций: единая сетка или горизонтальные ленты в стиле ТВ.";
-"settings.footer.ryd" = "Счётчики дизлайков работают через Return YouTube Dislike (returnyoutubedislike.com) — открытый проект сообщества.";
-"settings.footer.debug" = "Выберите, какими способами воспроизводить видео и в каком порядке их пробовать. Сервер-решатель отвечает на проверку троттлинга в потоках ТВ-клиента (и выпускает его токен).";
+"settings.footer.debug" = "Выберите, какими способами воспроизводить видео и в каком порядке их пробовать.";
 
 "settings.row.appIcon" = "Значок приложения";
 "settings.theme.dark" = "Тёмная";
@@ -247,9 +207,6 @@
 "settings.homeLayout.grid" = "Простая сетка";
 "settings.homeLayout.rails" = "Горизонтальные ленты";
 
-"settings.section.notifications" = "Уведомления";
-"settings.row.notifications" = "Уведомления";
-
 "settings.row.feedCache" = "Кэш ленты";
 "settings.row.feedCacheDuration" = "Срок кэша ленты";
 "settings.row.imageCache" = "Кэш изображений";
@@ -258,15 +215,8 @@
 "settings.cache.clearedTitle" = "Кэш очищен";
 "settings.cache.clearedMessage" = "Весь кэш был очищен.";
 
-"settings.row.ryd" = "Return YouTube Dislike";
-"settings.row.sponsorblock" = "SponsorBlock";
-"settings.row.sponsorblockSettings" = "Настройки SponsorBlock";
-
 "settings.row.resetIdentity" = "Сбросить visitor identity";
-"settings.row.solverServer" = "Solver server";
 "settings.row.shareLog" = "Поделиться логом отладки";
-"settings.row.support" = "Поддержать разработку";
-"settings.row.feedback" = "Отправить отзыв";
 
 /* About section: values an issue report asks for, copied on tap */
 "settings.section.about" = "О приложении";
@@ -274,18 +224,12 @@
 "settings.about.version" = "Версия";
 "settings.about.system" = "Система";
 "settings.about.model" = "Модель";
-"settings.solver.message" = "Адрес solver server.";
-"settings.solver.reset" = "Сбросить по умолчанию";
-"settings.solver.defaultSuffix" = " (по умолчанию)";
 "settings.log.noneTitle" = "Нет логов";
 "settings.log.noneMessage" = "Логи отладки пока отсутствуют.";
 
 /* ===== Profile ===== */
 
 "profile.title" = "Профиль";
-"profile.signOut" = "Выйти";
-"profile.clearImageCache" = "Очистить кэш изображений";
-"profile.imageCacheCleared" = "Кэш изображений очищен.";
 
 /* ===== Search ===== */
 
@@ -406,20 +350,6 @@
 "settings.language.restartTitle" = "Требуется перезапуск";
 "settings.language.restartMessage" = "Изменения полностью вступят в силу после перезапуска приложения.";
 
-"settings.row.appUpdates" = "Обновления приложения";
-"settings.footer.notifications" = "Доставка может быть отложена — iOS планирует фоновые проверки и не выполняет их немедленно.";
-
-/* ===== Notifications ===== */
-
-"notifications.update.title" = "Доступно обновление: %@";
-
-"notifications.title" = "Уведомления";
-"notifications.empty" = "Уведомлений нет";
-"notifications.markAllRead" = "Отметить всё как прочитанное";
-"notifications.permissionBanner.message" = "Системные уведомления отключены, поэтому оповещения могут не поступить вне приложения.";
-"notifications.permissionBanner.enable" = "Включить уведомления";
-"notifications.detail.openLink" = "Открыть";
-
 /* ===== Sign-in (OAuth device code) screen ===== */
 
 "auth.title" = "Вход в YouTube";
@@ -447,7 +377,6 @@
 "settings.thumbnailQuality.maximum" = "Максимальное (1280×720)";
 "settings.footer.thumbnailQuality" = "В режиме «Авто» уровень выбирается по объёму памяти устройства. Чем выше качество, тем больше загрузка и расход памяти на каждую обложку — на устройствах с малым объёмом ОЗУ это может замедлять прокрутку.";
 "settings.row.playbackChain" = "Источники воспроизведения";
-"settings.playbackChain.signInNeeded" = "Войдите, чтобы использовать этот источник";
 "settings.playbackChain.footer" = "Перебираются сверху вниз, пока один не заиграет. Перетащите, чтобы изменить порядок, ненужные выключите.";
 "player.error.noSources" = "Все источники воспроизведения выключены. Включите хотя бы один в «Настройки → Отладка → Источники воспроизведения».";
 

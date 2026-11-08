@@ -57,15 +57,12 @@ When Google dropped support for the official YouTube app on older devices, there
 - **Background audio** — continue listening with the screen off
 - **Media controls** — play/pause and next/previous video from Control Center, the lock screen and headphones
 - **Picture-in-Picture** — watch while using other apps
-- **SponsorBlock** — skip sponsored segments automatically
-- **Return YouTube Dislike** — see dislike counts again
 - **Audio tracks** — switch dubbed audio on multi-language videos, or start videos dubbed in your language automatically; AI auto-dubs are marked "(AI)"
 - **Subtitles** — full subtitle/caption support with VTT parsing
 - **13 languages** — localized interface, with video titles/search/feeds following your language (see [Localization](#localization))
-- **Search & browse** — live suggestions, recent-search history, filters (sort, upload date, type, duration), channel pages, playlists
+- **Search & browse** — recent-search history that filters as you type (nothing leaves the device before you search), filters (sort, upload date, type, duration), channel pages, playlists
 - **Smart home feed** — endless recommendations with category chips read from your feed's shelves
 - **Subscriptions** — follow channels with a local subscription feed
-- **Notifications** — a bell in the top bar collects app news and new-version announcements, with the full release notes in the message; system notifications are optional and everything still collects in-app if you decline
 - **Watch history** — progress indicators, synced across devices; a video resumes where you left it the moment you reopen it, without waiting for the server to catch up
 - **Autoplay** — automatically play the next related video, with replay, previous and next offered when one ends
 - **Auto theme** — follows system dark mode on iOS 13+, scheduled hours on iOS 12; manual override available
@@ -161,7 +158,6 @@ Install the `.ipa` package directly:
 
 - Playback speeds above 2x may cause issues
 - Comments are read-only — you can browse and sort them and open replies, but not post, reply or like
-- Notification delivery is scheduled by iOS, which grants background time at its own discretion — expect news to arrive within hours of publication, not minutes, and not at all while Background App Refresh or Low Power Mode says otherwise
 - **Picture in Picture is limited by the system before iOS 15**, and no app can work around it: the window survives exactly one video, and switching to another one closes it and leaves audio playing — [the full findings are in issue #31](https://github.com/verback2308/Opaline/issues/31#issuecomment-5148224679)
   - Before iOS 14.2 the system only starts PiP by itself from **fullscreen**. Leaving the app while the video plays inline gives background audio instead — the PiP button works in both cases
   - Before iOS 15 background audio requires the player to give up its video layer, and the system then refuses to open PiP for that video at all. So once a video has played in the background, automatic PiP no longer starts for it — the PiP button still does, and the next video starts clean
@@ -187,15 +183,9 @@ The interface follows your system language by default and can be overridden in *
 
 </details>
 
-## Playback Helper Server
+## Network
 
-Signed-in playback relies on a small companion service, and so does the Mobile Web source it falls back to. Preparing these streams requires evaluating JavaScript from YouTube's public player page — something iOS 12-era devices can't do on-device. The app delegates that single step to the helper server and receives the computed result back.
-
-Since 14 August this covers more than it used to. Dubbed audio and videos made for kids are prepared this way, so if the service is unreachable, dubs quietly fall back to the original audio and kids videos won't play until it's back.
-
-**What it sees:** no account data, no tokens, no cookies, no watch history — only the challenge strings taken from the public player code and the ID of the video being prepared. If you're inspecting traffic and wondering about requests to a non-YouTube host — that's this.
-
-The server's source code will be published later so you can host your own instance and point the app at it (**Settings → Debug → Solver Server**).
+Opaline talks only to YouTube and Google: the Innertube API, YouTube's stream and image hosts, and the OAuth sign-in endpoints. There is no analytics, no crash reporting, no update check and no third-party service. Search suggestions come from your own search history on the device.
 
 ## Bug Reports
 
@@ -218,10 +208,6 @@ open Opaline.xcodeproj
 ```
 
 Edit `Config/Local.xcconfig` and set your own `PRODUCT_BUNDLE_IDENTIFIER`.
-`APP_MANIFEST_URL` in the same file points the update check at a release
-manifest — leave the default to follow this repository, or aim it at a file
-served from your own machine to test notifications. Release builds get the
-URL of whatever repository they are built from, written in by the workflow.
 
 Select the **Opaline** scheme, choose your device or simulator, and build (⌘B).
 
@@ -236,15 +222,14 @@ Opaline/
 │   ├── Config/       URLs, UserDefaults keys, constants
 │   ├── Transport/    HTTP abstraction + decorators
 │   ├── Playback/     VideoSource contracts, sources, HLS machinery
-│   ├── Services/     Caching, SponsorBlock, RYD, subtitles, watchtime
+│   ├── Services/     Caching, downloads, subtitles, watchtime
 │   └── Common/       Shared UI components & utilities
 └── Features/         One vertical slice per feature
     ├── Channel/      Channel page with tabs
     ├── Home/         Home feed
     ├── Library/      Playlists & saved videos
     ├── Player/       Video player & watch page
-    ├── Profile/      User profile
-    ├── Search/       Search with suggestions
+    ├── Search/       Search with local history
     └── Subscriptions/ Subscription feed
 ```
 
@@ -258,12 +243,11 @@ Opaline/
 
 ### Playback Pipeline
 
-Playback is built on a single `VideoSource` abstraction — each way of playing a video implements the same interface and owns both stream resolution and quality selection. `PlaybackFacade` just asks a factory for the configured source, calls `loadPlayback`, and hands the prepared `AVPlayerItem` to the player shell. The sources:
+Playback is built on a single `VideoSource` abstraction — each way of playing a video implements the same interface and owns both stream resolution and quality selection. `PlaybackFacade` just asks a factory for the configured source, calls `loadPlayback`, and hands the prepared `AVPlayerItem` to the player shell. Settings → Debug → Playback sources orders the sources, and they are tried top to bottom until one plays:
 
-1. **Auto** *(default)* — Composite: tries Android VR first, transparently falls back to Mobile Web when a video fails to resolve or start.
-2. **Android VR** — Streams via YouTube's Innertube API; adaptive formats (360p–1080p AVC, up to 4K AV1 on supported hardware) are converted from DASH SIDX byte ranges into an HLS playlist for native `AVPlayer`, with progressive/native-HLS fallbacks.
-3. **Mobile Web** — Handles videos the Android VR client refuses (e.g. kids content). Stream URLs require solving JavaScript challenges from the player page; that step is delegated to the helper server (see above), everything else stays on-device.
-4. **Progressive** — Direct 360p MP4 URL for the restricted case (e.g. server-side A/B experiments).
+1. **visionOS · byte ranges** — adaptive formats (360p–1080p AVC, up to 4K AV1 on supported hardware) are converted from DASH SIDX byte ranges into an HLS playlist for native `AVPlayer`.
+2. **visionOS · SABR** — the same client over YouTube's server-driven streaming protocol, for videos the byte-range path refuses.
+3. **Progressive 360p** — a direct MP4 URL for the restricted case.
 
 Quality selection is source-agnostic: the player UI simply renders whatever qualities the active source reports. Background audio is `AVAudioSession`-based and works across all sources.
 
@@ -280,7 +264,6 @@ OAuth device-code flow: the app requests a device code → user enters it at goo
 | `VideoPlayerView` | Custom player UI with controls, gestures, PiP |
 | `WatchViewController` | Watch page: player + metadata + comments + related |
 | `AppCache` | Dual-layer cache (memory + disk) with TTL |
-| `SponsorBlockController` | SponsorBlock API integration |
 | `ThemeManager` | App-wide theming (dark/light) |
 
 ## Contributing
@@ -295,16 +278,8 @@ Please follow the existing code style. SwiftLint is configured and runs as a bui
 
 </details>
 
-## Support
-
-If Opaline keeps your old device alive, you can support development:
-
-<a href="https://buymeacoffee.com/verback2308" target="_blank" rel="noopener noreferrer"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy me a coffee" height="45"></a>
-
 ## Credits
 
-- [SponsorBlock](https://github.com/ajayyy/SponsorBlock) — crowdsourced API for skipping sponsored segments
-- [Return YouTube Dislike](https://github.com/Anarios/return-youtube-dislike) — community-maintained dislike count data
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp) — invaluable reference for understanding YouTube's playback infrastructure
 - [YouTubeLegacy](https://github.com/PoomSmart/YouTubeLegacy) — inspiration for keeping YouTube alive on older devices
 

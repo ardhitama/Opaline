@@ -55,8 +55,6 @@
 "common.cancel" = "取消";
 /* Generic confirmation button */
 "common.ok" = "好";
-/* Generic save action */
-"common.save" = "儲存";
 /* Generic done action */
 "common.done" = "完成";
 /* Fallback title/label of a playlist tile */
@@ -147,45 +145,6 @@
 /* Accumulated seek offset shown while tapping ±10s repeatedly; %1$@ = signed seconds, e.g. "-90" */
 "player.seek.offset" = "%1$@ 秒";
 
-/* ===== SponsorBlock ===== */
-
-/* Skip button; %1$@ = localized category name, e.g. "Skip Sponsor" */
-"sponsorblock.skip" = "略過%1$@";
-
-/* Skip-behavior options (per-category setting) */
-"sponsorblock.behavior.autoSkip" = "自動略過";
-"sponsorblock.behavior.showButton" = "顯示按鈕";
-"sponsorblock.behavior.disabled" = "停用";
-
-/* Footer under the SponsorBlock section (project attribution) */
-"sponsorblock.attribution" = "Powered by SponsorBlock (sponsor.ajay.app) — an open community project.";
-/* Header above the per-category skip settings */
-"sponsorblock.segmentCategories" = "片段分類";
-
-/* Category names (SponsorBlock project terms) and their descriptions */
-"sponsorblock.category.sponsor.name" = "贊助";
-"sponsorblock.category.sponsor.description" = "付費推廣、付費推薦及直接廣告。不適用於自我推廣或對創作者/網站/產品的免費推薦。";
-"sponsorblock.category.selfpromo.name" = "免費/自我推廣";
-"sponsorblock.category.selfpromo.description" = "與「贊助」類似，但為免費或自我推廣。包括關於商品、捐款或合作方的資訊。";
-"sponsorblock.category.exclusive_access.name" = "獨家存取";
-"sponsorblock.category.exclusive_access.description" = "僅用於標記整段影片。當影片展示免費或補助的產品、服務或地點時使用。";
-"sponsorblock.category.interaction.name" = "互動提醒（訂閱）";
-"sponsorblock.category.interaction.description" = "在內容中間簡短提醒按讚、訂閱或追蹤。如果較長或涉及特定內容，應歸入自我推廣。";
-"sponsorblock.category.highlight.name" = "精彩片段";
-"sponsorblock.category.highlight.description" = "大多數人在找的影片部分。類似於「x處開始」的留言。";
-"sponsorblock.category.intro.name" = "片頭動畫";
-"sponsorblock.category.intro.description" = "沒有實際內容的間隔。可能是停頓、靜止畫面或重複動畫。不應用於包含資訊的轉場。";
-"sponsorblock.category.outro.name" = "片尾畫面/鳴謝";
-"sponsorblock.category.outro.description" = "鳴謝或YouTube片尾畫面出現的部分。不適用於包含資訊的總結。";
-"sponsorblock.category.preview.name" = "預覽/回顧";
-"sponsorblock.category.preview.description" = "展示本影片或系列中其他影片即將出現內容的片段集。所有資訊稍後會在影片中重複。";
-"sponsorblock.category.filler.name" = "閒聊/笑話";
-"sponsorblock.category.filler.description" = "理解影片主要內容所不需要的閒聊或笑話。不應用於提供背景或上下文資訊的片段。";
-"sponsorblock.category.music_offtopic.name" = "非音樂部分";
-"sponsorblock.category.music_offtopic.description" = "僅適用於音樂影片。音樂影片中的非音樂部分。";
-"sponsorblock.category.chapter.name" = "章節";
-"sponsorblock.category.chapter.description" = "影片的自訂命名部分。";
-
 /* ===== Settings ===== */
 
 /* Settings sheet title */
@@ -198,15 +157,12 @@
 "settings.section.autoDub" = "配音";
 "settings.section.home" = "首頁";
 "settings.section.cache" = "快取";
-"settings.section.ryd" = "Return YouTube Dislike";
-"settings.section.sponsorblock" = "SponsorBlock";
 "settings.section.debug" = "除錯";
 
 /* Section footers */
 "settings.footer.playback" = "縮放以填充會自動縮放全螢幕影片以消除黑邊。在播放器中縮放可按影片覆蓋。\n\n自動播放會在5秒倒數後播放下一個推薦影片。混音開關會立即將相同行為套用至混音/播放清單佇列。";
 "settings.footer.autoDub" = "當影片的原始語言與配音語言不同時，會自動選擇對應的音軌。";
 "settings.footer.home" = "推薦欄顯示方式：連續格線或電視風格水平軌道。";
-"settings.footer.ryd" = "不喜歡次數由 Return YouTube Dislike (returnyoutubedislike.com) 提供 — 開放社群專案。";
 
 /* Theme rows; segment labels for dark/light/auto modes */
 "settings.row.appIcon" = "應用程式圖示";
@@ -242,10 +198,6 @@
 "settings.homeLayout.grid" = "格線";
 "settings.homeLayout.rails" = "橫向軌道";
 
-/* Notifications section */
-"settings.section.notifications" = "通知";
-"settings.row.notifications" = "通知";
-
 /* Cache rows */
 "settings.row.feedCache" = "動態快取";
 "settings.row.feedCacheDuration" = "動態快取時長";
@@ -256,16 +208,8 @@
 "settings.cache.clearedTitle" = "快取已清除";
 "settings.cache.clearedMessage" = "所有快取已清除。";
 
-/* Integration rows */
-"settings.row.ryd" = "Return YouTube Dislike";
-"settings.row.sponsorblock" = "SponsorBlock";
-"settings.row.sponsorblockSettings" = "SponsorBlock 設定";
-
 /* Debug rows (values stay technical/English) */
-"settings.row.solverServer" = "Solver server";
 "settings.row.shareLog" = "分享除錯記錄";
-"settings.row.support" = "支持開發";
-"settings.row.feedback" = "提供意見回饋";
 
 /* About section: values an issue report asks for, copied on tap */
 "settings.section.about" = "關於";
@@ -273,11 +217,6 @@
 "settings.about.version" = "版本";
 "settings.about.system" = "系統";
 "settings.about.model" = "機型";
-/* Solver-server URL alert */
-"settings.solver.message" = "解算器伺服器的 URL。";
-"settings.solver.reset" = "重設為預設值";
-/* Suffix shown after the solver URL when it is the built-in default */
-"settings.solver.defaultSuffix" = "（預設）";
 /* Alert when no debug logs exist yet */
 "settings.log.noneTitle" = "無記錄";
 "settings.log.noneMessage" = "暫無除錯記錄。";
@@ -285,9 +224,6 @@
 /* ===== Profile ===== */
 
 "profile.title" = "個人檔案";
-"profile.signOut" = "登出";
-"profile.clearImageCache" = "清除圖片快取";
-"profile.imageCacheCleared" = "圖片快取已清除。";
 
 /* ===== Search ===== */
 
@@ -421,27 +357,6 @@
 "settings.language.restartTitle" = "需要重新啟動";
 "settings.language.restartMessage" = "變更在重新啟動應用程式後完全生效。";
 
-/* Notification settings screen (pushed from Settings > Home) */
-"settings.row.appUpdates" = "應用程式更新";
-"settings.footer.notifications" = "傳送可能延遲 — iOS 會排程背景檢查，但不會立即執行。";
-
-/* ===== Notifications ===== */
-
-/* Inbox item + system notification title when a newer app version is available; %@ = version */
-"notifications.update.title" = "有新版本可用：%@";
-
-/* Bell button inbox, presented as a sheet */
-"notifications.title" = "通知";
-/* Shown when the inbox has no notifications yet */
-"notifications.empty" = "暫無通知";
-/* Left nav bar button in the inbox; marks every notification as read */
-"notifications.markAllRead" = "全部標為已讀";
-/* Banner shown when system notifications are off */
-"notifications.permissionBanner.message" = "系統通知已關閉，因此警示可能無法在應用程式外送達。";
-"notifications.permissionBanner.enable" = "啟用通知";
-/* Detail screen action opening the notification's link */
-"notifications.detail.openLink" = "開啟";
-
 /* ===== Sign-in (OAuth device code) screen ===== */
 
 "auth.title" = "登入 YouTube";
@@ -464,7 +379,6 @@
 "common.delete" = "刪除";
 /* Toast shown after a value is copied */
 "common.copied" = "已複製";
-"common.edit" = "編輯";
 "player.menu.queue" = "待播清單";
 "player.queue.shuffle" = "隨機播放";
 "player.queue.repeat" = "循環播放";
@@ -495,7 +409,6 @@
 "player.status.switchingToSABR" = "正在切換到 SABR...";
 "player.status.switchingToRanges" = "正在切換到直連串流...";
 "player.status.openingSABR" = "正在開啟 SABR 工作階段...";
-"player.status.solving" = "正在解算簽章...";
 "settings.section.downloads" = "已下載的內容";
 "settings.footer.downloads" = "隨影片一起儲存的內容。留言和字幕會保持下載當時的狀態。";
 "settings.row.downloadQuality" = "畫質";
@@ -529,9 +442,8 @@
 "downloads.error.failed" = "無法下載影片";
 "downloads.error.noOptions" = "無法下載這部影片";
 "player.related.downloaded" = "其他已下載的影片";
-"settings.footer.debug" = "選擇用哪些方式播放影片，以及按什麼順序嘗試。解算伺服器負責回應 TV 用戶端串流中的限速驗證，並簽發它的權杖。";
+"settings.footer.debug" = "選擇用哪些方式播放影片，以及按什麼順序嘗試。";
 "settings.row.playbackChain" = "播放來源";
-"settings.playbackChain.signInNeeded" = "登入後才能使用這個播放來源";
 "settings.playbackChain.footer" = "由上而下依序嘗試，直到有一個能播放。拖曳可調整順序，不需要的可以關掉。";
 "settings.row.resetIdentity" = "重設 visitor identity";
 "library.downloads.empty" = "你下載的影片會顯示在這裡";

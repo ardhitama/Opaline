@@ -51,8 +51,6 @@
 "common.cancel" = "Annuler";
 /* Generic confirmation button */
 "common.ok" = "OK";
-/* Generic save action */
-"common.save" = "Enregistrer";
 /* Generic done action */
 "common.done" = "Terminé";
 /* Fallback title/label of a playlist tile */
@@ -143,45 +141,6 @@
 /* Accumulated seek offset shown while tapping ±10s repeatedly; %1$@ = signed seconds, e.g. "-90" */
 "player.seek.offset" = "%1$@ s";
 
-/* ===== SponsorBlock ===== */
-
-/* Skip button; %1$@ = localized category name, e.g. "Skip Sponsor" */
-"sponsorblock.skip" = "Passer %1$@";
-
-/* Skip-behavior options (per-category setting) */
-"sponsorblock.behavior.autoSkip" = "Passage automatique";
-"sponsorblock.behavior.showButton" = "Afficher le bouton";
-"sponsorblock.behavior.disabled" = "Désactiver";
-
-/* Footer under the SponsorBlock section (project attribution) */
-"sponsorblock.attribution" = "Propulsé par SponsorBlock (sponsor.ajay.app) — un projet communautaire ouvert.";
-/* Header above the per-category skip settings */
-"sponsorblock.segmentCategories" = "Catégories de segments";
-
-/* Category names (SponsorBlock project terms) and their descriptions */
-"sponsorblock.category.sponsor.name" = "Sponsor";
-"sponsorblock.category.sponsor.description" = "Parrainage payant, recommandations payées et publicités directes. Pas pour l'autopromotion ou les mentions gratuites de causes/créateurs/sites web/produits qu'ils apprécient.";
-"sponsorblock.category.selfpromo.name" = "Non rémunéré/Autopromotion";
-"sponsorblock.category.selfpromo.description" = "Similaire à « sponsor » mais non rémunéré ou autopromotion. Inclut les sections sur la marchandise, les dons ou les informations sur les collaborations.";
-"sponsorblock.category.exclusive_access.name" = "Accès exclusif";
-"sponsorblock.category.exclusive_access.description" = "Uniquement pour labelliser des vidéos entières. Utilisé lorsqu'une vidéo met en avant un produit, un service ou un lieu pour lequel ils ont reçu un accès gratuit ou subventionné.";
-"sponsorblock.category.interaction.name" = "Rappel d'interaction (S'abonner)";
-"sponsorblock.category.interaction.description" = "Lorsqu'il y a un court rappel d'aimer, s'abonner ou suivre au milieu du contenu. Si c'est long ou portant sur quelque chose de spécifique, cela devrait être sous autopromotion.";
-"sponsorblock.category.highlight.name" = "Moment clé";
-"sponsorblock.category.highlight.description" = "La partie de la vidéo que la plupart des gens recherchent. Similaire aux commentaires « La vidéo commence à x ».";
-"sponsorblock.category.intro.name" = "Interlude/Animation d'intro";
-"sponsorblock.category.intro.description" = "Un intervalle sans contenu réel. Peut être une pause, une image statique ou une animation répétitive. Ne doit pas être utilisé pour des transitions contenant des informations.";
-"sponsorblock.category.outro.name" = "Cartes de fin/Crédits";
-"sponsorblock.category.outro.description" = "Crédits ou quand les cartes de fin YouTube apparaissent. Pas pour les conclusions avec des informations.";
-"sponsorblock.category.preview.name" = "Aperçu/Résumé";
-"sponsorblock.category.preview.description" = "Collection de clips montrant ce qui arrive dans cette vidéo ou d'autres vidéos d'une série où toutes les informations sont répétées plus tard dans la vidéo.";
-"sponsorblock.category.filler.name" = "Digressions/Blagues";
-"sponsorblock.category.filler.description" = "Scènes digressives ou blagues qui ne sont pas nécessaires pour comprendre le contenu principal de la vidéo. Ne doit pas inclure les segments fournissant du contexte ou des détails de fond.";
-"sponsorblock.category.music_offtopic.name" = "Section non musicale";
-"sponsorblock.category.music_offtopic.description" = "Uniquement pour les clips vidéo. Partie non musicale d'un clip vidéo.";
-"sponsorblock.category.chapter.name" = "Chapitre";
-"sponsorblock.category.chapter.description" = "Sections nommées personnalisément de la vidéo.";
-
 /* ===== Settings ===== */
 
 /* Settings sheet title */
@@ -194,15 +153,12 @@
 "settings.section.autoDub" = "Doublage";
 "settings.section.home" = "Accueil";
 "settings.section.cache" = "Cache";
-"settings.section.ryd" = "Return YouTube Dislike";
-"settings.section.sponsorblock" = "SponsorBlock";
 "settings.section.debug" = "Débogage";
 
 /* Section footers */
 "settings.footer.playback" = "Zoom pour remplir met automatiquement la vidéo en plein écran pour qu'il n'y ait pas de barres noires. Le pincement dans le lecteur l'annule par vidéo.\n\nLa lecture automatique lance la vidéo suggérée suivante après un compte à rebours de 5 s. Le bouton Mix applique la même chose instantanément aux files de mix/playlist.";
 "settings.footer.autoDub" = "Si la langue originale d'une vidéo diffère de la langue de doublage, la piste audio correspondante est sélectionnée automatiquement.";
 "settings.footer.home" = "Comment les étagères de recommandations sont affichées : une grille continue ou des rails horizontaux style TV.";
-"settings.footer.ryd" = "Les comptages de dislikes sont alimentés par Return YouTube Dislike (returnyoutubedislike.com) — un projet communautaire ouvert.";
 
 /* Theme rows; segment labels for dark/light/auto modes */
 "settings.row.appIcon" = "Icône de l'app";
@@ -238,10 +194,6 @@
 "settings.homeLayout.grid" = "Grille simple";
 "settings.homeLayout.rails" = "Rails horizontaux";
 
-/* Notifications section */
-"settings.section.notifications" = "Notifications";
-"settings.row.notifications" = "Notifications";
-
 /* Cache rows */
 "settings.row.feedCache" = "Cache du fil";
 "settings.row.feedCacheDuration" = "Durée du cache du fil";
@@ -252,16 +204,8 @@
 "settings.cache.clearedTitle" = "Cache effacé";
 "settings.cache.clearedMessage" = "Tout le cache a été effacé.";
 
-/* Integration rows */
-"settings.row.ryd" = "Return YouTube Dislike";
-"settings.row.sponsorblock" = "SponsorBlock";
-"settings.row.sponsorblockSettings" = "Paramètres SponsorBlock";
-
 /* Debug rows (values stay technical/English) */
-"settings.row.solverServer" = "Solver server";
 "settings.row.shareLog" = "Partager le journal de débogage";
-"settings.row.support" = "Soutenir le développement";
-"settings.row.feedback" = "Envoyer des commentaires";
 
 /* About section: values an issue report asks for, copied on tap */
 "settings.section.about" = "Informations";
@@ -269,11 +213,6 @@
 "settings.about.version" = "Version";
 "settings.about.system" = "Système";
 "settings.about.model" = "Modèle";
-/* Solver-server URL alert */
-"settings.solver.message" = "URL du serveur solveur.";
-"settings.solver.reset" = "Réinitialiser par défaut";
-/* Suffix shown after the solver URL when it is the built-in default */
-"settings.solver.defaultSuffix" = " (par défaut)";
 /* Alert when no debug logs exist yet */
 "settings.log.noneTitle" = "Aucun journal";
 "settings.log.noneMessage" = "Aucun journal de débogage disponible.";
@@ -281,9 +220,6 @@
 /* ===== Profile ===== */
 
 "profile.title" = "Profil";
-"profile.signOut" = "Se déconnecter";
-"profile.clearImageCache" = "Effacer le cache des images";
-"profile.imageCacheCleared" = "Cache des images effacé.";
 
 /* ===== Search ===== */
 
@@ -417,27 +353,6 @@
 "settings.language.restartTitle" = "Redémarrage requis";
 "settings.language.restartMessage" = "Les changements s'appliquent complètement après le redémarrage de l'application.";
 
-/* Notification settings screen (pushed from Settings > Home) */
-"settings.row.appUpdates" = "Mises à jour de l'app";
-"settings.footer.notifications" = "La livraison peut être retardée — iOS programme les vérifications en arrière-plan et ne les exécute pas immédiatement.";
-
-/* ===== Notifications ===== */
-
-/* Inbox item + system notification title when a newer app version is available; %@ = version */
-"notifications.update.title" = "Mise à jour disponible : %@";
-
-/* Bell button inbox, presented as a sheet */
-"notifications.title" = "Notifications";
-/* Shown when the inbox has no notifications yet */
-"notifications.empty" = "Aucune notification pour le moment";
-/* Left nav bar button in the inbox; marks every notification as read */
-"notifications.markAllRead" = "Tout marquer comme lu";
-/* Banner shown when system notifications are off */
-"notifications.permissionBanner.message" = "Les notifications système sont désactivées, les alertes pourraient ne pas vous parvenir en dehors de l'app.";
-"notifications.permissionBanner.enable" = "Activer les notifications";
-/* Detail screen action opening the notification's link */
-"notifications.detail.openLink" = "Ouvrir";
-
 /* ===== Sign-in (OAuth device code) screen ===== */
 
 "auth.title" = "Se connecter à YouTube";
@@ -460,7 +375,6 @@
 "common.delete" = "Supprimer";
 /* Toast shown after a value is copied */
 "common.copied" = "Copié";
-"common.edit" = "Modifier";
 "player.menu.queue" = "File d'attente";
 "player.queue.shuffle" = "Lecture aléatoire";
 "player.queue.repeat" = "Répéter";
@@ -491,7 +405,6 @@
 "player.status.switchingToSABR" = "Passage à SABR...";
 "player.status.switchingToRanges" = "Passage aux flux directs...";
 "player.status.openingSABR" = "Ouverture de la session SABR...";
-"player.status.solving" = "Déchiffrement des signatures...";
 "settings.section.downloads" = "Téléchargements";
 "settings.footer.downloads" = "Ce qui est enregistré avec une vidéo. Les commentaires et les sous-titres restent tels qu’ils étaient au moment du téléchargement.";
 "settings.row.downloadQuality" = "Qualité";
@@ -525,9 +438,8 @@
 "downloads.error.failed" = "Échec du téléchargement de la vidéo";
 "downloads.error.noOptions" = "Cette vidéo ne peut pas être téléchargée";
 "player.related.downloaded" = "Également téléchargées";
-"settings.footer.debug" = "Choisissez par quels moyens une vidéo est lue et dans quel ordre ils sont essayés. Le serveur de résolution répond au défi de limitation que portent les flux du client TV (et émet son jeton).";
+"settings.footer.debug" = "Choisissez par quels moyens une vidéo est lue et dans quel ordre ils sont essayés.";
 "settings.row.playbackChain" = "Sources de lecture";
-"settings.playbackChain.signInNeeded" = "Connectez-vous pour utiliser cette source";
 "settings.playbackChain.footer" = "Essayées de haut en bas jusqu’à ce que l’une fonctionne. Faites glisser pour réordonner, désactivez celles dont vous ne voulez pas.";
 "settings.row.resetIdentity" = "Réinitialiser le visitor identity";
 "library.downloads.empty" = "Les vidéos que vous téléchargez s'afficheront ici";

@@ -51,8 +51,6 @@
 "common.cancel" = "Abbrechen";
 /* Generic confirmation button */
 "common.ok" = "OK";
-/* Generic save action */
-"common.save" = "Speichern";
 /* Generic done action */
 "common.done" = "Fertig";
 /* Fallback title/label of a playlist tile */
@@ -143,43 +141,6 @@
 /* Accumulated seek offset shown while tapping ±10s repeatedly; %1$@ = signed seconds, e.g. "-90" */
 "player.seek.offset" = "%1$@ s";
 
-/* ===== SponsorBlock ===== */
-
-/* Skip button; %1$@ = localized category name, e.g. "Skip Sponsor" */
-"sponsorblock.skip" = "%1$@ überspringen";
-
-/* Skip-behavior options (per-category setting) */
-"sponsorblock.behavior.autoSkip" = "Automatisch überspringen";
-"sponsorblock.behavior.showButton" = "Button anzeigen";
-"sponsorblock.behavior.disabled" = "Deaktivieren";
-
-/* Footer under the SponsorBlock section (project attribution) */
-"sponsorblock.attribution" = "Bereitgestellt von SponsorBlock (sponsor.ajay.app) — ein offenes Gemeinschaftsprojekt.";
-/* Header above the per-category skip settings */
-"sponsorblock.segmentCategories" = "Segmentkategorien";
-
-/* Category names (SponsorBlock project terms) and their descriptions */
-"sponsorblock.category.sponsor.name" = "Sponsor";
-"sponsorblock.category.sponsor.description" = "Bezahlte Werbung, bezahlte Empfehlungen und direkte Anzeigen. Nicht für Selbstwerbung oder kostenlose Erwähnungen von Anliegen/Erstellern/Websites/Produkten, die sie mögen.";
-"sponsorblock.category.selfpromo.name" = "Unbezahlte/Selbstpromotion";
-"sponsorblock.category.exclusive_access.name" = "Exklusiver Zugang";
-"sponsorblock.category.exclusive_access.description" = "Nur zur Kennzeichnung ganzer Videos. Wird verwendet, wenn ein Video ein Produkt, eine Dienstleistung oder einen Ort zeigt, zu dem sie kostenfreien oder subventionierten Zugang erhalten haben.";
-"sponsorblock.category.interaction.name" = "Interaktionserinnerung (Abonnieren)";
-"sponsorblock.category.interaction.description" = "Wenn es in der Mitte des Inhalts eine kurze Erinnerung gibt, zu liken, zu abonnieren oder zu folgen. Wenn sie lang ist oder sich auf etwas Bestimmtes bezieht, sollte sie unter Selbstpromotion sein.";
-"sponsorblock.category.highlight.name" = "Höhepunkt";
-"sponsorblock.category.intro.name" = "Unterbrechung/Intro-Animation";
-"sponsorblock.category.intro.description" = "Ein Interval ohne eigentlichen Inhalt. Kann eine Pause, ein Standbild oder eine sich wiederholende Animation sein. Sollte nicht für Übergänge mit Information verwendet werden.";
-"sponsorblock.category.outro.name" = "Endkarten/Danksagungen";
-"sponsorblock.category.outro.description" = "Danksagungen oder wenn die YouTube-Endkarten erscheinen. Nicht für Schlüsse mit Informationen.";
-"sponsorblock.category.preview.name" = "Vorschau/Zusammenfassung";
-"sponsorblock.category.preview.description" = "Sammlung von Clips, die zeigen, was in diesem Video oder anderen Videos einer Serie kommt, wobei alle Informationen später im Video wiederholt werden.";
-"sponsorblock.category.filler.name" = "Abschweifungen/Witze";
-"sponsorblock.category.filler.description" = "Abschweifungen oder Witze, die nicht zum Verständnis des Hauptinhalts des Videos erforderlich sind. Dies sollte keine Segmente umfassen, die Kontext oder Hintergrundinformationen liefern.";
-"sponsorblock.category.music_offtopic.name" = "Nicht-Musik-Abschnitt";
-"sponsorblock.category.music_offtopic.description" = "Nur für Musikvideos. Nicht-Musik-Teil eines Musikvideos.";
-"sponsorblock.category.chapter.name" = "Kapitel";
-"sponsorblock.category.chapter.description" = "Benannte Abschnitte des Videos.";
-
 /* ===== Settings ===== */
 
 /* Settings sheet title */
@@ -192,15 +153,12 @@
 "settings.section.autoDub" = "Synchronisation";
 "settings.section.home" = "Startseite";
 "settings.section.cache" = "Cache";
-"settings.section.ryd" = "Return YouTube Dislike";
-"settings.section.sponsorblock" = "SponsorBlock";
 "settings.section.debug" = "Debug";
 
 /* Section footers */
 "settings.footer.playback" = "Zoom zum Füllen skaliert das Video automatisch im Vollbild, sodass keine schwarzen Balken verbleiben. Das Kneifen im Player überschreibt dies pro Video.\n\nAutomatische Wiedergabe spielt nach einem 5-Sekunden-Countdown das nächste vorgeschlagene Video ab. Der Mix-Schalter wendet dasselbe sofort auf Mix-/Playlist-Warteschlangen an.";
 "settings.footer.autoDub" = "Wenn die Originalsprache eines Videos von der Synchronsprache abweicht, wird automatisch die passende Audiospur ausgewählt.";
 "settings.footer.home" = "Wie Empfehlungsbereiche angezeigt werden: ein durchgehendes Raster oder horizontale Schienen im TV-Stil.";
-"settings.footer.ryd" = "Dislike-Zähler werden von Return YouTube Dislike (returnyoutubedislike.com) bereitgestellt — ein offenes Gemeinschaftsprojekt.";
 
 /* Theme rows; segment labels for dark/light/auto modes */
 "settings.row.appIcon" = "App-Symbol";
@@ -236,10 +194,6 @@
 "settings.homeLayout.grid" = "Einfaches Raster";
 "settings.homeLayout.rails" = "Bereichs-Schienen";
 
-/* Notifications section */
-"settings.section.notifications" = "Benachrichtigungen";
-"settings.row.notifications" = "Benachrichtigungen";
-
 /* Cache rows */
 "settings.row.feedCache" = "Feed-Cache";
 "settings.row.feedCacheDuration" = "Feed-Cache-Dauer";
@@ -250,16 +204,8 @@
 "settings.cache.clearedTitle" = "Cache geleert";
 "settings.cache.clearedMessage" = "Der gesamte Cache wurde geleert.";
 
-/* Integration rows */
-"settings.row.ryd" = "Return YouTube Dislike";
-"settings.row.sponsorblock" = "SponsorBlock";
-"settings.row.sponsorblockSettings" = "SponsorBlock-Einstellungen";
-"settings.row.solverServer" = "Solver server";
-
 /* Debug rows (values stay technical/English) */
 "settings.row.shareLog" = "Debug-Log teilen";
-"settings.row.support" = "Entwicklung unterstützen";
-"settings.row.feedback" = "Feedback geben";
 
 /* About section: values an issue report asks for, copied on tap */
 "settings.section.about" = "Info";
@@ -267,11 +213,6 @@
 "settings.about.version" = "Version";
 "settings.about.system" = "System";
 "settings.about.model" = "Modell";
-/* Solver-server URL alert */
-"settings.solver.message" = "URL des Solver-Servers.";
-"settings.solver.reset" = "Auf Standard zurücksetzen";
-/* Suffix shown after the solver URL when it is the built-in default */
-"settings.solver.defaultSuffix" = " (Standard)";
 /* Alert when no debug logs exist yet */
 "settings.log.noneTitle" = "Keine Logs";
 "settings.log.noneMessage" = "Noch keine Debug-Logs verfügbar.";
@@ -279,9 +220,6 @@
 /* ===== Profile ===== */
 
 "profile.title" = "Profil";
-"profile.signOut" = "Abmelden";
-"profile.clearImageCache" = "Bildercache leeren";
-"profile.imageCacheCleared" = "Bildercache geleert.";
 
 /* ===== Search ===== */
 
@@ -415,31 +353,6 @@
 "settings.language.restartTitle" = "Neustart erforderlich";
 "settings.language.restartMessage" = "Änderungen werden erst nach einem Neustart vollständig wirksam.";
 
-/* Added during review merge */
-"sponsorblock.category.selfpromo.description" = "Wie „Sponsor“, aber für unbezahlte Werbung oder Eigenwerbung: Merchandise, Spenden oder Informationen über Kooperationen.";
-"sponsorblock.category.highlight.description" = "Der Teil des Videos, den die meisten suchen. Vergleichbar mit „Video beginnt bei x“-Kommentaren.";
-
-/* Notification settings screen */
-"settings.row.appUpdates" = "App-Updates";
-"settings.footer.notifications" = "Die Zustellung kann verzögert sein — iOS plant Hintergrundprüfungen und führt sie nicht sofort aus.";
-
-/* ===== Notifications ===== */
-
-/* Inbox item + system notification title when a newer app version is available; %@ = version */
-"notifications.update.title" = "Update verfügbar: %@";
-
-/* Bell button inbox, presented as a sheet */
-"notifications.title" = "Benachrichtigungen";
-/* Shown when the inbox has no notifications yet */
-"notifications.empty" = "Noch keine Benachrichtigungen";
-/* Left nav bar button in the inbox; marks every notification as read */
-"notifications.markAllRead" = "Alle als gelesen markieren";
-/* Banner shown when system notifications are off */
-"notifications.permissionBanner.message" = "Systembenachrichtigungen sind ausgeschaltet, daher könnten Sie Benachrichtigungen außerhalb der App nicht erhalten.";
-"notifications.permissionBanner.enable" = "Benachrichtigungen aktivieren";
-/* Detail screen action opening the notification's link */
-"notifications.detail.openLink" = "Öffnen";
-
 /* ===== Sign-in (OAuth device code) screen ===== */
 
 "auth.title" = "In YouTube anmelden";
@@ -462,7 +375,6 @@
 "common.delete" = "Löschen";
 /* Toast shown after a value is copied */
 "common.copied" = "Kopiert";
-"common.edit" = "Bearbeiten";
 "player.menu.queue" = "Wiedergabeliste";
 "player.queue.shuffle" = "Zufallsmix";
 "player.queue.repeat" = "Wiederholen";
@@ -493,7 +405,6 @@
 "player.status.switchingToSABR" = "Wechsel zu SABR...";
 "player.status.switchingToRanges" = "Wechsel zu direkten Streams...";
 "player.status.openingSABR" = "SABR-Sitzung wird geöffnet...";
-"player.status.solving" = "Signaturen werden entschlüsselt...";
 "settings.section.downloads" = "Downloads";
 "settings.footer.downloads" = "Was zusammen mit einem Video gespeichert wird. Kommentare und Untertitel bleiben so, wie sie beim Download waren.";
 "settings.row.downloadQuality" = "Qualität";
@@ -527,9 +438,8 @@
 "downloads.error.failed" = "Fehler beim Download des Videos";
 "downloads.error.noOptions" = "Dieses Video kann nicht heruntergeladen werden";
 "player.related.downloaded" = "Ebenfalls heruntergeladen";
-"settings.footer.debug" = "Lege fest, welche Wiedergabewege genutzt werden und in welcher Reihenfolge sie probiert werden. Der Solver-Server beantwortet die Drosselungsprüfung in den Streams des TV-Clients (und stellt dessen Token aus).";
+"settings.footer.debug" = "Lege fest, welche Wiedergabewege genutzt werden und in welcher Reihenfolge sie probiert werden.";
 "settings.row.playbackChain" = "Wiedergabequellen";
-"settings.playbackChain.signInNeeded" = "Melde dich an, um diese Quelle zu nutzen";
 "settings.playbackChain.footer" = "Werden von oben nach unten durchprobiert, bis eine abspielt. Zum Umsortieren ziehen, nicht benötigte ausschalten.";
 "settings.row.resetIdentity" = "Visitor Identity zurücksetzen";
 "library.downloads.empty" = "Videos, die du herunterlädst, werden hier angezeigt";

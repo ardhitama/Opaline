@@ -29,7 +29,6 @@
 "player.status.switchingToSABR" = "Перехід на SABR...";
 "player.status.switchingToRanges" = "Перехід на прямі потоки...";
 "player.status.openingSABR" = "Відкриття сесії SABR...";
-"player.status.solving" = "Розшифрування підписів...";
 "player.status.botCheckRetry" = "Перевірка на бота — оновлюю сесію, пробую знову...";
 "player.error.playback" = "Не вдалося відтворити відео.";
 "player.error.botCheck" = "YouTube вимагає підтвердити, що ви не бот. Спробуйте ще раз за хвилину.";
@@ -42,9 +41,7 @@
 "common.subscribed" = "Ви підписані";
 "common.cancel" = "Скасувати";
 "common.ok" = "OK";
-"common.save" = "Зберегти";
 "common.done" = "Готово";
-"common.edit" = "Редагувати";
 "common.delete" = "Видалити";
 /* Toast shown after a value is copied */
 "common.copied" = "Скопійовано";
@@ -115,40 +112,6 @@
 /* Accumulated seek offset shown while tapping ±10s repeatedly; %1$@ = signed seconds, e.g. "-90" */
 "player.seek.offset" = "%1$@ с";
 
-/* ===== SponsorBlock ===== */
-
-"sponsorblock.skip" = "Пропустити: %1$@";
-
-"sponsorblock.behavior.autoSkip" = "Автопропуск";
-"sponsorblock.behavior.showButton" = "Показувати кнопку";
-"sponsorblock.behavior.disabled" = "Вимкнути";
-
-"sponsorblock.attribution" = "Працює на основі SponsorBlock (sponsor.ajay.app) — відкритого проєкту спільноти.";
-"sponsorblock.segmentCategories" = "Категорії сегментів";
-
-"sponsorblock.category.sponsor.name" = "Спонсор";
-"sponsorblock.category.sponsor.description" = "Платне просування, платні реферали та пряма реклама. Не для самореклами чи безкоштовних згадок авторів, сайтів або продуктів, які подобаються автору.";
-"sponsorblock.category.selfpromo.name" = "Безкоштовна/самореклама";
-"sponsorblock.category.selfpromo.description" = "Як «Спонсор», але для безкоштовного просування чи самореклами: мерч, донати, інформація про співпрацю.";
-"sponsorblock.category.exclusive_access.name" = "Ексклюзивний доступ";
-"sponsorblock.category.exclusive_access.description" = "Лише для позначення цілих відео. Коли у відео показано продукт, послугу чи місце, доступ до яких автор отримав безкоштовно або зі знижкою.";
-"sponsorblock.category.interaction.name" = "Нагадування про взаємодію";
-"sponsorblock.category.interaction.description" = "Коротке нагадування поставити вподобання, підписатися чи стежити за сторінками посеред контенту. Якщо воно довге чи про щось конкретне — це самореклама.";
-"sponsorblock.category.highlight.name" = "Основний момент";
-"sponsorblock.category.highlight.description" = "Частина відео, заради якої більшість його відкриває. Аналог коментарів «відео починається з X».";
-"sponsorblock.category.intro.name" = "Заставка/інтро";
-"sponsorblock.category.intro.description" = "Інтервал без вмісту: пауза, статичний кадр, повторювана анімація. Не для переходів з інформацією.";
-"sponsorblock.category.outro.name" = "Титри/кінцівка";
-"sponsorblock.category.outro.description" = "Титри або кінцеві заставки YouTube. Не для висновків з інформацією.";
-"sponsorblock.category.preview.name" = "Прев'ю/повтор";
-"sponsorblock.category.preview.description" = "Нарізка кадрів про те, що буде далі в цьому чи інших відео серії, якщо вся інформація повторюється пізніше.";
-"sponsorblock.category.filler.name" = "Відступи/жарти";
-"sponsorblock.category.filler.description" = "Відступи та жарти, не потрібні для розуміння основного вмісту. Не включає сегменти з контекстом чи деталями.";
-"sponsorblock.category.music_offtopic.name" = "Немузична частина";
-"sponsorblock.category.music_offtopic.description" = "Лише для кліпів. Немузична частина музичного відео.";
-"sponsorblock.category.chapter.name" = "Розділ";
-"sponsorblock.category.chapter.description" = "Іменовані розділи відео.";
-
 /* ===== Settings ===== */
 
 "settings.title" = "Налаштування";
@@ -159,15 +122,12 @@
 "settings.section.autoDub" = "Дубляж";
 "settings.section.home" = "Головна";
 "settings.section.cache" = "Кеш";
-"settings.section.ryd" = "Return YouTube Dislike";
-"settings.section.sponsorblock" = "SponsorBlock";
 "settings.section.debug" = "Налагодження";
 
 "settings.footer.playback" = "«Заповнення екрана» автоматично масштабує відео в повноекранному режимі, прибираючи чорні смуги. Жест щипка у плеєрі перевизначає це для конкретного відео.\n\n«Автовідтворення» запускає наступне рекомендоване відео після 5-секундного відліку. Перемикач «Мікс» застосовує те саме миттєво до черги міксу чи плейлиста.";
 "settings.footer.autoDub" = "Якщо мова оригіналу відео відрізняється від мови дубляжу, відповідна аудіодоріжка вмикається автоматично.";
 "settings.footer.home" = "Як показувати полиці рекомендацій: суцільна сітка або горизонтальні стрічки у стилі ТБ.";
-"settings.footer.ryd" = "Лічильники дизлайків працюють через Return YouTube Dislike (returnyoutubedislike.com) — відкритий проєкт спільноти.";
-"settings.footer.debug" = "Виберіть, якими способами відтворювати відео та в якому порядку їх пробувати. Сервер-розв’язувач відповідає на перевірку тротлінгу в потоках ТВ-клієнта (і випускає його токен).";
+"settings.footer.debug" = "Виберіть, якими способами відтворювати відео та в якому порядку їх пробувати.";
 
 "settings.row.appIcon" = "Значок застосунку";
 "settings.theme.dark" = "Темна";
@@ -203,9 +163,6 @@
 "settings.homeLayout.grid" = "Проста сітка";
 "settings.homeLayout.rails" = "Горизонтальні стрічки";
 
-"settings.section.notifications" = "Сповіщення";
-"settings.row.notifications" = "Сповіщення";
-
 "settings.row.feedCache" = "Кеш стрічки";
 "settings.row.feedCacheDuration" = "Строк кешу стрічки";
 "settings.row.imageCache" = "Кеш зображень";
@@ -214,15 +171,8 @@
 "settings.cache.clearedTitle" = "Кеш очищено";
 "settings.cache.clearedMessage" = "Весь кеш було очищено.";
 
-"settings.row.ryd" = "Return YouTube Dislike";
-"settings.row.sponsorblock" = "SponsorBlock";
-"settings.row.sponsorblockSettings" = "Налаштування SponsorBlock";
-
 "settings.row.resetIdentity" = "Скинути visitor identity";
-"settings.row.solverServer" = "Solver server";
 "settings.row.shareLog" = "Поділитися журналом налагодження";
-"settings.row.support" = "Підтримати розробку";
-"settings.row.feedback" = "Надіслати відгук";
 
 /* About section: values an issue report asks for, copied on tap */
 "settings.section.about" = "Про застосунок";
@@ -230,18 +180,12 @@
 "settings.about.version" = "Версія";
 "settings.about.system" = "Система";
 "settings.about.model" = "Модель";
-"settings.solver.message" = "Адреса solver server.";
-"settings.solver.reset" = "Скинути до типового";
-"settings.solver.defaultSuffix" = " (за замовчуванням)";
 "settings.log.noneTitle" = "Немає журналів";
 "settings.log.noneMessage" = "Журнали налагодження поки відсутні.";
 
 /* ===== Profile ===== */
 
 "profile.title" = "Профіль";
-"profile.signOut" = "Вийти";
-"profile.clearImageCache" = "Очистити кеш зображень";
-"profile.imageCacheCleared" = "Кеш зображень очищено.";
 
 /* ===== Search ===== */
 
@@ -361,20 +305,6 @@
 "settings.language.restartTitle" = "Потрібен перезапуск";
 "settings.language.restartMessage" = "Зміни повністю набудуть чинності після перезапуску застосунку.";
 
-"settings.row.appUpdates" = "Оновлення додатку";
-"settings.footer.notifications" = "Доставка може затримуватися — iOS планує фонові перевірки і не виконує їх миттєво.";
-
-/* ===== Notifications ===== */
-
-"notifications.update.title" = "Доступне оновлення: %@";
-
-"notifications.title" = "Сповіщення";
-"notifications.empty" = "Сповіщень ще немає";
-"notifications.markAllRead" = "Позначити все як прочитане";
-"notifications.permissionBanner.message" = "Системні сповіщення вимкнені, тому оповіщення можуть не дійти поза додатком.";
-"notifications.permissionBanner.enable" = "Увімкнути сповіщення";
-"notifications.detail.openLink" = "Відкрити";
-
 /* ===== Sign-in (OAuth device code) screen ===== */
 
 "auth.title" = "Вхід у YouTube";
@@ -407,7 +337,6 @@
 "settings.thumbnailQuality.maximum" = "Максимальна (1280×720)";
 "settings.footer.thumbnailQuality" = "У режимі «Авто» рівень обирається за обсягом памʼяті пристрою. Що вища якість, то більше завантаження та витрати памʼяті на кожну обкладинку — на пристроях з малим обсягом ОЗП це може сповільнювати прокручування.";
 "settings.row.playbackChain" = "Джерела відтворення";
-"settings.playbackChain.signInNeeded" = "Увійдіть, щоб використовувати це джерело";
 "settings.playbackChain.footer" = "Перебираються згори вниз, доки одне не заграє. Перетягніть, щоб змінити порядок, непотрібні вимкніть.";
 "player.error.noSources" = "Усі джерела відтворення вимкнено. Увімкніть хоча б одне в «Налаштування → Зневадження → Джерела відтворення».";
 

@@ -27,7 +27,7 @@ extension VideoPlayerView {
         for button in [
             settingsButton, pipButton, ccButton, speedButton, audioOnlyButton, loopButton,
             rewindButton, playPauseButton, forwardButton,
-            fullscreenButton, skipButton
+            fullscreenButton
         ] {
             button.addTapFeedback()
         }
@@ -134,7 +134,6 @@ extension VideoPlayerView {
         ])
         setupDimOverlay()
         setupSpinner()
-        setupSkipButtonTarget()
         setupTopBar()
         setupCenterButtons()
         setupBottomBar()
@@ -168,25 +167,6 @@ extension VideoPlayerView {
             ),
             spinner.centerYAnchor.constraint(
                 equalTo: centerYAnchor
-            )
-        ])
-    }
-
-    private func setupSkipButtonTarget() {
-        skipButton.addTarget(
-            self,
-            action: #selector(skipButtonTapped),
-            for: .touchUpInside
-        )
-        addSubview(skipButton)
-        NSLayoutConstraint.activate([
-            skipButton.trailingAnchor.constraint(
-                equalTo: trailingAnchor,
-                constant: -16
-            ),
-            skipButton.bottomAnchor.constraint(
-                equalTo: bottomAnchor,
-                constant: -72
             )
         ])
     }

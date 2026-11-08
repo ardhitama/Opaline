@@ -10,22 +10,8 @@ extension VideoDownloader {
         DownloadStore.save(video)
         fetchThumbnail(for: video)
         fetchPage(for: video)
-        fetchSegments(for: video.id)
-        fetchVotes(for: video.id)
         fetchComments(for: video.id)
         fetchCaptions(for: video.id)
-    }
-
-    private func fetchVotes(for videoId: String) {
-        guard ReturnYouTubeDislikeService.enabled else {
-            return
-        }
-        ReturnYouTubeDislikeService.shared.fetchVotes(videoId: videoId) { result in
-            guard case .success(let votes) = result else {
-                return
-            }
-            DownloadStore.saveVotes(votes, for: videoId)
-        }
     }
 
     private func fetchPage(for video: Video) {
@@ -38,19 +24,6 @@ extension VideoDownloader {
             }
             DownloadStore.savePage(page, for: video.id)
             self?.fetchAvatar(from: page, videoId: video.id)
-        }
-    }
-
-    private func fetchSegments(for videoId: String) {
-        guard SponsorBlockService.enabled else {
-            return
-        }
-        SponsorBlockService.shared.fetchSegments(videoId: videoId) { result in
-            guard case .success(let segments) = result, !segments.isEmpty else {
-                return
-            }
-            DownloadStore.saveSegments(segments, for: videoId)
-            AppLog.downloads("saved \(segments.count) segments for \(videoId)")
         }
     }
 

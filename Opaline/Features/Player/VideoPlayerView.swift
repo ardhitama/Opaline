@@ -30,7 +30,6 @@ final class VideoPlayerView: UIView {
     }
 
     var onTimeUpdate: ((Double) -> Void)?
-    var onSkipTapped: (() -> Void)?
     var onNeedsFreshPlayer: (() -> Void)?
     var onPrevious: (() -> Void)?
     var onNext: (() -> Void)?
@@ -119,32 +118,6 @@ final class VideoPlayerView: UIView {
         overlay.translatesAutoresizingMaskIntoConstraints = false
         overlay.isUserInteractionEnabled = false
         return overlay
-    }()
-
-    // MARK: - SponsorBlock
-
-    var sponsorSegments: [SponsorBlockSegment] = []
-
-    let skipButton: UIButton = {
-        let button = UIButton(type: .system)
-        // The plate the duration badge uses, so it reads on any frame;
-        // flat, without an outline.
-        button.setTitleColor(ThemeManager.shared.primaryText, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(
-            ofSize: 14,
-            weight: .semibold
-        )
-        button.backgroundColor = ThemeManager.shared.durationBackground
-        button.layer.roundCorners(4)
-        button.contentEdgeInsets = UIEdgeInsets(
-            top: 7,
-            left: 14,
-            bottom: 7,
-            right: 14
-        )
-        button.isHidden = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
     }()
 
     // MARK: - Subtitles

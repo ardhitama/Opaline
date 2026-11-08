@@ -68,26 +68,6 @@ enum UserAgent {
     static let cobaltTV =
         "Mozilla/5.0 (ChromiumStylePlatform) Cobalt/Version"
 
-    /// The living-room browser YouTube's own TV app runs in, matching the
-    /// `7.2026…` client version it reports. googlevideo refuses TV media asked
-    /// for under `Cobalt/Version` — the placeholder above — while a signed-in
-    /// session under this one is served (checked side by side, 2026-08-18).
-    static let webOSTV = [
-        "Mozilla/5.0 (Web0S; Linux/SmartTV)",
-        "AppleWebKit/537.36 (KHTML, like Gecko)",
-        "Chrome/85.0.4183.93/7.1 Safari/537.36 WebAppManager"
-    ].joined(separator: " ")
-
-    /// Cobalt on Fire TV — a real TVHTML5 user agent, used for TV playback.
-    /// SmartTube settled on this one after Chrome-engine UAs got throttled.
-    static let cobaltFireTV = [
-        "Mozilla/5.0 (Linux armeabi-v7a; Android 7.1.2; Fire OS 6.0)",
-        "Cobalt/22.lts.3.306369-gold (unlike Gecko)",
-        "v8/8.8.278.8-jit gles Starboard/13,",
-        "Amazon_ATV_mediatek8695_2019/NS6294 (Amazon, AFTMM, Wireless)",
-        "com.amazon.firetv.youtube/22.3.r2.v66.0"
-    ].joined(separator: " ")
-
     /// Mobile Safari on iPhone — used for the anonymous MWEB playback client.
     static let mobileSafari = [
         "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X)",

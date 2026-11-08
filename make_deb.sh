@@ -72,8 +72,8 @@ Author: verback2308
 Homepage: $HOMEPAGE
 Icon: $ICON_URL
 Description: Lightweight YouTube client for iOS 12+
- SponsorBlock, Return YouTube Dislike, up to 1080p playback, background
- audio, PiP, subtitles. No ads, no tracking, no dependencies.
+ Up to 1080p playback, background audio, PiP, subtitles, offline
+ downloads. No ads, no tracking, no dependencies.
 EOF
 
   cat > "$CTRL/postinst" <<EOF

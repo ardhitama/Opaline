@@ -6,7 +6,7 @@ import UIKit
 final class SettingsViewController: UIViewController {
     enum Row {
         case pageAppearance, pageLanguage, pagePlayback, pageShorts
-        case pageSponsorBlock, pageCache, pageDebug, pageDownloads
+        case pageCache, pageDebug, pageDownloads
         case appIcon
         case appLanguage, region
         case quality, qualityCellular
@@ -19,20 +19,16 @@ final class SettingsViewController: UIViewController {
         case homeLayout, defaultTab
         case persistCache, feedCacheDays
         case imageCacheEnabled, imageCacheDays, thumbnailQuality
-        case clearCache, rydEnabled
-        case sponsorBlockEnabled, sponsorBlockSettings
-        case notificationSettings
+        case clearCache
         case playbackChain
         case resetIdentity
-        case solverEndpoint
         case mainThreadWatchdog
         case shareLog
-        case feedback, support
         case aboutVersion, aboutSystem, aboutModel
     }
     enum Page {
         case root, appearance, language, playback, shorts
-        case sponsorBlock, cache, debug, downloads
+        case cache, debug, downloads
     }
     struct Section {
         let header: String?
@@ -49,15 +45,6 @@ final class SettingsViewController: UIViewController {
             return UITableView(frame: .zero, style: .grouped)
         }
     }()
-
-    private var solverEndpointDisplay: String {
-        let custom = UserDefaults.standard.string(
-            forKey: UserDefaultsKeys.Debug.serverBaseURL
-        )
-        let isCustom = custom?.isEmpty == false
-        return AppURLs.SolverServer.baseURL
-            + (isCustom ? "" : "settings.solver.defaultSuffix".localized)
-    }
 
     init(page: Page = .root) {
         self.page = page
@@ -167,7 +154,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         }
         switch row {
         case .pageAppearance, .pageLanguage, .pagePlayback, .pageShorts,
-             .pageSponsorBlock, .pageCache, .pageDebug, .pageDownloads:
+             .pageCache, .pageDebug, .pageDownloads:
             return UITableViewCell()  // unreachable: makePageCell handles these
         case .appIcon:
             return makeDisclosureCell(
@@ -321,27 +308,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             )
         case .clearCache:
             return makeDestructiveCell("settings.row.clearCache".localized)
-        case .rydEnabled:
-            let rydOn = ReturnYouTubeDislikeService.enabled
-            return makeToggleCell(
-                "settings.row.ryd".localized, isOn: rydOn
-            ) {
-                ReturnYouTubeDislikeService.enabled = $0
-            }
-        case .sponsorBlockEnabled:
-            return makeSponsorBlockToggle()
-        case .sponsorBlockSettings:
-            return makeDisclosureCell(
-                "settings.row.sponsorblockSettings".localized
-            )
-        case .notificationSettings:
-            return makeDisclosureCell("settings.row.notifications".localized)
         case .shareLog:
             return makeDisclosureCell("settings.row.shareLog".localized)
-        case .feedback:
-            return makeDisclosureCell("settings.row.feedback".localized)
-        case .support:
-            return makeDisclosureCell("settings.row.support".localized)
         case .aboutVersion, .aboutSystem, .aboutModel:
             return makeAboutCell(row)
         case .playbackChain:
@@ -351,11 +319,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             )
         case .resetIdentity:
             return makeDisclosureCell("settings.row.resetIdentity".localized)
-        case .solverEndpoint:
-            return makeDisclosureCell(
-                "settings.row.solverServer".localized,
-                value: solverEndpointDisplay
-            )
         case .mainThreadWatchdog:
             let isOn = UserDefaults.standard.bool(
                 forKey: UserDefaultsKeys.Debug.mainThreadWatchdog
@@ -383,7 +346,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             handlePageSelection,
             handleDebugSelection, handleThemeSelection,
             handleLanguageSelection, handleAutoDubSelection,
-            handleNotificationsSelection, handleAboutSelection,
+            handleAboutSelection,
             handleDownloadSelection,
             handleGeneralSelection
         ]
@@ -418,8 +381,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             showThumbnailQualityPicker()
         case .clearCache:
             clearCache()
-        case .sponsorBlockSettings:
-            showSponsorBlockSettings()
         default:
             return false
         }
@@ -430,16 +391,10 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         switch row {
         case .shareLog:
             shareDebugLog()
-        case .feedback:
-            if let url = AppURLs.Feedback.issues {
-                UIApplication.shared.open(url)
-            }
-        case .support:
-            if let url = URL(string: AppURLs.Support.donate) {
-                UIApplication.shared.open(url)
-            }
-        case .playbackChain, .solverEndpoint:
-            showDebugPicker(for: row)
+        case .playbackChain:
+            navigationController?.pushViewController(
+                PlaybackChainViewController(), animated: true
+            )
         case .resetIdentity:
             // A spent identity is behind most "it plays on one device but not
             // the other" reports: mweb, the range path and the TV watchtime
@@ -545,25 +500,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         cell.textLabel?.textAlignment = .center
         cell.backgroundColor      = theme.surface
         return cell
-    }
-    private func makeSponsorBlockToggle() -> UITableViewCell {
-        makeToggleCell(
-            "settings.row.sponsorblock".localized,
-            isOn: SponsorBlockService.enabled
-        ) { [weak self] isOn in
-            SponsorBlockService.enabled = isOn
-            self?.reloadSponsorBlockSection()
-        }
-    }
-
-    private func reloadSponsorBlockSection() {
-        reloadSection(containing: .sponsorBlockEnabled)
-    }
-    private func showSponsorBlockSettings() {
-        let vc  = SponsorBlockSettingsViewController()
-        let nav = RotatingNavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .formSheet
-        present(nav, animated: true)
     }
 
     private func handleThemeSelection(_ row: Row) -> Bool {
@@ -688,64 +624,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         sheet.addAction(UIAlertAction(title: "common.cancel".localized, style: .cancel))
         configureCenteredPopover(sheet)
         present(sheet, animated: true)
-    }
-
-    private func showDebugPicker(for row: Row) {
-        guard row == .playbackChain else {
-            showSolverEndpointPicker()
-            return
-        }
-        navigationController?.pushViewController(
-            PlaybackChainViewController(), animated: true
-        )
-    }
-
-    private func showSolverEndpointPicker() {
-        let alert = UIAlertController(
-            title: "settings.row.solverServer".localized,
-            message: "settings.solver.message".localized,
-            preferredStyle: .alert
-        )
-        alert.addTextField { field in
-            field.placeholder = AppURLs.SolverServer.defaultBaseURL
-            field.text = AppURLs.SolverServer.baseURL
-            field.keyboardType = .URL
-            field.autocapitalizationType = .none
-            field.autocorrectionType = .no
-        }
-        alert.addAction(
-            UIAlertAction(
-                title: "common.save".localized, style: .default
-            ) { [weak self, weak alert] _ in
-                self?.saveServerBaseURL(alert?.textFields?.first?.text)
-            }
-        )
-        alert.addAction(
-            UIAlertAction(
-                title: "settings.solver.reset".localized, style: .destructive
-            ) { [weak self] _ in
-                self?.saveServerBaseURL(nil)
-            }
-        )
-        alert.addAction(
-            UIAlertAction(title: "common.cancel".localized, style: .cancel)
-        )
-        present(alert, animated: true)
-    }
-
-    /// Stores a custom base URL, or clears the override (→ default) when the
-    /// value is empty / equal to the default.
-    private func saveServerBaseURL(_ text: String?) {
-        let trimmed = (text ?? "")
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-        let override = (trimmed.isEmpty || trimmed == AppURLs.SolverServer.defaultBaseURL)
-            ? ""
-            : trimmed
-        UserDefaults.standard.set(
-            override,
-            forKey: UserDefaultsKeys.Debug.serverBaseURL
-        )
-        tableView.reloadData()
     }
 
     private func showImageCacheDaysPicker() {

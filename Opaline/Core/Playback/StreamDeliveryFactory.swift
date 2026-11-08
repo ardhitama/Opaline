@@ -14,11 +14,7 @@ protocol StreamDeliveryFactory {
     /// stream cannot be fetched by SABR.
     func canServe(_ info: DirectPlaybackInfo) -> Bool
 
-    func make(
-        client: PlaybackClient,
-        transport: HTTPTransport,
-        poToken: Data?
-    ) -> StreamDelivery
+    func make(client: PlaybackClient, transport: HTTPTransport) -> StreamDelivery
 }
 
 /// Byte ranges over the `adaptiveFormats` URLs.
@@ -29,11 +25,7 @@ struct ByteRangeDeliveryFactory: StreamDeliveryFactory {
         info.dashVideoFormat?.hasDirectURL ?? false
     }
 
-    func make(
-        client: PlaybackClient,
-        transport: HTTPTransport,
-        poToken: Data?
-    ) -> StreamDelivery {
+    func make(client: PlaybackClient, transport: HTTPTransport) -> StreamDelivery {
         LegacyRangeDelivery(client: client)
     }
 }
@@ -46,11 +38,7 @@ struct SABRDeliveryFactory: StreamDeliveryFactory {
         SABRDelivery.canServe(info)
     }
 
-    func make(
-        client: PlaybackClient,
-        transport: HTTPTransport,
-        poToken: Data?
-    ) -> StreamDelivery {
-        SABRDelivery(transport: transport, client: client, poToken: poToken)
+    func make(client: PlaybackClient, transport: HTTPTransport) -> StreamDelivery {
+        SABRDelivery(transport: transport, client: client)
     }
 }

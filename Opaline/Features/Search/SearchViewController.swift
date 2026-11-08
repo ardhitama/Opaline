@@ -18,9 +18,8 @@ class SearchViewController: UIViewController {
     var continuationToken: String?
     var isLoadingNextPage = false
     var panelMode: PanelMode = .hidden
-    var suggestions: [String] = []
-    var suggestWorkItem: DispatchWorkItem?
-    var suggestToken = CancellationToken()
+    /// Past searches that contain what is typed so far.
+    var historyMatches: [String] = []
     let searchHistory = SearchHistoryStore.shared
 
     let searchBar = UISearchBar()
@@ -78,7 +77,7 @@ class SearchViewController: UIViewController {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // The same table renders the suggestions panel — keep the top
+        // The same table renders the history panel — keep the top
         // bar while the user is picking a query.
         guard scrollView === tableView, panelMode == .hidden else {
             return

@@ -1,15 +1,15 @@
 import UIKit
 
-// MARK: - History / suggestions panel
+// MARK: - History panel
 
 extension SearchViewController {
     enum PanelMode {
         case hidden
         case history
-        case suggestions
+        /// Past searches narrowed to what is typed. Local only: nothing typed
+        /// leaves the device before the search itself.
+        case matches
     }
-
-    private static let suggestDebounce: TimeInterval = 0.25
 
     var panelItems: [String] {
         switch panelMode {
@@ -17,8 +17,8 @@ extension SearchViewController {
             return []
         case .history:
             return searchHistory.queries
-        case .suggestions:
-            return suggestions
+        case .matches:
+            return historyMatches
         }
     }
 
@@ -29,10 +29,6 @@ extension SearchViewController {
     }
 
     func setPanel(_ mode: PanelMode) {
-        if mode != .suggestions {
-            suggestWorkItem?.cancel()
-            suggestToken.cancel()
-        }
         guard panelMode != mode else {
             if mode != .hidden {
                 tableView.reloadData()
@@ -43,8 +39,8 @@ extension SearchViewController {
         tableView.reloadData()
     }
 
-    /// Derives the panel from the current input: history for an
-    /// empty query, debounced suggestions otherwise.
+    /// Derives the panel from the current input: history for an empty
+    /// query, the past searches that contain it otherwise.
     func updatePanel(for text: String) {
         let trimmed = text.trimmingCharacters(
             in: .whitespacesAndNewlines
@@ -52,11 +48,13 @@ extension SearchViewController {
         if trimmed.isEmpty {
             // Clearing the field is how the user asks for history back,
             // whether or not the keyboard is still up.
-            suggestions = []
+            historyMatches = []
             showHistoryIfIdle()
         } else if searchBar.isFirstResponder {
-            setPanel(.suggestions)
-            scheduleSuggestions(for: trimmed)
+            historyMatches = searchHistory.queries.filter {
+                $0.localizedCaseInsensitiveContains(trimmed)
+            }
+            setPanel(historyMatches.isEmpty ? .hidden : .matches)
         }
     }
 
@@ -116,42 +114,6 @@ extension SearchViewController {
             setPanel(.hidden)
         } else {
             tableView.reloadData()
-        }
-    }
-
-    // MARK: - Suggestions fetch
-
-    private func scheduleSuggestions(for query: String) {
-        suggestWorkItem?.cancel()
-        let work = DispatchWorkItem { [weak self] in
-            self?.fetchSuggestions(for: query)
-        }
-        suggestWorkItem = work
-        DispatchQueue.main.asyncAfter(
-            deadline: .now() + Self.suggestDebounce,
-            execute: work
-        )
-    }
-
-    private func fetchSuggestions(for query: String) {
-        suggestToken.cancel()
-        let token = CancellationToken()
-        suggestToken = token
-        service.fetchSearchSuggestions(
-            query: query,
-            cancellationToken: token
-        ) { [weak self] result in
-            DispatchQueue.main.async {
-                guard let self,
-                      self.panelMode == .suggestions,
-                      self.suggestToken === token,
-                      case .success(let items) = result
-                else {
-                    return
-                }
-                self.suggestions = items
-                self.tableView.reloadData()
-            }
         }
     }
 }

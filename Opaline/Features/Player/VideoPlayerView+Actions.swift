@@ -159,11 +159,6 @@ extension VideoPlayerView {
     }
 
     @objc
-    func skipButtonTapped() {
-        onSkipTapped?()
-    }
-
-    @objc
     func settingsTapped() {
         delegate?.videoPlayerViewDidTapSettings(self)
         scheduleAutoHide()

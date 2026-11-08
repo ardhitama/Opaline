@@ -1,14 +1,9 @@
 import Foundation
-import JavaScriptCore
 
 // MARK: - HLS Stream Resolver
 //
-// n-throttling signature solver + small HTTP/regex helpers used by the mweb
-// playback source. `solveN` (see the +Solve / +Remote extensions) runs the
-// EJS solver in an on-device JSContext (iOS 14+) or falls back to the remote
-// solver (iOS 12/13, whose engine can't parse YouTube's ES2020 base.js).
-// `fetchText` / `firstMatch` are used to scrape the player-JS URL from the
-// watch page.
+// Small HTTP/regex helpers for live HLS playback: `fetchText` loads a
+// playlist, `firstMatch` reads an attribute out of it.
 
 final class HLSStreamResolver {
     enum ResolverError: Error {
@@ -24,21 +19,6 @@ final class HLSStreamResolver {
     ].joined(separator: " ")
 
     let transport: HTTPTransport
-
-    // Memoized solve results and player JS — solving is expensive (base.js
-    // download + JS run on-device, or a round-trip to the remote solver),
-    // while n values and the player script repeat across videos.
-    private var solvedNCache: [String: String] = [:]
-    private var playerJSCache: (path: String, text: String)?
-    private let cacheLock = NSLock()
-
-    // A single reused JS engine for on-device n-solving. Creating a fresh
-    // JSContext (hence a fresh JSVirtualMachine) per solve leaks memory —
-    // JavaScriptCore doesn't return a retired VM's memory to the OS — so the
-    // solver library is loaded once and the context is reused. Serial access
-    // only, via `solverQueue`; never touch `solverContext` off that queue.
-    let solverQueue = DispatchQueue(label: "com.ytvlite.nsolve")
-    var solverContext: JSContext?
 
     init(transport: HTTPTransport = ServiceContainer.transport) {
         self.transport = transport
@@ -61,9 +41,8 @@ final class HLSStreamResolver {
         url: URL,
         completion: @escaping (Result<String, Error>) -> Void
     ) {
-        // MUST stay English: this fetches the watch page whose base.js/STS
-        // feed the n/sig solver — the solver pipeline expects a stable
-        // English request profile, not the content-language setting.
+        // A fixed English request profile, not the content-language setting:
+        // the playlists are parsed, never shown.
         let headers = [
             HTTPHeader.userAgent: desktopSafariUA,
             "Cookie": "SOCS=CAI",
@@ -86,33 +65,5 @@ final class HLSStreamResolver {
                 }
             }
         }
-    }
-}
-
-// MARK: - Solver caches (used by the Solve/Remote extensions)
-
-extension HLSStreamResolver {
-    func cachedSolvedN(for key: String) -> String? {
-        cacheLock.lock()
-        defer { cacheLock.unlock() }
-        return solvedNCache[key]
-    }
-
-    func storeSolvedN(_ solved: String, for key: String) {
-        cacheLock.lock()
-        defer { cacheLock.unlock() }
-        solvedNCache[key] = solved
-    }
-
-    func cachedPlayerJS(path: String) -> String? {
-        cacheLock.lock()
-        defer { cacheLock.unlock() }
-        return playerJSCache?.path == path ? playerJSCache?.text : nil
-    }
-
-    func storePlayerJS(_ text: String, path: String) {
-        cacheLock.lock()
-        defer { cacheLock.unlock() }
-        playerJSCache = (path, text)
     }
 }

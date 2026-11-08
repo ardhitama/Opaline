@@ -47,7 +47,7 @@ extension WatchViewController {
             waitsToMinimizeStalling: minimizeStalling
         )
         let pv = getOrCreatePlayerView()
-        configureSponsorBlock(on: pv)
+        observePlaybackTime(on: pv)
         playerContainer.bringSubviewToFront(pv)
         pv.attach(player: player)
         // Start as soon as the first frames are decodable instead of
@@ -147,25 +147,13 @@ extension WatchViewController {
         }
     }
 
-    func configureSponsorBlock(
-        on playerView: VideoPlayerView
-    ) {
-        sponsorBlock.attach(to: playerView)
+    func observePlaybackTime(on playerView: VideoPlayerView) {
         playerView.onTimeUpdate = { [weak self] time in
             if self?.pendingRecoverySeek == false {
                 self?.lastPlaybackPosition = time
             }
-            self?.sponsorBlock.checkTime(time)
             NowPlayingService.shared.updatePosition(time)
             self?.videoPlayerView?.updateSubtitle(at: time)
-        }
-        playerView.onSkipTapped = { [weak self] in
-            self?.sponsorBlock.skipCurrentSegment()
-        }
-        if !sponsorBlock.segments.isEmpty {
-            playerView.setSponsorSegments(
-                sponsorBlock.segments
-            )
         }
     }
 

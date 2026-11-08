@@ -46,9 +46,6 @@ extension VideoPlayerView {
         playerLayer.isHidden = false
         playerLayer.player = nil
         player = nil
-        hideSkipButton()
-        sponsorSegments = []
-        seekBar.setSegments([])
         seekBar.cancelScrubbing()
         speedOverlay.isHidden = true
         hudWorkItem?.cancel()
@@ -57,45 +54,6 @@ extension VideoPlayerView {
         seekBurst.tapCount = 0
         seekBurst.accumulated = 0
         seekBurst.target = .invalid
-    }
-
-    func setSponsorSegments(
-        _ segments: [SponsorBlockSegment]
-    ) {
-        sponsorSegments = segments
-        refreshSponsorSeekBar()
-    }
-
-    func showSkipButton(categoryName: String) {
-        skipButton.setTitle(
-            "sponsorblock.skip".localized(with: categoryName),
-            for: .normal
-        )
-        skipButton.isHidden = false
-    }
-
-    func hideSkipButton() {
-        skipButton.isHidden = true
-    }
-
-    func refreshSponsorSeekBar() {
-        guard duration > 0 else {
-            return
-        }
-        let normalized = sponsorSegments
-            .filter {
-                SponsorBlockService.skipBehavior(
-                    for: $0.category
-                ) != .disabled
-            }
-            .map {
-                SeekBarSegment(
-                    start: $0.startTime / duration,
-                    end: $0.endTime / duration,
-                    color: $0.category.seekBarColor
-                )
-            }
-        seekBar.setSegments(normalized)
     }
 
     // MARK: - Periodic Observer
@@ -239,7 +197,6 @@ extension VideoPlayerView {
                     self?.durationLabel.text = formatTime(
                         secs
                     )
-                    self?.refreshSponsorSeekBar()
                 }
             }
         }
@@ -260,7 +217,7 @@ extension VideoPlayerView {
         let secs = CMTimeGetSeconds(time)
         // The overlay is hidden most of the time, and while it is there is
         // nothing to redraw — but the observer still ticks 10x/sec to drive
-        // SponsorBlock, subtitles and watchtime through `onTimeUpdate`, so
+        // subtitles and watchtime through `onTimeUpdate`, so
         // only the seek bar work is skipped.
         //
         // While the user drags the thumb, `onScrubChanged` owns the label

@@ -42,8 +42,8 @@ final class URLSessionTransport: HTTPTransport {
     }
 
     /// The transport reports transport-level failures only; interpreting the
-    /// HTTP status is the caller's concern (some want 4xx as an error, others —
-    /// e.g. SponsorBlock's 404 — treat it as a valid empty result).
+    /// HTTP status is the caller's concern (some want 4xx as an error, others
+    /// treat a 404 as a valid empty result).
     static func map(
         data: Data?,
         response: URLResponse?,

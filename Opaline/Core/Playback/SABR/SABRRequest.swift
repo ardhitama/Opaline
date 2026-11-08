@@ -24,11 +24,6 @@ struct SABRIdentity {
     /// Which client's session these requests belong to; the bodies carry it in
     /// `streamerContext`.
     let client: PlaybackClient
-    /// The proof-of-origin token, already decoded from its web-safe base64. A
-    /// television sends it on every request, bound to the same id its `/player`
-    /// call named; the anonymous clients send none, which is why they play
-    /// without minting anything.
-    let poToken: Data?
 }
 
 /// Builds `VideoPlaybackAbrRequest` bodies.
@@ -174,9 +169,6 @@ enum SABRRequest {
         playbackCookie: Data?, identity: SABRIdentity
     ) -> Data {
         var context = Protobuf.bytes(1, identity.client.sabrClientInfo())
-        if let poToken = identity.poToken, !poToken.isEmpty {
-            context += Protobuf.bytes(2, poToken)
-        }
         if let playbackCookie, !playbackCookie.isEmpty {
             context += Protobuf.bytes(3, playbackCookie)
         }

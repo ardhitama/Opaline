@@ -27,7 +27,6 @@ let fullSet: [(String, String)] = [
     ("magnifyingglass", "icon_Magnifyingglass"),
     ("play.rectangle.fill", "icon_Play_Rectangle"),
     ("play.square.stack.fill", "icon_Square_Stack"),
-    ("bell.fill", "icon_bell"),
     ("bookmark", "icon_bookmark"),
     ("square.and.arrow.down", "icon_download"),
     ("person.fill", "icon_person_fill"),

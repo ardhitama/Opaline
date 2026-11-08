@@ -2,25 +2,6 @@
 import AVFoundation
 import UIKit
 
-// MARK: - Vote Formatting
-
-private func formatVoteCount(_ count: Int) -> String {
-    switch count {
-    case 0 ..< 1_000:
-        "\(count)"
-    case 1_000 ..< 1_000_000:
-        String(
-            format: "%.1fK",
-            Double(count) / 1_000
-        )
-    default:
-        String(
-            format: "%.1fM",
-            Double(count) / 1_000_000
-        )
-    }
-}
-
 // MARK: - Initial State
 
 extension WatchViewController {
@@ -139,7 +120,7 @@ extension WatchViewController {
         NotificationCenter.default.post(name: Self.displayedVideoDidChange, object: self)
     }
 
-    /// RYD/SponsorBlock, playlist prefetch and the first comments page —
+    /// Playlist prefetch and the first comments page —
     /// kicked off once per video. `applyWatchPage` runs twice (cache, then
     /// network); everything above this is UI application and safe to
     /// re-run, but these are one-shot network calls.
@@ -148,7 +129,6 @@ extension WatchViewController {
             return
         }
         sideEffectsStartedForVideoId = videoId
-        fetchExternalServiceData(videoId: videoId)
         prefetchPlaylistOptions()
         resetComments()
         loadComments()
@@ -238,56 +218,6 @@ extension WatchViewController {
         currentLikeStatus =
             page.likeStatus ?? .indifferent
         updateLikeDislikeUI()
-    }
-
-    func fetchExternalServiceData(videoId: String) {
-        if ReturnYouTubeDislikeService.enabled {
-            fetchRYDVotes(videoId: videoId)
-        }
-        if SponsorBlockService.enabled {
-            fetchSponsorSegments(videoId: videoId)
-        }
-    }
-
-    func fetchRYDVotes(videoId: String) {
-        ReturnYouTubeDislikeService.shared.fetchVotes(
-            videoId: videoId
-        ) { [weak self] result in
-            DispatchQueue.main.async {
-                guard let self,
-                      self.watchPage?.video.id
-                      == videoId
-                else {
-                    return
-                }
-                if case let .success(votes) = result {
-                    self.likeCountLabel.text =
-                        formatVoteCount(votes.likes)
-                    self.dislikeCountLabel.text =
-                        formatVoteCount(votes.dislikes)
-                }
-            }
-        }
-    }
-
-    func fetchSponsorSegments(videoId: String) {
-        SponsorBlockService.shared.fetchSegments(
-            videoId: videoId
-        ) { [weak self] result in
-            DispatchQueue.main.async {
-                guard let self,
-                      self.watchPage?.video.id
-                      == videoId
-                else {
-                    return
-                }
-                if case let .success(segments) = result {
-                    self.sponsorBlock.segments = segments
-                    self.videoPlayerView?
-                        .setSponsorSegments(segments)
-                }
-            }
-        }
     }
 
     func applyRelatedVideos(from page: WatchPage) {
@@ -458,9 +388,7 @@ extension WatchViewController {
         isLoadingComments = false
         descriptionExpanded = false
         likeCountLabel.text = "—"
-        dislikeCountLabel.text = "—"
         currentLikeStatus = .indifferent
-        sponsorBlock.reset()
         // Returns to the collapsed preview and drops the previous video's
         // rows before `resetComments()`/`loadInitialState()` render the new
         // one, so nothing from the old video is ever visible mid-switch.

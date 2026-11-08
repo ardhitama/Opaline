@@ -35,20 +35,6 @@ enum UserDefaultsKeys {
         static let isAnonymous = "isAnonymous"
     }
 
-    enum RYD {
-        static let enabled    = "ryd_enabled"
-        static let userId     = "ryd_userId_v2"
-        static let registered = "ryd_registered_v2"
-    }
-
-    enum SponsorBlock {
-        static let enabled = "sponsorblock_enabled"
-        /// Returns the key for the skip-behavior setting of a given category raw value.
-        static func segmentBehavior(for categoryRawValue: String) -> String {
-            "sb_behavior_\(categoryRawValue)"
-        }
-    }
-
     enum Feed {
         static let showShorts = "feed_showShorts"
         /// `ShortsPlayerMode` raw value; absent = vertical viewer.
@@ -91,12 +77,6 @@ enum UserDefaultsKeys {
         static let autoZoomToFill = "player_autoZoomToFill"
     }
 
-    enum Playback {
-        /// The made-up television id the TV client presents once and keeps;
-        /// its proof-of-origin token is bound to this exact string.
-        static let livingRoomPoTokenId = "playback_livingRoomPoTokenId"
-    }
-
     enum AutoDub {
         static let enabled = "autoDub_enabled"
         static let ignoreAIDubs = "autoDub_ignoreAIDubs"
@@ -120,7 +100,6 @@ enum UserDefaultsKeys {
         /// The chain the user built: which steps play, and in what order.
         static let playbackChainOrder = "debug_playbackChainOrder"
         static let playbackChainEnabled = "debug_playbackChainEnabled"
-        static let serverBaseURL = "debug_serverBaseURL"
         static let mainThreadWatchdog = "debug_mainThreadWatchdog"
     }
 
@@ -129,13 +108,6 @@ enum UserDefaultsKeys {
         /// Tokens stored before the keychain item became readable while the
         /// device is locked.
         static let keychainAfterFirstUnlock = "migration_keychainAfterFirstUnlock"
-    }
-
-    enum Notifications {
-        static let appUpdatesEnabled = "notifications_appUpdates"
-        static let lastUpdateCheck = "notifications_lastUpdateCheck"
-        /// First launch of a build that has the inbox — nothing published
-        /// before it is worth showing.
-        static let featureInstallDate = "notifications_featureInstallDate"
+        static let removedExternalServices = "migration_removedExternalServices"
     }
 }

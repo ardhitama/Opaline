@@ -183,14 +183,6 @@ extension WatchViewController {
             switch result {
             case .success:
                 AppLog.player("\(label) success for \(videoId)")
-                let rydVal = wasLiked ? 0 : 1
-                if ReturnYouTubeDislikeService.enabled {
-                    ReturnYouTubeDislikeService.shared
-                        .reportVote(
-                            videoId: videoId,
-                            value: rydVal
-                        )
-                }
             case let .failure(error):
                 AppLog.player(
                     "\(label) failed for \(videoId): \(error)"
@@ -214,14 +206,6 @@ extension WatchViewController {
             switch result {
             case .success:
                 AppLog.player("\(label) success for \(videoId)")
-                let rydVal = wasDisliked ? 0 : -1
-                if ReturnYouTubeDislikeService.enabled {
-                    ReturnYouTubeDislikeService.shared
-                        .reportVote(
-                            videoId: videoId,
-                            value: rydVal
-                        )
-                }
             case let .failure(error):
                 AppLog.player(
                     "\(label) failed for \(videoId): \(error)"

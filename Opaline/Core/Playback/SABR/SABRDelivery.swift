@@ -68,14 +68,10 @@ final class SABRDelivery: StreamDelivery {
     /// other's requests.
     private let identity: SABRIdentity
 
-    init(
-        transport: HTTPTransport,
-        client: PlaybackClient,
-        poToken: Data? = nil
-    ) {
+    init(transport: HTTPTransport, client: PlaybackClient) {
         self.client = client
         self.transport = transport
-        identity = SABRIdentity(client: client, poToken: poToken)
+        identity = SABRIdentity(client: client)
     }
 
     /// `videoPlaybackUstreamerConfig` arrives web-safe base64 and unpadded.
@@ -142,6 +138,20 @@ final class SABRDelivery: StreamDelivery {
         ]
     }
 
+    /// What a television puts on its media URL that the response's own URL does
+    /// not: read off a live TV session. `rn` is added per request by
+    /// `SABRFetcher`.
+    static func televisionParams(_ url: URL, cpn: String) -> URL {
+        guard var parts = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return url
+        }
+        var items = (parts.queryItems ?? []).filter { $0.name != "pot" }
+        items.append(URLQueryItem(name: "cpn", value: cpn))
+        items.append(URLQueryItem(name: "alr", value: "yes"))
+        parts.queryItems = items
+        return parts.url ?? url
+    }
+
     func prepare(
         _ request: DeliveryRequest,
         completion: @escaping (Result<PreparedPlayback, Error>) -> Void
@@ -155,14 +165,11 @@ final class SABRDelivery: StreamDelivery {
         pendingStartAt = request.resumeAt
         PlaybackProgress.step("player.status.openingSABR")
         // `cpn` and `alr` because a television sends them; `cver` comes with
-        // `directURL`. The token stays in the request body, where a television
-        // keeps it.
+        // `directURL`.
         let signed = Self.televisionParams(
             client.directURL(baseURL: url, poToken: nil), cpn: nonce
         )
-        Self.solvingThrottle(signed) { [weak self] solved in
-            self?.openSession(request, url: solved, config: config, completion: completion)
-        }
+        openSession(request, url: signed, config: config, completion: completion)
     }
 
     /// Fetches the two init segments — `ftyp/moov/sidx`, everything AVPlayer

@@ -124,11 +124,7 @@ enum AppLog {
     static func player(_ msg: String) { log("Player", msg) }
     static func hls(_ msg: String) { log("HLS", msg) }
     static func onesie(_ msg: String) { log("Onesie", msg) }
-    static func sponsorBlock(_ msg: String) { log("SponsorBlock", msg) }
-    static func ryd(_ msg: String) { log("RYD", msg) }
-    static func poToken(_ msg: String) { log("PoToken", msg) }
     static func subscribe(_ msg: String) { log("Subscribe", msg) }
-    static func notifications(_ msg: String) { log("Notifications", msg) }
     static func downloads(_ msg: String) { log("Downloads", msg) }
     static func perf(_ msg: String) { log("Perf", msg) }
 

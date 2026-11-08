@@ -16,7 +16,6 @@ extension SettingsViewController {
         .language: "settings.section.language",
         .playback: "settings.section.playback",
         .shorts: "shorts.shelf.title",
-        .sponsorBlock: "settings.section.sponsorblock",
         .cache: "settings.section.cache",
         .debug: "settings.section.debug",
         .downloads: "settings.section.downloads"
@@ -27,7 +26,6 @@ extension SettingsViewController {
         .pageLanguage: .language,
         .pagePlayback: .playback,
         .pageShorts: .shorts,
-        .pageSponsorBlock: .sponsorBlock,
         .pageCache: .cache,
         .pageDownloads: .downloads,
         .pageDebug: .debug
@@ -47,8 +45,6 @@ extension SettingsViewController {
             return playbackSections
         case .shorts:
             return shortsSections
-        case .sponsorBlock:
-            return sponsorBlockSections
         case .cache:
             return cacheSections
         case .debug:
@@ -58,8 +54,7 @@ extension SettingsViewController {
         }
     }
 
-    /// Category rows push a child page; `.notificationSettings` and
-    /// `.feedback` keep their existing handlers.
+    /// Category rows push a child page.
     private var rootSections: [Section] {
         [
             Section(
@@ -68,14 +63,8 @@ extension SettingsViewController {
                 rows: [
                     .pageAppearance, .pageLanguage,
                     .pagePlayback, .pageShorts, .pageDownloads,
-                    .notificationSettings, .pageSponsorBlock,
                     .pageCache, .pageDebug
                 ]
-            ),
-            Section(
-                header: nil,
-                footer: nil,
-                rows: [.feedback, .support]
             ),
             Section(
                 header: "settings.section.about".localized,
@@ -142,11 +131,6 @@ extension SettingsViewController {
                 ]
             ),
             Section(
-                header: "settings.section.ryd".localized,
-                footer: "settings.footer.ryd".localized,
-                rows: [.rydEnabled]
-            ),
-            Section(
                 header: "settings.section.autoDub".localized,
                 footer: "settings.footer.autoDub".localized,
                 rows: autoDubRows
@@ -168,22 +152,6 @@ extension SettingsViewController {
         ]
     }
 
-    private var sponsorBlockSections: [Section] {
-        var rows: [Row] = [.sponsorBlockEnabled]
-        if SponsorBlockService.enabled {
-            rows.append(.sponsorBlockSettings)
-        }
-        return [
-            Section(
-                header: nil,
-                footer: SponsorBlockService.enabled
-                    ? SponsorBlockService.attributionText
-                    : nil,
-                rows: rows
-            )
-        ]
-    }
-
     private var cacheSections: [Section] {
         var rows: [Row] = [.persistCache]
         if AppCache.persistenceEnabled {
@@ -198,15 +166,11 @@ extension SettingsViewController {
     }
 
     private var debugSections: [Section] {
-        var rows: [Row] = [.playbackChain]
-        rows.append(contentsOf: [
-            .resetIdentity, .solverEndpoint, .mainThreadWatchdog, .shareLog
-        ])
-        return [
+        [
             Section(
                 header: nil,
                 footer: "settings.footer.debug".localized,
-                rows: rows
+                rows: [.playbackChain, .resetIdentity, .mainThreadWatchdog, .shareLog]
             )
         ]
     }

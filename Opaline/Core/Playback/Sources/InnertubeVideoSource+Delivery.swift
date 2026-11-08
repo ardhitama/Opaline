@@ -27,9 +27,7 @@ extension InnertubeVideoSource {
             completion(.failure(Self.deliveryUnavailableError))
             return
         }
-        let stream = deliveryFactory.make(
-            client: client, transport: transport, poToken: sabrPoToken
-        )
+        let stream = deliveryFactory.make(client: client, transport: transport)
         delivery = stream
         let started = CACurrentMediaTime()
         stream.prepare(request) { result in

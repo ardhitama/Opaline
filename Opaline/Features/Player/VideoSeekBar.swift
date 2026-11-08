@@ -9,19 +9,11 @@ final class VideoSeekBar: UIControl {
 
     private let trackView    = UIView()
     private let bufferView   = UIView()
-    private let segmentsView = UIView()
     private let progressView = UIView()
     private let thumbView    = UIView()
 
     private(set) var progress: Double = 0
     private var buffer: Double = 0
-    private var segments: [SeekBarSegment] = []
-    /// Track width the segment bars were last built for, or -1 when the
-    /// segment list changed. `layoutSubviews` runs 10x/sec off `setProgress`,
-    /// but the bars only depend on the segments and the width — rebuilding
-    /// them every tick meant creating and destroying a UIView per segment
-    /// forever, even with the controls overlay hidden.
-    private var segmentsLayoutWidth: CGFloat = -1
     private var bufferWidthConstraint: NSLayoutConstraint?
     private var progressWidthConstraint: NSLayoutConstraint?
     /// Seconds, for VoiceOver's value and its swipe-up/down steps.
@@ -67,7 +59,6 @@ final class VideoSeekBar: UIControl {
             x: trackWidth * CGFloat(progress),
             y: bounds.height / 2
         )
-        layoutSegmentViews()
     }
 
     func setProgress(_ value: Double) {
@@ -77,13 +68,6 @@ final class VideoSeekBar: UIControl {
 
     func setBuffer(_ value: Double) {
         buffer = max(0, min(1, value))
-        setNeedsLayout()
-    }
-
-    /// Sets the SponsorBlock segment markers in 0-1 range.
-    func setSegments(_ newSegments: [SeekBarSegment]) {
-        segments = newSegments
-        segmentsLayoutWidth = -1
         setNeedsLayout()
     }
 
@@ -145,10 +129,6 @@ final class VideoSeekBar: UIControl {
         bufferView.layer.cornerRadius = 2
         bufferView.translatesAutoresizingMaskIntoConstraints = false
 
-        segmentsView.backgroundColor = .clear
-        segmentsView.translatesAutoresizingMaskIntoConstraints = false
-        segmentsView.isUserInteractionEnabled = false
-
         progressView.backgroundColor = .white
         progressView.layer.cornerRadius = 2
         progressView.translatesAutoresizingMaskIntoConstraints = false
@@ -162,7 +142,6 @@ final class VideoSeekBar: UIControl {
     private func addTrackSubviews() {
         addSubview(trackView)
         addSubview(bufferView)
-        addSubview(segmentsView)
         addSubview(progressView)
         addSubview(thumbView)
     }
@@ -178,41 +157,10 @@ final class VideoSeekBar: UIControl {
             bufferView.centerYAnchor.constraint(equalTo: centerYAnchor),
             bufferView.heightAnchor.constraint(equalToConstant: 4),
 
-            segmentsView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            segmentsView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            segmentsView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            segmentsView.heightAnchor.constraint(equalToConstant: 4),
-
             progressView.leadingAnchor.constraint(equalTo: leadingAnchor),
             progressView.centerYAnchor.constraint(equalTo: centerYAnchor),
             progressView.heightAnchor.constraint(equalToConstant: 4)
         ])
-    }
-
-    private func layoutSegmentViews() {
-        let trackWidth = segmentsView.bounds.width
-        guard trackWidth > 0, trackWidth != segmentsLayoutWidth else {
-            return
-        }
-        segmentsLayoutWidth = trackWidth
-        segmentsView.subviews.forEach { $0.removeFromSuperview() }
-        for seg in segments {
-            let segX = CGFloat(seg.start) * trackWidth
-            let segW = max(
-                2,
-                CGFloat(seg.end - seg.start) * trackWidth
-            )
-            let bar = UIView(
-                frame: CGRect(
-                    x: segX,
-                    y: 0,
-                    width: segW,
-                    height: 4
-                )
-            )
-            bar.backgroundColor = seg.color
-            segmentsView.addSubview(bar)
-        }
     }
 }
 
@@ -267,10 +215,4 @@ extension VideoSeekBar {
         setNeedsLayout()
         onScrubEnd?(pct)
     }
-}
-
-struct SeekBarSegment {
-    let start: Double
-    let end: Double
-    let color: UIColor
 }

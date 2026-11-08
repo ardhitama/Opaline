@@ -10,10 +10,11 @@ extension WatchViewController {
                 label: nil,
                 countLabel: likeCountLabel
             ),
+            // No count: YouTube publishes none, so the caption names it.
             ActionBarItem(
                 button: dislikeButton,
                 icon: "icon_thumb_down",
-                label: nil,
+                label: "a11y.dislike".localized,
                 countLabel: dislikeCountLabel
             ),
             ActionBarItem(
@@ -267,7 +268,6 @@ extension WatchViewController {
             item.button.addTapFeedback()
         }
         likeButton.accessibilityLabel = "a11y.like".localized
-        dislikeButton.accessibilityLabel = "a11y.dislike".localized
     }
 
     private func buildActionBarItems() {

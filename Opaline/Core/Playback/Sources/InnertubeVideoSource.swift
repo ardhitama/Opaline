@@ -5,10 +5,9 @@ import Foundation
 /// them as a SIDX-generated HLS stream (with native-HLS / progressive
 /// fallbacks). Owns quality selection from the DASH ladder.
 ///
-/// Serves two clients through one code path, because the difference between
-/// them is the request, not the playback: `androidVR` (anonymous, formats carry
-/// URLs) and `tv` (OAuth, SABR-only). Which delivery runs follows from what the
-/// response carries, so the TV client lands on SABR without a branch here.
+/// Serves every Innertube client through one code path, because the
+/// difference between them is the request, not the playback. Which delivery
+/// runs is the step's choice: byte ranges or SABR.
 final class InnertubeVideoSource: VideoSource {
     static let deliveryUnavailableError = NSError(
         domain: "InnertubeVideoSource",
@@ -47,8 +46,6 @@ final class InnertubeVideoSource: VideoSource {
     let transport: HTTPTransport
     /// How the bytes are arriving right now — byte ranges or SABR.
     var delivery: StreamDelivery?
-    /// The decoded po token this source's SABR sessions stream under (TV only).
-    var sabrPoToken: Data?
     private let liveHLS: LiveHLSPlayback
     let client: PlaybackClient
     /// How this source's bytes arrive — one delivery, chosen when the source
@@ -64,7 +61,6 @@ final class InnertubeVideoSource: VideoSource {
     /// The first build then starts on it directly instead of building the
     /// original and rebuilding a second later.
     var pendingAudioTrackId: String?
-    let poTokenProvider: PoTokenProvider
 
     init(
         apiClient: WatchService,
@@ -72,15 +68,13 @@ final class InnertubeVideoSource: VideoSource {
         name: String,
         deliveryFactory: StreamDeliveryFactory,
         transport: HTTPTransport = ServiceContainer.mediaTransport,
-        resolver: HLSStreamResolver = .shared,
-        poTokenProvider: PoTokenProvider = RemotePoTokenService.shared
+        resolver: HLSStreamResolver = .shared
     ) {
         self.apiClient = apiClient
         self.transport = transport
         self.client = client
         self.name = name
         self.deliveryFactory = deliveryFactory
-        self.poTokenProvider = poTokenProvider
         liveHLS = LiveHLSPlayback(resolver: resolver)
     }
 
@@ -99,26 +93,21 @@ final class InnertubeVideoSource: VideoSource {
         }
     }
 
-    /// One `/player` fetch for this source's client, minting whatever token it
-    /// needs first. Shared with the metadata-only audio-track probe.
+    /// One `/player` fetch for this source's client. Shared with the
+    /// metadata-only audio-track probe.
     func fetchInfo(
         videoId: String,
         cancellation: CancellationToken?,
         completion: @escaping (Result<DirectPlaybackInfo, Error>) -> Void
     ) {
         currentVideoId = videoId
-        mintingTokenIfNeeded { [weak self] poToken in
-            guard let self else {
-                return
-            }
-            apiClient.fetchDirectPlayback(
-                videoId: videoId,
-                client: client,
-                poToken: poToken,
-                cancellationToken: cancellation,
-                completion: completion
-            )
-        }
+        apiClient.fetchDirectPlayback(
+            videoId: videoId,
+            client: client,
+            poToken: nil,
+            cancellationToken: cancellation,
+            completion: completion
+        )
     }
 
     func releaseResources() {

@@ -43,9 +43,7 @@
 "common.cancel" = "Hủy";
 "common.close" = "Đóng";
 "common.ok" = "OK";
-"common.save" = "Lưu";
 "common.done" = "Xong";
-"common.edit" = "Chỉnh sửa";
 "common.delete" = "Xóa";
 "common.copied" = "Đã sao chép";
 "common.playlist" = "Danh sách phát";
@@ -114,40 +112,6 @@
 
 "player.seek.offset" = "%1$@ giây";
 
-/* ===== SponsorBlock ===== */
-
-"sponsorblock.skip" = "Bỏ qua %1$@";
-
-"sponsorblock.behavior.autoSkip" = "Tự động bỏ qua";
-"sponsorblock.behavior.showButton" = "Hiện nút";
-"sponsorblock.behavior.disabled" = "Tắt";
-
-"sponsorblock.attribution" = "Được cung cấp bởi SponsorBlock (sponsor.ajay.app) — một dự án cộng đồng mở.";
-"sponsorblock.segmentCategories" = "Danh mục phân đoạn";
-
-"sponsorblock.category.sponsor.name" = "Tài trợ";
-"sponsorblock.category.sponsor.description" = "Quảng bá có trả tiền, giới thiệu có trả tiền và quảng cáo trực tiếp. Không dùng cho phần tự quảng bá hoặc lời giới thiệu miễn phí về những mục tiêu/nhà sáng tạo/trang web/sản phẩm mà họ thích.";
-"sponsorblock.category.selfpromo.name" = "Tự quảng bá/không trả tiền";
-"sponsorblock.category.selfpromo.description" = "Tương tự \"Tài trợ\" nhưng không được trả tiền hoặc là tự quảng bá. Bao gồm các phần về hàng hóa, quyên góp hoặc thông tin về những người họ đã hợp tác.";
-"sponsorblock.category.exclusive_access.name" = "Quyền truy cập độc quyền";
-"sponsorblock.category.exclusive_access.description" = "Chỉ dùng để gắn nhãn cho cả video. Dùng khi video giới thiệu một sản phẩm, dịch vụ hoặc địa điểm mà họ được truy cập miễn phí hoặc được tài trợ.";
-"sponsorblock.category.interaction.name" = "Nhắc tương tác (đăng ký)";
-"sponsorblock.category.interaction.description" = "Khi có một lời nhắc ngắn về việc thích, đăng ký hoặc theo dõi ở giữa nội dung. Nếu lời nhắc dài hoặc nói về một nội dung cụ thể thì nên xếp vào phần tự quảng bá.";
-"sponsorblock.category.highlight.name" = "Điểm nhấn";
-"sponsorblock.category.highlight.description" = "Phần video mà phần lớn mọi người đang tìm. Tương tự các bình luận kiểu \"Video bắt đầu ở x\".";
-"sponsorblock.category.intro.name" = "Khoảng nghỉ/hình hiệu mở đầu";
-"sponsorblock.category.intro.description" = "Khoảng thời gian không có nội dung thực sự. Có thể là một quãng dừng, khung hình tĩnh hoặc ảnh động lặp lại. Không dùng cho các đoạn chuyển tiếp có chứa thông tin.";
-"sponsorblock.category.outro.name" = "Thẻ cuối/danh đề";
-"sponsorblock.category.outro.description" = "Danh đề hoặc khi các thẻ cuối của YouTube xuất hiện. Không dùng cho phần kết luận có chứa thông tin.";
-"sponsorblock.category.preview.name" = "Giới thiệu trước/tóm lược";
-"sponsorblock.category.preview.description" = "Tập hợp các đoạn cho thấy nội dung sắp tới trong video này hoặc trong các video khác của một loạt video, mà toàn bộ thông tin đó đều được nhắc lại về sau trong video.";
-"sponsorblock.category.filler.name" = "Nội dung ngoài lề/câu chuyện vui";
-"sponsorblock.category.filler.description" = "Những cảnh ngoài lề hoặc câu chuyện vui không cần thiết để hiểu nội dung chính của video. Không tính các phân đoạn cung cấp bối cảnh hoặc thông tin nền.";
-"sponsorblock.category.music_offtopic.name" = "Phần không có nhạc";
-"sponsorblock.category.music_offtopic.description" = "Chỉ dùng cho video nhạc. Phần không có nhạc trong một video nhạc.";
-"sponsorblock.category.chapter.name" = "Phân cảnh";
-"sponsorblock.category.chapter.description" = "Các phần của video được đặt tên riêng.";
-
 /* ===== Settings ===== */
 
 "settings.title" = "Cài đặt";
@@ -159,15 +123,12 @@
 "settings.section.autoDub" = "Lồng tiếng";
 "settings.section.home" = "Trang chủ";
 "settings.section.cache" = "Bộ nhớ đệm";
-"settings.section.ryd" = "Return YouTube Dislike";
-"settings.section.sponsorblock" = "SponsorBlock";
 "settings.section.debug" = "Gỡ lỗi";
 
 /* Section footers */
 "settings.footer.playback" = "Thu phóng vừa màn hình sẽ tự động điều chỉnh video ở chế độ toàn màn hình để không còn viền đen. Chụm hai ngón tay trong trình phát sẽ ghi đè chế độ này cho từng video.\n\nTự động phát sẽ phát video được đề xuất tiếp theo sau khi đếm ngược 5 giây. Tùy chọn Mix áp dụng điều tương tự cho hàng đợi mix/danh sách phát nhưng phát ngay lập tức.";
 "settings.footer.autoDub" = "Khi ngôn ngữ gốc của video khác với ngôn ngữ lồng tiếng, bản âm thanh tương ứng sẽ được chọn tự động.";
 "settings.footer.home" = "Cách hiển thị các kệ nội dung đề xuất: một lưới liền mạch hoặc các hàng ngang theo kiểu TV.";
-"settings.footer.ryd" = "Số lượt không thích được cung cấp bởi Return YouTube Dislike (returnyoutubedislike.com) — một dự án cộng đồng mở.";
 
 /* Theme rows; segment labels for dark/light/auto modes */
 "settings.row.appIcon" = "Biểu tượng ứng dụng";
@@ -205,10 +166,6 @@
 "settings.homeLayout.grid" = "Lưới đơn giản";
 "settings.homeLayout.rails" = "Hàng ngang theo kệ";
 
-/* Notifications section */
-"settings.section.notifications" = "Thông báo";
-"settings.row.notifications" = "Thông báo";
-
 /* Cache rows */
 "settings.row.feedCache" = "Bộ nhớ đệm nguồn cấp dữ liệu";
 "settings.row.feedCacheDuration" = "Thời gian lưu bộ nhớ đệm nguồn cấp dữ liệu";
@@ -218,17 +175,9 @@
 "settings.cache.clearedTitle" = "Đã xóa bộ nhớ đệm";
 "settings.cache.clearedMessage" = "Toàn bộ bộ nhớ đệm đã được xóa.";
 
-/* Integration rows */
-"settings.row.ryd" = "Return YouTube Dislike";
-"settings.row.sponsorblock" = "SponsorBlock";
-"settings.row.sponsorblockSettings" = "Cài đặt SponsorBlock";
-
 /* Debug rows (values stay technical/English) */
-"settings.row.solverServer" = "Solver Server";
 "settings.row.mainThreadWatchdog" = "Main Thread Watchdog";
 "settings.row.shareLog" = "Chia sẻ nhật ký gỡ lỗi";
-"settings.row.support" = "Hỗ trợ phát triển";
-"settings.row.feedback" = "Gửi ý kiến phản hồi";
 
 /* About section: values an issue report asks for, copied on tap */
 "settings.section.about" = "Giới thiệu";
@@ -236,18 +185,12 @@
 "settings.about.version" = "Phiên bản";
 "settings.about.system" = "Hệ thống";
 "settings.about.model" = "Thiết bị";
-"settings.solver.message" = "URL của máy chủ giải mã.";
-"settings.solver.reset" = "Đặt lại về giá trị mặc định";
-"settings.solver.defaultSuffix" = " (mặc định)";
 "settings.log.noneTitle" = "Không có nhật ký";
 "settings.log.noneMessage" = "Chưa có nhật ký gỡ lỗi nào.";
 
 /* ===== Profile ===== */
 
 "profile.title" = "Trang cá nhân";
-"profile.signOut" = "Đăng xuất";
-"profile.clearImageCache" = "Xóa bộ nhớ đệm hình ảnh";
-"profile.imageCacheCleared" = "Đã xóa bộ nhớ đệm hình ảnh.";
 
 /* ===== Search ===== */
 
@@ -367,21 +310,6 @@
 "settings.language.restartTitle" = "Cần khởi động lại";
 "settings.language.restartMessage" = "Các thay đổi sẽ được áp dụng hoàn toàn sau khi bạn khởi động lại ứng dụng.";
 
-/* ===== Notifications ===== */
-
-"notifications.update.title" = "Đã có bản cập nhật: %@";
-
-"notifications.title" = "Thông báo";
-"notifications.empty" = "Chưa có thông báo nào";
-"notifications.markAllRead" = "Đánh dấu tất cả là đã đọc";
-"notifications.permissionBanner.message" = "Thông báo của hệ thống đang tắt, nên bạn có thể không nhận được thông báo khi ở ngoài ứng dụng.";
-"notifications.permissionBanner.enable" = "Bật thông báo";
-"notifications.detail.openLink" = "Mở";
-
-/* Notification settings screen (pushed from Settings > Home) */
-"settings.row.appUpdates" = "Bản cập nhật ứng dụng";
-"settings.footer.notifications" = "Thông báo có thể bị chậm — iOS lên lịch kiểm tra trong nền và không chạy ngay lập tức.";
-
 /* ===== Sign-in (OAuth device code) screen ===== */
 
 "auth.title" = "Đăng nhập vào YouTube";
@@ -409,7 +337,6 @@
 "player.status.switchingToSABR" = "Đang chuyển sang SABR...";
 "player.status.switchingToRanges" = "Đang chuyển sang luồng trực tiếp...";
 "player.status.openingSABR" = "Đang mở phiên SABR...";
-"player.status.solving" = "Đang giải mã chữ ký...";
 "settings.section.downloads" = "Nội dung tải xuống";
 "settings.footer.downloads" = "Những gì được lưu cùng với video. Bình luận và phụ đề được giữ nguyên như tại thời điểm tải xuống.";
 "settings.row.downloadQuality" = "Chất lượng";
@@ -443,9 +370,8 @@
 "downloads.error.failed" = "Không thể tải video xuống";
 "downloads.error.noOptions" = "Không thể tải video này xuống";
 "player.related.downloaded" = "Cũng đã tải xuống";
-"settings.footer.debug" = "Chọn những cách phát video và thứ tự thử chúng. Máy chủ giải mã trả lời thử thách giới hạn tốc độ đi kèm luồng của ứng dụng TV (và cấp token cho nó).";
+"settings.footer.debug" = "Chọn những cách phát video và thứ tự thử chúng.";
 "settings.row.playbackChain" = "Nguồn phát";
-"settings.playbackChain.signInNeeded" = "Đăng nhập để dùng nguồn này";
 "settings.playbackChain.footer" = "Được thử lần lượt từ trên xuống cho đến khi một nguồn phát được. Kéo để sắp xếp lại, tắt nguồn bạn không muốn dùng.";
 "settings.row.resetIdentity" = "Đặt lại visitor identity";
 "library.downloads.empty" = "Các video bạn tải xuống sẽ xuất hiện tại đây";
