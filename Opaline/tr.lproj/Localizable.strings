@@ -353,7 +353,9 @@
 "home.category.learning" = "Öğrenme";
 "home.category.fashion" = "Moda";
 /* Error empty state (two lines) */
-"home.error.loadFailed" = "Akış yüklenemedi\nYeniden denemek için aşağı çekin";
+"home.error.loadFailed" = "Akış yüklenemedi";
+"home.error.retry" = "Tekrar dene";
+"video.badge.live" = "Canlı";
 /* Signed-out empty state */
 "home.signIn" = "Önerilerinizi görmek için giriş yapın";
 
@@ -535,3 +537,16 @@
 "settings.row.resetIdentity" = "Visitor identity’yi sıfırla";
 "library.downloads.empty" = "İndirdiğiniz videolar burada gösterilir";
 "player.error.noSources" = "Tüm oynatma kaynakları kapalı. “Ayarlar → Hata Ayıklama → Oynatma kaynakları” bölümünden en az birini açın.";
+
+/* VoiceOver names for controls that show only an icon */
+"a11y.previous" = "Önceki";
+"a11y.next" = "Sonraki";
+"a11y.play" = "Oynat";
+"a11y.pause" = "Duraklat";
+"a11y.replay" = "Tekrar oynat";
+"a11y.fullScreen" = "Tam ekran";
+"a11y.exitFullScreen" = "Tam ekrandan çık";
+"a11y.minimize" = "Küçült";
+"a11y.back" = "Geri";
+"a11y.like" = "Beğen";
+"a11y.dislike" = "Beğenme";

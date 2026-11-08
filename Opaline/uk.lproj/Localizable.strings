@@ -297,7 +297,9 @@
 "home.category.sports" = "Спорт";
 "home.category.learning" = "Освіта";
 "home.category.fashion" = "Мода";
-"home.error.loadFailed" = "Не вдалося завантажити стрічку\nПотягніть вниз, щоб повторити";
+"home.error.loadFailed" = "Не вдалося завантажити стрічку";
+"home.error.retry" = "Повторити";
+"video.badge.live" = "Наживо";
 "home.signIn" = "Увійдіть, щоб бачити рекомендації";
 
 /* ===== Channel ===== */
@@ -446,3 +448,16 @@
 "downloads.error.noOptions" = "Це відео не можна завантажити";
 "player.related.downloaded" = "Також завантажені";
 "library.downloads.empty" = "Тут з’являтимуться відео, які ви завантажили";
+
+/* VoiceOver names for controls that show only an icon */
+"a11y.previous" = "Попереднє";
+"a11y.next" = "Наступне";
+"a11y.play" = "Відтворити";
+"a11y.pause" = "Пауза";
+"a11y.replay" = "Повторити";
+"a11y.fullScreen" = "На весь екран";
+"a11y.exitFullScreen" = "Вийти з повноекранного режиму";
+"a11y.minimize" = "Згорнути";
+"a11y.back" = "Назад";
+"a11y.like" = "Подобається";
+"a11y.dislike" = "Не подобається";

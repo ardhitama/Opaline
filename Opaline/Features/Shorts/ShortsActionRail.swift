@@ -16,10 +16,16 @@ final class ShortsActionRail: UIView {
 
     var onAction: ((Action) -> Void)?
 
-    private let like = ShortsActionButton(icon: "icon_thumb_up")
-    private let dislike = ShortsActionButton(icon: "icon_thumb_down")
-    private let comments = ShortsActionButton(icon: "icon_comment")
-    private let share = ShortsActionButton(icon: "icon_share")
+    private let like = ShortsActionButton(icon: "icon_thumb_up", name: "a11y.like".localized)
+    private let dislike = ShortsActionButton(
+        icon: "icon_thumb_down", name: "a11y.dislike".localized
+    )
+    private let comments = ShortsActionButton(
+        icon: "icon_comment", name: "player.comments.title".localized
+    )
+    private let share = ShortsActionButton(
+        icon: "icon_share", name: "player.action.share".localized
+    )
 
     override init(frame: CGRect) {
         super.init(frame: frame)

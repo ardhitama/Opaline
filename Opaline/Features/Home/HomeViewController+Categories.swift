@@ -137,7 +137,6 @@ extension HomeViewController {
                     return
                 }
                 let ms = Int(Date().timeIntervalSince(t0) * 1_000)
-                self.spinner.stopAnimating()
                 self.endRefreshing()
                 switch result {
                 case .success(let page):

@@ -96,7 +96,7 @@ private final class AppIconCell: UITableViewCell {
         artwork.contentMode = .scaleAspectFit
         // Home-screen squircle is not reproducible with a corner radius, but
         // at 60pt the difference is invisible; iOS uses ~13.5 there.
-        artwork.layer.cornerRadius = 13.5
+        artwork.layer.roundCorners(13.5)
         artwork.clipsToBounds = true
         artwork.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 17)

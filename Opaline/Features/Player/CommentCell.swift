@@ -173,7 +173,7 @@ final class CommentStatusCell: UITableViewCell {
     private func setup() {
         messageLabel.numberOfLines = 0
         messageLabel.font = UIFont.systemFont(ofSize: 13)
-        skeletonBox.layer.cornerRadius = 8
+        skeletonBox.layer.roundCorners(8)
         skeletonBox.layer.masksToBounds = true
         skeletonBox.isHidden = true
         for item in [messageLabel, skeletonBox] {

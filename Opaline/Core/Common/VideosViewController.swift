@@ -23,7 +23,6 @@ class VideosViewController: UIViewController, ScrollableToTop {
     private(set) var collectionView: UICollectionView?
     let channelViewControllerFactory: (String, String) -> UIViewController
     let videoRouter: VideoRouter
-    let spinner = UIActivityIndicatorView(style: .white)
     var isLoadingInitial = true
     var isLoadingMore = false
     /// Hides the navigation bar on scroll-down; subclasses with extra
@@ -62,7 +61,6 @@ class VideosViewController: UIViewController, ScrollableToTop {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        setupSpinner()
         applyTheme()
         NotificationCenter.default.addObserver(
             self,
@@ -146,20 +144,6 @@ class VideosViewController: UIViewController, ScrollableToTop {
             ShelfRailCell.self,
             forCellWithReuseIdentifier: ShelfRailCell.reuseId
         )
-    }
-
-    private func setupSpinner() {
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(spinner)
-        NSLayoutConstraint.activate([
-            spinner.centerXAnchor.constraint(
-                equalTo: view.centerXAnchor
-            ),
-            spinner.centerYAnchor.constraint(
-                equalTo: view.centerYAnchor
-            )
-        ])
-        spinner.startAnimating()
     }
 
     @objc

@@ -349,7 +349,9 @@
 "home.category.learning" = "Educazione";
 "home.category.fashion" = "Moda";
 /* Error empty state (two lines) */
-"home.error.loadFailed" = "Impossibile caricare il feed\nTrascina verso il basso per riprovare";
+"home.error.loadFailed" = "Impossibile caricare il feed";
+"home.error.retry" = "Riprova";
+"video.badge.live" = "Live";
 /* Signed-out empty state */
 "home.signIn" = "Accedi per vedere i tuoi suggerimenti";
 
@@ -531,3 +533,16 @@
 "settings.row.resetIdentity" = "Reimposta visitor identity";
 "library.downloads.empty" = "I video che scarichi verranno visualizzati qui";
 "player.error.noSources" = "Tutte le sorgenti di riproduzione sono disattivate. Attivane almeno una in «Impostazioni → Debug → Sorgenti di riproduzione».";
+
+/* VoiceOver names for controls that show only an icon */
+"a11y.previous" = "Precedente";
+"a11y.next" = "Successivo";
+"a11y.play" = "Riproduci";
+"a11y.pause" = "Pausa";
+"a11y.replay" = "Riproduci di nuovo";
+"a11y.fullScreen" = "Schermo intero";
+"a11y.exitFullScreen" = "Esci da schermo intero";
+"a11y.minimize" = "Riduci";
+"a11y.back" = "Indietro";
+"a11y.like" = "Mi piace";
+"a11y.dislike" = "Non mi piace";

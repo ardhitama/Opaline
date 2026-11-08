@@ -353,7 +353,9 @@
 "home.category.learning" = "学び";
 "home.category.fashion" = "ファッション";
 /* Error empty state (two lines) */
-"home.error.loadFailed" = "フィードを読み込めませんでした\n下に引いて再試行";
+"home.error.loadFailed" = "フィードを読み込めませんでした";
+"home.error.retry" = "再試行";
+"video.badge.live" = "ライブ";
 /* Signed-out empty state */
 "home.signIn" = "サインインしておすすめを表示";
 
@@ -535,3 +537,16 @@
 "settings.row.resetIdentity" = "visitor identity をリセット";
 "library.downloads.empty" = "ダウンロードした動画がここに表示されます";
 "player.error.noSources" = "再生ソースがすべてオフになっています。「設定 → デバッグ → 再生ソース」で少なくとも 1 つオンにしてください。";
+
+/* VoiceOver names for controls that show only an icon */
+"a11y.previous" = "前の動画";
+"a11y.next" = "次の動画";
+"a11y.play" = "再生";
+"a11y.pause" = "一時停止";
+"a11y.replay" = "もう一度再生";
+"a11y.fullScreen" = "フルスクリーン";
+"a11y.exitFullScreen" = "フルスクリーンを終了";
+"a11y.minimize" = "最小化";
+"a11y.back" = "戻る";
+"a11y.like" = "高評価";
+"a11y.dislike" = "低評価";

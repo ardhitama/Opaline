@@ -39,7 +39,7 @@ final class ChipBarView: UIView {
         fatalError("init(coder:) is not supported")
     }
 
-    /// Indices in `placeholders` render as pulsing, non-tappable
+    /// Indices in `placeholders` render as still, non-tappable
     /// skeleton capsules instead of labeled chips.
     func setLabels(
         _ labels: [String],
@@ -48,14 +48,28 @@ final class ChipBarView: UIView {
     ) {
         selectedIndex = selected
         placeholderIndices = placeholders
-        stack.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        buttons = labels.enumerated().map { idx, label in
-            placeholders.contains(idx)
-                ? makePlaceholderChip(tag: idx)
-                : makeChipButton(label: label, tag: idx)
+        let rebuild = {
+            self.stack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+            self.buttons = labels.enumerated().map { idx, label in
+                placeholders.contains(idx)
+                    ? self.makePlaceholderChip(tag: idx)
+                    : self.makeChipButton(label: label, tag: idx)
+            }
+            self.buttons.forEach { self.stack.addArrangedSubview($0) }
+            self.applyTheme()
         }
-        buttons.forEach { stack.addArrangedSubview($0) }
-        applyTheme()
+        // On screen, the new chips (say, the real ones replacing the
+        // placeholders) dissolve in instead of popping.
+        guard window != nil, !buttons.isEmpty else {
+            rebuild()
+            return
+        }
+        UIView.transition(
+            with: stack,
+            duration: 0.2,
+            options: [.transitionCrossDissolve, .allowUserInteraction],
+            animations: rebuild
+        )
     }
 
     func setSelected(_ index: Int) {
@@ -128,19 +142,11 @@ final class ChipBarView: UIView {
             btn.widthAnchor.constraint(equalToConstant: 64),
             btn.heightAnchor.constraint(equalToConstant: 28)
         ])
-        let pulse = CABasicAnimation(keyPath: "opacity")
-        pulse.fromValue = 1.0
-        pulse.toValue = 0.35
-        pulse.duration = 0.7
-        pulse.autoreverses = true
-        pulse.repeatCount = .infinity
-        btn.layer.add(pulse, forKey: "chipPulse")
         return btn
     }
 
     private func stylePlaceholder(_ btn: UIButton) {
-        btn.backgroundColor = ThemeManager.shared
-            .primaryText.withAlphaComponent(0.12)
+        btn.backgroundColor = ThemeManager.shared.surface
     }
 
     @objc

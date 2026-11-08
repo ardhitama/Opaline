@@ -8,7 +8,10 @@ final class ShortsActionButton: UIView {
     /// Never hidden — an empty label holds the row's height steady while the
     /// real value is still loading.
     var count: String? {
-        didSet { label.text = count ?? " " }
+        didSet {
+            label.text = count ?? " "
+            button.accessibilityValue = count
+        }
     }
 
     var isHighlighted = false {
@@ -18,8 +21,12 @@ final class ShortsActionButton: UIView {
     private let button = UIButton(type: .custom)
     private let label = UILabel()
 
-    init(icon: String) {
+    /// `name` is what VoiceOver and Voice Control call the button; the
+    /// count under it is read as its value.
+    init(icon: String, name: String) {
         super.init(frame: .zero)
+        button.accessibilityLabel = name
+        label.isAccessibilityElement = false
         button.setImage(
             UIImage(named: icon)?.withRenderingMode(.alwaysTemplate),
             for: .normal

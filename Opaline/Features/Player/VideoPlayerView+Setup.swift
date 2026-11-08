@@ -16,6 +16,7 @@ extension VideoPlayerView {
         layer.addSublayer(topGradientLayer)
         layer.addSublayer(bottomGradientLayer)
         setupControls()
+        applyAccessibilityNames()
         addControlFeedback()
         addGestureRecognizers()
         addLifecycleObservers()

@@ -56,7 +56,7 @@ final class QueueBarView: UIView {
 
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
-        layer.cornerRadius = 12
+        layer.roundCorners(12)
         layer.masksToBounds = true
         nextLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         queueLabel.font = UIFont.systemFont(ofSize: 13)

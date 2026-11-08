@@ -116,7 +116,7 @@ final class LibraryViewController: UIViewController {
     @objc
     private func segmentChanged() {
         let segment = Segment(rawValue: segmentedControl.selectedSegmentIndex) ?? .history
-        show(segment: segment, animated: false)
+        show(segment: segment, animated: true)
     }
 
     private func show(segment: Segment, animated: Bool) {
@@ -125,18 +125,28 @@ final class LibraryViewController: UIViewController {
             return
         }
 
-        // Remove old child
-        if let old = currentChild {
-            old.willMove(toParent: nil)
-            old.view.removeFromSuperview()
-            old.removeFromParent()
-        }
-
-        // Add new child
+        let old = currentChild
+        old?.willMove(toParent: nil)
         addChild(newChild)
         newChild.view.frame = contentView.bounds
         newChild.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        contentView.addSubview(newChild.view)
+        let swap = {
+            old?.view.removeFromSuperview()
+            self.contentView.addSubview(newChild.view)
+        }
+        if animated {
+            // Segments are siblings, so the content dissolves in place
+            // rather than sliding as if it were pushed.
+            UIView.transition(
+                with: contentView,
+                duration: 0.2,
+                options: [.transitionCrossDissolve, .allowUserInteraction],
+                animations: swap
+            )
+        } else {
+            swap()
+        }
+        old?.removeFromParent()
         newChild.didMove(toParent: self)
         currentChild = newChild
     }

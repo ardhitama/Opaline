@@ -243,7 +243,6 @@ extension WatchViewController {
         subscribeButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         subscribeButton.layer.cornerRadius = 18
         subscribeButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 18, bottom: 10, right: 18)
-        subscribeButton.isEnabled = !OAuthClient.shared.isAnonymous
         let sel = #selector(subscribeButtonTapped)
         subscribeButton.addTarget(self, action: sel, for: .touchUpInside)
         subscribeButton.addTapFeedback()
@@ -267,6 +266,8 @@ extension WatchViewController {
         for item in actionBarItems {
             item.button.addTapFeedback()
         }
+        likeButton.accessibilityLabel = "a11y.like".localized
+        dislikeButton.accessibilityLabel = "a11y.dislike".localized
     }
 
     private func buildActionBarItems() {
@@ -306,6 +307,12 @@ extension WatchViewController {
         label.textAlignment = .center
         label.textColor = ThemeManager.shared.secondaryText
         label.text = staticLabel ?? "—"
+        // A caption that names the button is the button's own name, not a
+        // second element; a count stays its own element after it.
+        if let staticLabel {
+            btn.accessibilityLabel = staticLabel
+            label.isAccessibilityElement = false
+        }
         label.translatesAutoresizingMaskIntoConstraints = false
         let stack = UIStackView(arrangedSubviews: [btn, label])
         stack.axis = .vertical
@@ -421,6 +428,9 @@ extension WatchViewController {
             action: #selector(handleSheetPan)
         )
         sheet.dragRegion.addGestureRecognizer(pan)
+        sheet.onClose = { [weak self] in
+            self?.collapseSheet()
+        }
     }
 
     /// A UIStackView does not draw its own `backgroundColor` before iOS 14 —
@@ -431,7 +441,7 @@ extension WatchViewController {
         let card = commentsPreviewCard
         commentsStackView.insertSubview(card, at: 0)
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.layer.cornerRadius = 12
+        card.layer.roundCorners(12)
         card.isUserInteractionEnabled = false
         NSLayoutConstraint.activate([
             card.topAnchor.constraint(equalTo: commentsStackView.topAnchor),

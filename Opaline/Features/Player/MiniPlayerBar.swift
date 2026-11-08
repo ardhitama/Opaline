@@ -1,31 +1,55 @@
 import AVFoundation
 import UIKit
 
-// PiP-style mini player: small floating card in the bottom-right corner.
-// Layout: [video 16:9] / [title + ✕]. Tap anywhere → expand.
+// The minimized player. Tap anywhere → expand.
+//
+// `.floating`: a small card in the bottom-right corner, [video 16:9] over
+// [title + ✕]; iPad, and iPhone before iOS 26.
+// `.accessory`: a row in the tab bar's accessory on iPhone with iOS 26 —
+// [video] [title / channel] [play-pause] [✕]. The system places it above
+// the tab bar, so it never covers the content, and folds it in beside the
+// tab bar when the bar minimizes.
 final class MiniPlayerBar: UIView {
+    enum Style {
+        case floating
+        case accessory
+    }
+
+    let style: Style
+
     // MARK: - Subviews
 
-    private let videoContainer = UIView()
-    private let thumbnailFallback = ThumbnailImageView(frame: .zero)
+    let videoContainer = UIView()
+    let thumbnailFallback = ThumbnailImageView(frame: .zero)
     private let infoBar = UIView()
-    private let titleLabel = UILabel()
+    let titleLabel = UILabel()
     let closeButton = UIButton(type: .custom)
+    let channelLabel = UILabel()
+    let playPauseButton = UIButton(type: .system)
 
     // MARK: - State
 
     var onClose: (() -> Void)?
     var onTap: (() -> Void)?
+    var onPlayPause: (() -> Void)?
+
+    var playStateObservation: NSKeyValueObservation?
+    var isShowingPlaying = false
 
     private var playerLayer: AVPlayerLayer?
     private weak var player: AVPlayer?
 
     // MARK: - Init
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupCard()
-        setupSubviews()
+    init(style: Style = .floating) {
+        self.style = style
+        super.init(frame: .zero)
+        if style == .accessory, #available(iOS 26.0, *) {
+            setupAccessory()
+        } else {
+            setupCard()
+            setupSubviews()
+        }
         setupGestures()
         NotificationCenter.default.addObserver(
             self,
@@ -58,14 +82,28 @@ final class MiniPlayerBar: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         playerLayer?.frame = videoContainer.bounds
+        guard style == .accessory else {
+            return
+        }
+        // Beside a minimized tab bar the accessory turns inline and narrow;
+        // the title alone is enough to recognise the video there.
+        let isNarrow = bounds.width < 300
+        if channelLabel.isHidden != isNarrow {
+            channelLabel.isHidden = isNarrow
+        }
     }
 
     // MARK: - Public API
 
     func attachPlayer(_ player: AVPlayer?) {
+        // A new layer for the same player would blank the picture for a frame.
+        if let player, player === self.player, playerLayer != nil {
+            return
+        }
         playerLayer?.removeFromSuperlayer()
         playerLayer = nil
         self.player = player
+        observePlayState(of: player)
         guard let newPlayer = player else {
             return
         }
@@ -94,6 +132,8 @@ final class MiniPlayerBar: UIView {
 
     func update(title: String, channel: String, isPlaying: Bool, thumbnailURL: String) {
         titleLabel.text = title
+        channelLabel.text = channel
+        updatePlayPause(isPlaying: isPlaying)
         if let url = URL(string: thumbnailURL) {
             thumbnailFallback.setImage(url: url)
         }
@@ -102,8 +142,16 @@ final class MiniPlayerBar: UIView {
     @objc
     func applyTheme() {
         let theme = ThemeManager.shared
-        infoBar.backgroundColor = theme.surface
         titleLabel.textColor = theme.primaryText
+        if style == .accessory {
+            // On the accessory's glass, in the colours of the bar it sits on.
+            titleLabel.textColor = theme.barContent
+            channelLabel.textColor = theme.barContentInactive
+            playPauseButton.tintColor = theme.barContent
+            closeButton.tintColor = theme.barContent
+            return
+        }
+        infoBar.backgroundColor = theme.surface
         closeButton.setImage(closeIcon(color: theme.primaryText), for: .normal)
     }
 
@@ -112,7 +160,7 @@ final class MiniPlayerBar: UIView {
     private func setupCard() {
         translatesAutoresizingMaskIntoConstraints = false
         clipsToBounds = true
-        layer.cornerRadius = 10
+        layer.roundCorners(10)
     }
 
     // MARK: - Subview setup
@@ -123,7 +171,7 @@ final class MiniPlayerBar: UIView {
         activateConstraints()
     }
 
-    private func setupVideoContainer() {
+    func setupVideoContainer() {
         videoContainer.translatesAutoresizingMaskIntoConstraints = false
         videoContainer.backgroundColor = .black
         videoContainer.clipsToBounds = true
@@ -155,6 +203,7 @@ final class MiniPlayerBar: UIView {
 
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
+        closeButton.accessibilityLabel = "common.close".localized
         closeButton.addTapFeedback()
         infoBar.addSubview(closeButton)
 
@@ -193,8 +242,8 @@ final class MiniPlayerBar: UIView {
 
 // MARK: - Icon drawing + gestures
 
-private extension MiniPlayerBar {
-    func closeIcon(color: UIColor) -> UIImage {
+extension MiniPlayerBar {
+    private func closeIcon(color: UIColor) -> UIImage {
         let size = CGSize(width: 24, height: 24)
         let renderer = UIGraphicsImageRenderer(size: size)
         let img = renderer.image { _ in
@@ -219,6 +268,9 @@ private extension MiniPlayerBar {
 
     @objc
     func closeTapped() { onClose?() }
+
+    @objc
+    func playPauseTapped() { onPlayPause?() }
 
     @objc
     func barTapped() { onTap?() }

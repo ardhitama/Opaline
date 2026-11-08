@@ -75,7 +75,6 @@ final class SubscriptionShortsViewController: VideosViewController {
     /// only ever grows downwards, so nothing moves under a thumb.
     private func show(_ videos: [Video]) {
         collectionView?.refreshControl?.endRefreshing()
-        spinner.stopAnimating()
         AppLog.subs("rss shorts screen: \(videos.count) videos")
         pending = Array(videos.dropFirst(Self.pageSize))
         setPage(

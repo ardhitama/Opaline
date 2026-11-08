@@ -341,7 +341,9 @@
 "home.category.sports" = "Спорт";
 "home.category.learning" = "Обучение";
 "home.category.fashion" = "Мода";
-"home.error.loadFailed" = "Не удалось загрузить ленту\nПотяните вниз, чтобы повторить";
+"home.error.loadFailed" = "Не удалось загрузить ленту";
+"home.error.retry" = "Повторить";
+"video.badge.live" = "В эфире";
 "home.signIn" = "Войдите, чтобы видеть рекомендации";
 
 /* ===== Channel ===== */
@@ -449,3 +451,16 @@
 "settings.playbackChain.signInNeeded" = "Войдите, чтобы использовать этот источник";
 "settings.playbackChain.footer" = "Перебираются сверху вниз, пока один не заиграет. Перетащите, чтобы изменить порядок, ненужные выключите.";
 "player.error.noSources" = "Все источники воспроизведения выключены. Включите хотя бы один в «Настройки → Отладка → Источники воспроизведения».";
+
+/* VoiceOver names for controls that show only an icon */
+"a11y.previous" = "Предыдущее";
+"a11y.next" = "Следующее";
+"a11y.play" = "Воспроизвести";
+"a11y.pause" = "Пауза";
+"a11y.replay" = "Повторить";
+"a11y.fullScreen" = "Во весь экран";
+"a11y.exitFullScreen" = "Выйти из полноэкранного режима";
+"a11y.minimize" = "Свернуть";
+"a11y.back" = "Назад";
+"a11y.like" = "Нравится";
+"a11y.dislike" = "Не нравится";

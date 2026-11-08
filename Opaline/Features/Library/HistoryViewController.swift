@@ -14,8 +14,7 @@ final class HistoryViewController: UIViewController {
     var isLoadingMore = false
     var isLoadingInitial = true
     private let tableView = UITableView()
-    private let spinner = UIActivityIndicatorView(style: .white)
-    private let emptyLabel = UILabel()
+    private let emptyLabel = EmptyStateView(symbol: "clock.arrow.circlepath")
     private lazy var topBarHider = TopBarAutoHider(owner: self)
 
     init(
@@ -43,7 +42,6 @@ final class HistoryViewController: UIViewController {
         super.viewDidLoad()
         title = "library.history".localized
         setupTableView()
-        setupSpinner()
         setupEmpty()
         applyTheme()
         NotificationCenter.default.addObserver(
@@ -55,7 +53,6 @@ final class HistoryViewController: UIViewController {
         if OAuthClient.shared.isSignedIn {
             loadFromCacheThenFetch()
         } else {
-            spinner.stopAnimating()
             isLoadingInitial = false
             showSignInRequired()
         }
@@ -99,23 +96,8 @@ final class HistoryViewController: UIViewController {
         tableView.refreshControl = refresh
     }
 
-    private func setupSpinner() {
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(spinner)
-        NSLayoutConstraint.activate([
-            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
-        spinner.startAnimating()
-    }
-
     private func setupEmpty() {
-        emptyLabel.textColor = .lightGray
-        emptyLabel.font = UIFont.systemFont(ofSize: 15)
-        emptyLabel.textAlignment = .center
-        emptyLabel.numberOfLines = 0
         emptyLabel.isHidden = true
-        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emptyLabel)
         NSLayoutConstraint.activate([
             emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -153,25 +135,22 @@ final class HistoryViewController: UIViewController {
             }
             if let cached, !cached.videos.isEmpty {
                 self.isLoadingInitial = false
-                self.spinner.stopAnimating()
                 self.videos = cached.videos
                 self.continuationToken = cached.continuation
                 self.tableView.reloadData()
-                self.fetchHistory(showSpinner: false)
+                self.fetchHistory(showsSkeleton: false)
             } else {
-                self.fetchHistory(showSpinner: true)
+                self.fetchHistory(showsSkeleton: true)
             }
         }
     }
 
-    private func fetchHistory(showSpinner: Bool) {
-        if showSpinner {
+    private func fetchHistory(showsSkeleton: Bool) {
+        if showsSkeleton {
             isLoadingInitial = true
-            spinner.startAnimating()
         }
         service.fetchHistory { [weak self] result in
             DispatchQueue.main.async {
-                self?.spinner.stopAnimating()
                 self?.tableView.refreshControl?.endRefreshing()
                 self?.isLoadingInitial = false
                 switch result {
@@ -187,7 +166,7 @@ final class HistoryViewController: UIViewController {
     @objc
     private func handleRefresh() {
         cache.clearHistoryFeed()
-        fetchHistory(showSpinner: false)
+        fetchHistory(showsSkeleton: false)
     }
 
     func loadMore() {

@@ -150,40 +150,29 @@ extension WatchViewController {
 
     @objc
     func openChannel() {
-        let sourceVideo = watchPage?.video ?? initialVideo
+        let sourceVideo = displayedVideo
         guard let channelId = sourceVideo.channelId else {
             return
         }
         videoRouter.openChannel(id: channelId, name: sourceVideo.channelName)
     }
 
+    /// The chevron always minimizes, so putting the player away is one tap
+    /// wherever you are in it. Going back to the video before is the
+    /// player's own Previous button, which used to share this job.
     @objc
     func closeTapped() {
         exitFullscreenIfNeeded()
-        if videoHistory.isEmpty {
-            videoRouter.minimize()
-        } else {
-            goBack()
-        }
+        videoRouter.minimize()
     }
 
     func updateLeftBarButton() {
-        navigationItem.leftBarButtonItem = videoHistory.isEmpty
-            ? makeMinimizeButton()
-            : makeBackButton()
+        navigationItem.leftBarButtonItem = makeMinimizeButton()
     }
 
     func makeMinimizeButton() -> UIBarButtonItem {
         NavChevron.barButton(
             kind: .minimize,
-            target: self,
-            action: #selector(closeTapped)
-        )
-    }
-
-    func makeBackButton() -> UIBarButtonItem {
-        NavChevron.barButton(
-            kind: .back,
             target: self,
             action: #selector(closeTapped)
         )

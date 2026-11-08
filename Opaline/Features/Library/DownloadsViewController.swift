@@ -7,7 +7,7 @@ final class DownloadsViewController: UIViewController {
     private let videoRouter: VideoRouter
     private(set) var videos: [Video] = []
     private let tableView = UITableView()
-    private let emptyLabel = UILabel()
+    private let emptyLabel = EmptyStateView(symbol: "arrow.down.circle")
     private lazy var topBarHider = TopBarAutoHider(owner: self)
 
     init(
@@ -112,11 +112,6 @@ final class DownloadsViewController: UIViewController {
 
     private func setupEmpty() {
         emptyLabel.text = "library.downloads.empty".localized
-        emptyLabel.textColor = .lightGray
-        emptyLabel.font = UIFont.systemFont(ofSize: 15)
-        emptyLabel.textAlignment = .center
-        emptyLabel.numberOfLines = 0
-        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emptyLabel)
         NSLayoutConstraint.activate([
             emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),

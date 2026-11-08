@@ -42,6 +42,7 @@ final class ToolbarManager {
             target: vc,
             action: #selector(UIViewController.toolbarOpenSearch)
         )
+        searchBtn.accessibilityLabel = "search.title".localized
 
         let settingsBtn = UIBarButtonItem(
             image: resizedNavBarIcon("icon_Gear", size: 22),
@@ -49,6 +50,7 @@ final class ToolbarManager {
             target: vc,
             action: #selector(UIViewController.toolbarOpenSettings)
         )
+        settingsBtn.accessibilityLabel = "settings.title".localized
 
         let profileBtn = makeProfileButton(
             target: vc,
@@ -70,6 +72,7 @@ final class ToolbarManager {
 
     private func makeProfileButton(target: AnyObject, action: Selector) -> UIBarButtonItem {
         let button = ProfileAvatarButton()
+        button.accessibilityLabel = "profile.title".localized
         button.refresh()
         button.addTarget(target, action: action, for: .touchUpInside)
         button.addTapFeedback()
@@ -78,6 +81,7 @@ final class ToolbarManager {
 
     private func makeBellButton(target: AnyObject, action: Selector) -> UIBarButtonItem {
         let button = NotificationsBellButton()
+        button.accessibilityLabel = "notifications.title".localized
         button.addTarget(target, action: action, for: .touchUpInside)
         button.addTapFeedback()
         return UIBarButtonItem(customView: button)
@@ -185,7 +189,7 @@ final class ProfileAvatarButton: UIButton {
         contentMode = .scaleAspectFill
         imageView?.contentMode = .scaleAspectFill
         setImage(defaultImage(), for: .normal)
-        tintColor = ThemeManager.shared.primaryText
+        tintColor = ThemeManager.shared.barContent
         translatesAutoresizingMaskIntoConstraints = false
         widthAnchor.constraint(equalToConstant: size).isActive = true
         heightAnchor.constraint(equalToConstant: size).isActive = true
@@ -204,7 +208,7 @@ final class ProfileAvatarButton: UIButton {
 
     @objc
     func refresh() {
-        tintColor = ThemeManager.shared.primaryText
+        tintColor = ThemeManager.shared.barContent
         if let avatar = UserProfileStore.shared.avatarImage {
             setImage(avatar, for: .normal)
         } else {

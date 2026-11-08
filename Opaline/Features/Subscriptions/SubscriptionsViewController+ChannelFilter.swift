@@ -56,8 +56,12 @@ extension SubscriptionsViewController {
         }
         selectedChannel = nil
         channelBar.setSelectedChannelId(nil)
-        title = "subscriptions.title".localized
-        navigationItem.leftBarButtonItem = nil
+        title = nil
+        if isFilterBackInstalled {
+            navigationItem.setLeftBarButton(itemBehindFilterBack, animated: true)
+            itemBehindFilterBack = nil
+            isFilterBackInstalled = false
+        }
         videos = stashedVideos
         shortsShelf = stashedShorts
         continuationToken = stashedContinuation
@@ -96,13 +100,21 @@ private extension SubscriptionsViewController {
     }
 
     func installBackButton() {
-        guard navigationItem.leftBarButtonItem == nil else {
+        guard !isFilterBackInstalled else {
             return
         }
-        navigationItem.leftBarButtonItem = NavChevron.barButton(
-            kind: .back,
-            target: self,
-            action: #selector(exitChannelFilterTapped)
+        // The bell steps aside for the chevron; it used to block it, leaving
+        // the filter with no way back, and leaving the filter then dropped
+        // the bell too.
+        itemBehindFilterBack = navigationItem.leftBarButtonItem
+        isFilterBackInstalled = true
+        navigationItem.setLeftBarButton(
+            NavChevron.barButton(
+                kind: .back,
+                target: self,
+                action: #selector(exitChannelFilterTapped)
+            ),
+            animated: true
         )
     }
 }
@@ -155,7 +167,6 @@ extension SubscriptionsViewController {
     private func handleChannelVideosResult(
         _ result: Result<ChannelTabPage, Error>
     ) {
-        spinner.stopAnimating()
         tableView.refreshControl?.endRefreshing()
         switch result {
         case .success(let tabPage):

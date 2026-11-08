@@ -30,7 +30,7 @@ class HomeViewController: VideosViewController {
     /// Non-nil while a dynamic shelf chip is selected.
     var selectedShelfTitle: String?
     /// True while background pages are being fetched to collect
-    /// chips — the bar shows pulsing placeholders.
+    /// chips — the bar shows still placeholders.
     var chipDiscoveryActive = false
     /// Background pages left to fetch for chip discovery.
     var chipPrefetchBudget = 0
@@ -63,22 +63,25 @@ class HomeViewController: VideosViewController {
         return width > view.bounds.height ? 3 : 2
     }
 
-    lazy var errorLabel: UILabel = {
-        let label = UILabel()
-        label.text = "home.error.loadFailed".localized
-        label.textColor = .lightGray
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.isHidden = true
-        return label
+    lazy var errorLabel: EmptyStateView = {
+        let errorView = EmptyStateView(
+            symbol: "wifi.exclamationmark",
+            text: "home.error.loadFailed".localized,
+            actionTitle: "home.error.retry".localized
+        )
+        errorView.isHidden = true
+        errorView.onAction = { [weak self] in self?.handleRefresh() }
+        return errorView
     }()
 
-    lazy var signInEmptyView: SignInEmptyStateView = {
-        let emptyView = SignInEmptyStateView(message: "home.signIn".localized)
+    lazy var signInEmptyView: EmptyStateView = {
+        let emptyView = EmptyStateView(
+            symbol: "person.crop.circle",
+            text: "home.signIn".localized,
+            actionTitle: "account.signIn".localized
+        )
         emptyView.isHidden = true
-        emptyView.onSignIn = { [weak self] in self?.toolbarOpenProfile() }
+        emptyView.onAction = { [weak self] in self?.toolbarOpenProfile() }
         return emptyView
     }()
 
@@ -101,7 +104,8 @@ class HomeViewController: VideosViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "home.title".localized
+        // No bar title: the selected tab already says where this is, and the
+        // bar keeps only its buttons.
         AppLog.home("viewDidLoad")
         setupEmptyViews()
         setupChipBar()

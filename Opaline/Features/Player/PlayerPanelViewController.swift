@@ -48,6 +48,12 @@ final class PlayerPanelViewController: UIViewController, UIGestureRecognizerDele
             name: ThemeManager.didChangeNotification,
             object: nil
         )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(refreshMiniBar),
+            name: WatchViewController.displayedVideoDidChange,
+            object: watchVC
+        )
     }
 
     override func viewDidLayoutSubviews() {
@@ -64,16 +70,18 @@ final class PlayerPanelViewController: UIViewController, UIGestureRecognizerDele
         watchVC.keepOpeningOrientation()
         refreshSupportedOrientations()
         refreshMiniBar()
+        // The accessory row stays in place; the panel slides up over it.
+        let floatingBar = miniBar?.style == .floating ? miniBar : nil
         let animations = {
             self.view.transform = .identity
-            self.miniBar?.alpha = 0
-            self.miniBar?.transform = .identity
+            floatingBar?.alpha = 0
+            floatingBar?.transform = .identity
         }
         let completion: (Bool) -> Void = { _ in
-            self.miniBar?.isHidden = true
+            floatingBar?.isHidden = true
         }
         if animated {
-            miniBar?.isHidden = false
+            floatingBar?.isHidden = false
             UIView.animate(
                 withDuration: 0.25,
                 delay: 0,
@@ -91,12 +99,13 @@ final class PlayerPanelViewController: UIViewController, UIGestureRecognizerDele
         isExpanded = false
         refreshSupportedOrientations()
         refreshMiniBar()
-        miniBar?.transform = .identity
-        miniBar?.alpha = 0
-        miniBar?.isHidden = false
+        let floatingBar = miniBar?.style == .floating ? miniBar : nil
+        floatingBar?.transform = .identity
+        floatingBar?.alpha = 0
+        floatingBar?.isHidden = false
         let animations = {
             self.view.transform = self.collapsedTransform()
-            self.miniBar?.alpha = 1
+            floatingBar?.alpha = 1
         }
         if animated {
             UIView.animate(
@@ -117,8 +126,8 @@ final class PlayerPanelViewController: UIViewController, UIGestureRecognizerDele
         // Closing the player ends the queue with it — otherwise reopening the
         // same mix later picked it up mid-list, shuffle state and all.
         PlaybackQueue.shared.clear()
+        // A swiped-down card fades out from where the finger left it.
         miniBar?.layer.removeAllAnimations()
-        miniBar?.transform = .identity
         guard let tabBarController = owner else {
             onClose?()
             return
@@ -127,14 +136,17 @@ final class PlayerPanelViewController: UIViewController, UIGestureRecognizerDele
         onClose?()
     }
 
+    @objc
     func refreshMiniBar() {
         let player = watchVC.videoPlayerView?.player
         let isPlaying = (player?.rate ?? 0) != 0
+        let video = watchVC.displayedVideo
+        let channel = watchVC.watchPage?.channelInfo?.title ?? ""
         miniBar?.update(
-            title: watchVC.initialVideo.title,
-            channel: watchVC.initialVideo.channelName,
+            title: video.title,
+            channel: channel.isEmpty ? video.channelName : channel,
             isPlaying: isPlaying,
-            thumbnailURL: watchVC.initialVideo.thumbnailURL
+            thumbnailURL: video.thumbnailURL
         )
         miniBar?.attachPlayer(player)
         miniBar?.applyTheme()
@@ -199,7 +211,14 @@ private extension PlayerPanelViewController {
         miniBar?.onTap = { [weak self] in
             self?.expand(animated: true)
         }
-        miniBar?.addGestureRecognizer(miniPanGesture)
+        miniBar?.onPlayPause = { [weak self] in
+            self?.togglePlayback()
+        }
+        // Swipe down to dismiss belongs to the floating card; the accessory
+        // row has its close button and opens on a swipe up.
+        if miniBar?.style == .floating {
+            miniBar?.addGestureRecognizer(miniPanGesture)
+        }
         refreshMiniBar()
     }
 
@@ -214,7 +233,7 @@ private extension PlayerPanelViewController {
                 .multitaskPause.lastUserPause = CACurrentMediaTime()
             player.pause()
         }
-        refreshMiniBar()
+        // The mini bar's button follows the player's own state.
     }
 
     func collapsedTransform() -> CGAffineTransform {

@@ -64,7 +64,7 @@ class SubscriptionVideoCell: UITableViewCell {
         durationLabel.font = UIFont.systemFont(ofSize: 11, weight: .semibold)
         durationLabel.textColor = ThemeManager.shared.primaryText
         durationLabel.backgroundColor = ThemeManager.shared.durationBackground
-        durationLabel.layer.cornerRadius = 3
+        durationLabel.layer.roundCorners(3)
         durationLabel.layer.masksToBounds = true
         durationLabel.textAlignment = .center
         thumbnail.addSubview(durationLabel)

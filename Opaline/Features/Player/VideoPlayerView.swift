@@ -133,7 +133,7 @@ final class VideoPlayerView: UIView {
             weight: .semibold
         )
         button.backgroundColor = ThemeManager.shared.durationBackground
-        button.layer.cornerRadius = 4
+        button.layer.roundCorners(4)
         button.contentEdgeInsets = UIEdgeInsets(
             top: 7,
             left: 14,
@@ -157,7 +157,7 @@ final class VideoPlayerView: UIView {
         label.textAlignment = .center
         label.backgroundColor = UIColor.black
             .withAlphaComponent(0.6)
-        label.layer.cornerRadius = 4
+        label.layer.roundCorners(4)
         label.layer.masksToBounds = true
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -180,7 +180,7 @@ final class VideoPlayerView: UIView {
         let overlay = UIView()
         overlay.backgroundColor = UIColor.black
             .withAlphaComponent(0.85)
-        overlay.layer.cornerRadius = 8
+        overlay.layer.roundCorners(8)
         overlay.layer.masksToBounds = true
         overlay.isHidden = true
         overlay.translatesAutoresizingMaskIntoConstraints = false
@@ -231,7 +231,7 @@ final class VideoPlayerView: UIView {
         label.font = UIFont.monospacedDigitSystemFont(ofSize: 14, weight: .semibold)
         label.textAlignment = .center
         label.backgroundColor = UIColor.black.withAlphaComponent(0.75)
-        label.layer.cornerRadius = 4
+        label.layer.roundCorners(4)
         label.layer.masksToBounds = true
         label.alpha = 0
         label.translatesAutoresizingMaskIntoConstraints = false

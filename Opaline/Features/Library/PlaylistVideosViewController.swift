@@ -16,7 +16,7 @@ final class PlaylistVideosViewController: UIViewController {
     private var isLoadingMore = false
     let tableView = UITableView()
     private let spinner = UIActivityIndicatorView(style: .white)
-    private let emptyLabel = UILabel()
+    private let emptyLabel = EmptyStateView(symbol: "list.bullet.rectangle")
     private lazy var topBarHider = TopBarAutoHider(owner: self)
 
     init(
@@ -105,12 +105,7 @@ final class PlaylistVideosViewController: UIViewController {
     }
 
     private func setupEmpty() {
-        emptyLabel.textColor = .lightGray
-        emptyLabel.font = UIFont.systemFont(ofSize: 15)
-        emptyLabel.textAlignment = .center
-        emptyLabel.numberOfLines = 0
         emptyLabel.isHidden = true
-        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emptyLabel)
         NSLayoutConstraint.activate([
             emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),

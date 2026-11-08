@@ -15,7 +15,7 @@ struct FeedRun {
 // static destination tail. Tapping one filters the accumulated feed
 // to that title and pages on with the shelf's own continuation
 // tokens. On load/refresh a few extra pages are prefetched in the
-// background to collect enough titles; the bar shows pulsing
+// background to collect enough titles; the bar shows still
 // placeholders meanwhile.
 
 extension HomeViewController {

@@ -117,7 +117,7 @@ private extension AuthViewController {
         openButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         openButton.backgroundColor = ThemeManager.shared.accent
         openButton.setTitleColor(ThemeManager.shared.accentText, for: .normal)
-        openButton.layer.cornerRadius = 10
+        openButton.layer.roundCorners(10)
         openButton.contentEdgeInsets = UIEdgeInsets(
             top: 14, left: 28, bottom: 14, right: 28
         )

@@ -73,7 +73,8 @@ final class TopBarAutoHider {
         guard let onChange else {
             return
         }
-        UIView.animate(withDuration: 0.22) {
+        // In step with the bar, which slides for this long.
+        UIView.animate(withDuration: UINavigationController.hideShowBarDuration) {
             onChange(hidden)
         }
     }

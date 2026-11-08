@@ -81,7 +81,6 @@ extension ChannelViewController {
 
     func beginTabLoad() {
         playlistLookup = [:]
-        spinner.startAnimating()
         isLoadingInitial = true
         errorLabel.isHidden = true
         collectionView?.reloadData()
@@ -121,7 +120,6 @@ extension ChannelViewController {
     func handleSelectedTabVideos(
         _ result: Result<ChannelTabPage, Error>
     ) {
-        spinner.stopAnimating()
         endRefreshing()
         switch result {
         case .success(let tabPage):
@@ -138,7 +136,6 @@ extension ChannelViewController {
     func handleSelectedTabPlaylists(
         _ result: Result<PlaylistsPage, Error>
     ) {
-        spinner.stopAnimating()
         endRefreshing()
         switch result {
         case .success(let page):
@@ -192,7 +189,6 @@ extension ChannelViewController {
 
     func loadSortedVideoTab(token: String) {
         let expectedTab = currentTab
-        spinner.startAnimating()
         isLoadingInitial = true
         collectionView?.reloadData()
         tabsClient.fetchChannelTabNextPage(
@@ -201,7 +197,6 @@ extension ChannelViewController {
             DispatchQueue.main.async {
                 guard self?.currentTab == expectedTab
                 else { return }
-                self?.spinner.stopAnimating()
                 switch result {
                 case .success(let page):
                     self?.setPage(page)
@@ -214,7 +209,6 @@ extension ChannelViewController {
 
     func loadSortedBrowseTab(channelId: String, params: String) {
         let expectedTab = currentTab
-        spinner.startAnimating()
         isLoadingInitial = true
         collectionView?.reloadData()
         tabsClient.fetchChannelPlaylists(
@@ -224,7 +218,6 @@ extension ChannelViewController {
             DispatchQueue.main.async {
                 guard self?.currentTab == expectedTab
                 else { return }
-                self?.spinner.stopAnimating()
                 switch result {
                 case .success(let page):
                     let feedPage = self?.playlistFeedPage(

@@ -10,7 +10,7 @@ final class PlaylistsViewController: UIViewController {
     private var playlists: [Playlist] = []
     private let tableView = UITableView()
     private let spinner = UIActivityIndicatorView(style: .white)
-    private let emptyLabel = UILabel()
+    private let emptyLabel = EmptyStateView(symbol: "rectangle.stack")
     private lazy var topBarHider = TopBarAutoHider(owner: self)
 
     init(
@@ -104,12 +104,7 @@ final class PlaylistsViewController: UIViewController {
     }
 
     private func setupEmpty() {
-        emptyLabel.textColor = .lightGray
-        emptyLabel.font = UIFont.systemFont(ofSize: 15)
-        emptyLabel.textAlignment = .center
-        emptyLabel.numberOfLines = 0
         emptyLabel.isHidden = true
-        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emptyLabel)
         NSLayoutConstraint.activate([
             emptyLabel.centerXAnchor.constraint(

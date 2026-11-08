@@ -272,6 +272,7 @@ extension VideoPlayerView {
 
 extension VideoPlayerView {
     func updatePlayPauseIcon() {
+        updatePlayPauseName()
         if isAtEnd {
             playPauseButton.setImage(PlayerIcons.replay(), for: .normal)
             return
@@ -284,6 +285,7 @@ extension VideoPlayerView {
     }
 
     func updateFullscreenIcon() {
+        updateFullscreenName()
         fullscreenButton.setImage(
             PlayerIcons.fullscreen(
                 isFullscreen: isFullscreen

@@ -61,7 +61,7 @@ enum VideoCardHelper {
             liveBadgeView?.isHidden = false
             // Cells without a badge view of their own reuse the duration slot.
             durationLabel.isHidden = liveBadgeView != nil
-            durationLabel.text = " ● LIVE "
+            durationLabel.text = " \("video.badge.live".localized) "
             durationLabel.backgroundColor = theme.liveBadgeBackground
             durationLabel.textColor = theme.accentText
         } else if let duration = video.duration, !duration.isEmpty {

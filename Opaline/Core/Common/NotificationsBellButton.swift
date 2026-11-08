@@ -19,7 +19,7 @@ final class NotificationsBellButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         setImage(resizedNavBarIcon("icon_bell", size: 22), for: .normal)
-        tintColor = ThemeManager.shared.primaryText
+        tintColor = ThemeManager.shared.barContent
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(dotView)
         NSLayoutConstraint.activate([
@@ -48,7 +48,7 @@ final class NotificationsBellButton: UIButton {
 
     @objc
     func refresh() {
-        tintColor = ThemeManager.shared.primaryText
+        tintColor = ThemeManager.shared.barContent
         dotView.backgroundColor = ThemeManager.shared.newContentDot
         dotView.isHidden = AppNotificationStore.shared.unreadCount == 0
     }

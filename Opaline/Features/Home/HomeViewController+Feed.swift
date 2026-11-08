@@ -35,7 +35,6 @@ extension HomeViewController {
             if let cachedPage {
                 AppLog.home("cache-hit → showing \(cachedPage.videos.count) videos instantly")
                 self.isLoadingInitial = false
-                self.spinner.stopAnimating()
                 self.resetShelfDrain()
                 self.applyCachedPage(cachedPage)
                 // Revalidating replaces the whole feed — YouTube reorders
@@ -108,7 +107,6 @@ extension HomeViewController {
                     return
                 }
                 let ms = Int(Date().timeIntervalSince(t0) * 1_000)
-                self.spinner.stopAnimating()
                 self.handleFeedResult(result, ms: ms)
             }
         }

@@ -463,7 +463,9 @@
 "home.category.learning" = "Learning";
 "home.category.fashion" = "Fashion";
 /* Error empty state (two lines) */
-"home.error.loadFailed" = "Couldn't load feed\nPull down to retry";
+"home.error.loadFailed" = "Couldn't load feed";
+"home.error.retry" = "Try Again";
+"video.badge.live" = "Live";
 /* Signed-out empty state */
 "home.signIn" = "Sign in to see your recommendations";
 
@@ -591,3 +593,16 @@
 "settings.thumbnailQuality.maximum" = "Maximum (1280×720)";
 "settings.footer.thumbnailQuality" = "Auto picks a level from the amount of memory your device has. Higher quality means larger downloads and more memory per thumbnail, which can slow scrolling on devices with little RAM.";
 "player.error.noSources" = "No playback sources are enabled. Turn one on in Settings → Debug → Playback sources.";
+
+/* VoiceOver names for controls that show only an icon */
+"a11y.previous" = "Previous";
+"a11y.next" = "Next";
+"a11y.play" = "Play";
+"a11y.pause" = "Pause";
+"a11y.replay" = "Replay";
+"a11y.fullScreen" = "Full Screen";
+"a11y.exitFullScreen" = "Exit Full Screen";
+"a11y.minimize" = "Minimize";
+"a11y.back" = "Back";
+"a11y.like" = "Like";
+"a11y.dislike" = "Dislike";

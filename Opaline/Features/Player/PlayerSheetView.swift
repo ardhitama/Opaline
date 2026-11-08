@@ -16,8 +16,12 @@ final class PlayerSheetView: UIView {
     /// Tapped sort option, by index into whatever `setSortOptions` was last
     /// given.
     var onSelectSort: ((Int) -> Void)?
+    /// The header's close button. Landscape has no drag to dismiss with,
+    /// and in portrait it saves a long drag down.
+    var onClose: (() -> Void)?
 
     private let handle = UIView()
+    private let closeButton = UIButton(type: .system)
     private let headerStack = UIStackView()
     /// A row of its own under the title, not beside it — a long queue name
     /// squeezed the buttons off the edge.
@@ -47,6 +51,7 @@ final class PlayerSheetView: UIView {
         handle.backgroundColor = theme.secondaryText
         titleLabel.textColor = theme.primaryText
         list.backgroundColor = theme.surface
+        closeButton.tintColor = theme.secondaryText
         for button in buttonStack.arrangedSubviews {
             button.tintColor = theme.primaryText
         }
@@ -78,7 +83,7 @@ final class PlayerSheetView: UIView {
 
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
-        layer.cornerRadius = 16
+        layer.roundCorners(16)
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         layer.masksToBounds = true
         handle.layer.cornerRadius = 2.5
@@ -86,6 +91,7 @@ final class PlayerSheetView: UIView {
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         titleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         setupButtonRow()
+        setupCloseButton()
         headerStack.axis = .horizontal
         headerStack.alignment = .center
         headerStack.spacing = 8
@@ -97,6 +103,24 @@ final class PlayerSheetView: UIView {
         }
         addSubviews()
         activateConstraints()
+    }
+
+    private func setupCloseButton() {
+        if #available(iOS 13.0, *) {
+            let config = UIImage.SymbolConfiguration(pointSize: 15, weight: .semibold)
+            let image = UIImage(systemName: "xmark", withConfiguration: config)
+            closeButton.setImage(image, for: .normal)
+        } else {
+            closeButton.setTitle("common.close".localized, for: .normal)
+        }
+        closeButton.accessibilityLabel = "common.close".localized
+        closeButton.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
+        closeButton.addTapFeedback()
+    }
+
+    @objc
+    private func closeTapped() {
+        onClose?()
     }
 
     private func setupButtonRow() {
@@ -112,7 +136,7 @@ final class PlayerSheetView: UIView {
             item.translatesAutoresizingMaskIntoConstraints = false
             addSubview(item)
         }
-        for item in [handle, headerStack] {
+        for item in [handle, headerStack, closeButton] {
             item.translatesAutoresizingMaskIntoConstraints = false
             dragRegion.addSubview(item)
         }
@@ -150,9 +174,15 @@ final class PlayerSheetView: UIView {
             headerStack.leadingAnchor.constraint(
                 equalTo: dragRegion.leadingAnchor, constant: 16
             ),
-            headerStack.trailingAnchor.constraint(
-                equalTo: dragRegion.trailingAnchor, constant: -16
+            headerStack.trailingAnchor.constraint(equalTo: closeButton.leadingAnchor),
+            // A full-size target that overhangs the header's margins rather
+            // than making the header taller.
+            closeButton.trailingAnchor.constraint(
+                equalTo: dragRegion.trailingAnchor, constant: -4
             ),
+            closeButton.centerYAnchor.constraint(equalTo: headerStack.centerYAnchor),
+            closeButton.widthAnchor.constraint(equalToConstant: 44),
+            closeButton.heightAnchor.constraint(equalToConstant: 44),
             headerStack.bottomAnchor.constraint(equalTo: dragRegion.bottomAnchor, constant: -10),
 
             list.topAnchor.constraint(equalTo: chrome.bottomAnchor),

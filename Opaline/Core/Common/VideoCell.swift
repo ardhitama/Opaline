@@ -42,6 +42,50 @@ class VideoCell: UICollectionViewCell {
         }
     }
 
+    // VoiceOver reads a card as one element, the way people scan it: the
+    // title, then who posted it, when and how long it runs. Its channel and
+    // its menu are actions on that element, not small targets of their own.
+    override var isAccessibilityElement: Bool {
+        get { titleLabel.text != nil }
+        set { _ = newValue }
+    }
+
+    override var accessibilityLabel: String? {
+        get { titleLabel.text }
+        set { _ = newValue }
+    }
+
+    override var accessibilityValue: String? {
+        get {
+            let badge = liveBadgeView.isHidden ? durationLabel : liveBadgeView
+            return [channelLabel, metaLabel, badge]
+                .compactMap { $0.text?.trimmingCharacters(in: .whitespaces) }
+                .filter { !$0.isEmpty }
+                .joined(separator: ", ")
+        }
+        set { _ = newValue }
+    }
+
+    override var accessibilityCustomActions: [UIAccessibilityCustomAction]? {
+        get {
+            var actions: [UIAccessibilityCustomAction] = []
+            if onChannelTap != nil, let channel = channelLabel.text, !channel.isEmpty {
+                actions.append(UIAccessibilityCustomAction(
+                    name: channel, target: self, selector: #selector(accessibilityOpenChannel)
+                ))
+            }
+            if onMenuTap != nil {
+                actions.append(UIAccessibilityCustomAction(
+                    name: "player.description.more".localized,
+                    target: self,
+                    selector: #selector(accessibilityOpenMenu)
+                ))
+            }
+            return actions
+        }
+        set { _ = newValue }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -134,7 +178,7 @@ extension VideoCell {
         label.font = UIFont.systemFont(ofSize: 11, weight: .semibold)
         label.textColor = ThemeManager.shared.primaryText
         label.backgroundColor = ThemeManager.shared.durationBackground
-        label.layer.cornerRadius = 3
+        label.layer.roundCorners(3)
         label.layer.masksToBounds = true
         label.textAlignment = .center
         return label
@@ -146,7 +190,7 @@ extension VideoCell {
     }
 
     private func setupUI() {
-        thumbnail.layer.cornerRadius = 4
+        thumbnail.layer.roundCorners(4)
         thumbnail.layer.masksToBounds = true
         contentView.addSubview(thumbnail)
 
@@ -163,11 +207,11 @@ extension VideoCell {
         mixBadge.isHidden = true
         thumbnail.addSubview(mixBadge)
 
-        liveBadgeView.text = "● LIVE"
+        liveBadgeView.text = " \("video.badge.live".localized) "
         liveBadgeView.textColor = ThemeManager.shared.accentText
-        liveBadgeView.font = UIFont.systemFont(ofSize: 10, weight: .bold)
+        liveBadgeView.font = UIFont.systemFont(ofSize: 11, weight: .semibold)
         liveBadgeView.backgroundColor = ThemeManager.shared.liveBadgeBackground
-        liveBadgeView.layer.cornerRadius = 3
+        liveBadgeView.layer.roundCorners(3)
         liveBadgeView.layer.masksToBounds = true
         liveBadgeView.textAlignment = .center
         liveBadgeView.isHidden = true
@@ -289,7 +333,7 @@ extension VideoCell {
         if !liveBadgeView.isHidden {
             let badgeW = max(40, liveBadgeView.intrinsicContentSize.width + 8)
             liveBadgeView.frame = CGRect(
-                x: thumbW - badgeW - 4, y: thumbH - 22, width: badgeW, height: 14
+                x: thumbW - badgeW - 4, y: thumbH - 22, width: badgeW, height: 18
             )
         }
     }
@@ -325,7 +369,7 @@ extension VideoCell {
         if !liveBadgeView.isHidden {
             let lW = max(40, liveBadgeView.intrinsicContentSize.width + 8)
             let lx = cellWidth - lW - 6
-            liveBadgeView.frame = CGRect(x: lx, y: thumbH - 22, width: lW, height: 14)
+            liveBadgeView.frame = CGRect(x: lx, y: thumbH - 22, width: lW, height: 18)
         }
         let hp = VideoCell.hPad
         let avatarSz: CGFloat = channelAvatarView.isHidden ? 0 : VideoCell.avatarSize
@@ -354,6 +398,18 @@ extension VideoCell {
     @objc
     private func handleChannelTap() {
         onChannelTap?()
+    }
+
+    @objc
+    private func accessibilityOpenChannel() -> Bool {
+        onChannelTap?()
+        return true
+    }
+
+    @objc
+    private func accessibilityOpenMenu() -> Bool {
+        onMenuTap?(menuButton)
+        return true
     }
 
     @objc

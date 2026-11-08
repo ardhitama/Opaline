@@ -80,6 +80,11 @@ class MainTabBarController: UITabBarController {
             object: nil
         )
         applyTheme()
+        if #available(iOS 26.0, *), traitCollection.userInterfaceIdiom == .phone {
+            // Scrolling down shrinks the tab bar to its selected tab, giving
+            // the content the height back; scrolling up restores it.
+            tabBarMinimizeBehavior = .onScrollDown
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -106,10 +111,11 @@ class MainTabBarController: UITabBarController {
     @objc
     private func applyTheme() {
         let theme = ThemeManager.shared
-        // The bar is the system's (Liquid Glass on iOS 26+); the theme gives
-        // only the selected tab's accent.
+        // The bar is the system's (Liquid Glass on iOS 26+); the selected tab
+        // is the brightest, the others a step dimmer.
         tabBar.barStyle = theme.barStyle
-        tabBar.tintColor = theme.accent
+        tabBar.tintColor = theme.barContent
+        tabBar.unselectedItemTintColor = theme.barContentInactive
         miniPlayerBar?.applyTheme()
     }
 
@@ -152,7 +158,23 @@ class MainTabBarController: UITabBarController {
         panel.owner = self
         playerPanel = panel
 
-        miniPlayerBar?.removeFromSuperview()
+        dismissMiniPlayerBar()
+        let bar = makeMiniPlayerBar()
+        miniPlayerBar = bar
+        panel.miniBar = bar
+        panel.view.transform = CGAffineTransform(translationX: 0, y: view.bounds.height)
+        panel.expand(animated: true)
+    }
+
+    /// On iPhone with iOS 26 the mini player is the tab bar's accessory: the
+    /// system places it above the tab bar, insets the content for it, and
+    /// animates it in and out. Elsewhere it is a card floating in the corner.
+    private func makeMiniPlayerBar() -> MiniPlayerBar {
+        if #available(iOS 26.0, *), traitCollection.userInterfaceIdiom == .phone {
+            let bar = MiniPlayerBar(style: .accessory)
+            setBottomAccessory(UITabAccessory(contentView: bar), animated: true)
+            return bar
+        }
         let bar = MiniPlayerBar()
         view.addSubview(bar)
         // Use a proportional width (1/3 of the parent) so the bar stays correctly
@@ -167,18 +189,37 @@ class MainTabBarController: UITabBarController {
         updateMiniPlayerBarBottomInset()
         bar.isHidden = true
         bar.alpha = 0
-        miniPlayerBar = bar
+        return bar
+    }
 
-        panel.miniBar = bar
-        panel.view.transform = CGAffineTransform(translationX: 0, y: view.bounds.height)
-        panel.expand(animated: true)
+    private func dismissMiniPlayerBar() {
+        guard let bar = miniPlayerBar else {
+            return
+        }
+        if #available(iOS 26.0, *), bar.style == .accessory {
+            setBottomAccessory(nil, animated: true)
+            return
+        }
+        // Shrink and fade the card out where it sits instead of cutting it.
+        UIView.animate(
+            withDuration: 0.2,
+            delay: 0,
+            options: [.curveEaseIn, .beginFromCurrentState],
+            animations: {
+                bar.alpha = 0
+                bar.transform = bar.transform.scaledBy(x: 0.9, y: 0.9)
+            },
+            completion: { _ in
+                bar.removeFromSuperview()
+            }
+        )
     }
 
     func removePlayerPanel(_ panel: PlayerPanelViewController) {
         if playerPanel === panel {
             playerPanel = nil
         }
-        miniPlayerBar?.removeFromSuperview()
+        dismissMiniPlayerBar()
         miniPlayerBar = nil
         miniPlayerBarBottomConstraint = nil
         panel.willMove(toParent: nil)

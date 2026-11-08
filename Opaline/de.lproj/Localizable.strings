@@ -347,7 +347,9 @@
 "home.category.learning" = "Lernen";
 "home.category.fashion" = "Mode";
 /* Error empty state (two lines) */
-"home.error.loadFailed" = "Feed konnte nicht geladen werden\nHerunterziehen zum Erneut Versuchen";
+"home.error.loadFailed" = "Feed konnte nicht geladen werden";
+"home.error.retry" = "Wiederholen";
+"video.badge.live" = "Live";
 /* Signed-out empty state */
 "home.signIn" = "Anmelden, um deine Empfehlungen zu sehen";
 
@@ -533,3 +535,16 @@
 "settings.row.resetIdentity" = "Visitor Identity zurücksetzen";
 "library.downloads.empty" = "Videos, die du herunterlädst, werden hier angezeigt";
 "player.error.noSources" = "Alle Wiedergabequellen sind ausgeschaltet. Aktiviere mindestens eine unter „Einstellungen → Debug → Wiedergabequellen“.";
+
+/* VoiceOver names for controls that show only an icon */
+"a11y.previous" = "Vorheriges Video";
+"a11y.next" = "Nächstes Video";
+"a11y.play" = "Wiedergabe";
+"a11y.pause" = "Pause";
+"a11y.replay" = "Erneut abspielen";
+"a11y.fullScreen" = "Vollbild";
+"a11y.exitFullScreen" = "Vollbild beenden";
+"a11y.minimize" = "Minimieren";
+"a11y.back" = "Zurück";
+"a11y.like" = "Mag ich";
+"a11y.dislike" = "Mag ich nicht";

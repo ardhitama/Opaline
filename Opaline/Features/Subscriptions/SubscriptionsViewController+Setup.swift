@@ -6,7 +6,6 @@ extension SubscriptionsViewController {
     func loadInitialContent() {
         if OAuthClient.shared.isAnonymous {
             AppLog.subs("anonymous → skip load")
-            spinner.stopAnimating()
             showSignInPrompt(true)
             return
         }
@@ -17,11 +16,13 @@ extension SubscriptionsViewController {
     }
 
     func setupSignInPrompt() {
-        let prompt = SignInEmptyStateView(
-            message: "subscriptions.signIn".localized
+        let prompt = EmptyStateView(
+            symbol: "person.crop.circle",
+            text: "subscriptions.signIn".localized,
+            actionTitle: "account.signIn".localized
         )
         prompt.isHidden = true
-        prompt.onSignIn = { [weak self] in
+        prompt.onAction = { [weak self] in
             self?.toolbarOpenProfile()
         }
         view.addSubview(prompt)
@@ -77,21 +78,6 @@ extension SubscriptionsViewController {
         tableView.refreshControl = refresh
         view.addSubview(tableView)
         pinToEdges(tableView, of: view)
-    }
-
-    func setupSpinner() {
-        spinner.translatesAutoresizingMaskIntoConstraints =
-            false
-        view.addSubview(spinner)
-        NSLayoutConstraint.activate([
-            spinner.centerXAnchor.constraint(
-                equalTo: view.centerXAnchor
-            ),
-            spinner.centerYAnchor.constraint(
-                equalTo: view.centerYAnchor
-            )
-        ])
-        spinner.startAnimating()
     }
 }
 
@@ -203,7 +189,6 @@ private extension SubscriptionsViewController {
                     + " videos"
             )
             isLoadingInitial = false
-            spinner.stopAnimating()
             setPage(cachedPage)
             harvestChannels(from: cachedPage)
             // Revalidating replaces the whole feed and rebuilds the screen
@@ -232,7 +217,6 @@ private extension SubscriptionsViewController {
             let ms = Int(
                 Date().timeIntervalSince(t0) * 1_000
             )
-            self.spinner.stopAnimating()
             self.tableView.refreshControl?
                 .endRefreshing()
             switch result {

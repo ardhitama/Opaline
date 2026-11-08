@@ -68,7 +68,7 @@ final class ShortThumbnailCell: UICollectionViewCell {
 
     private func setupViews() {
         poster.contentMode = .scaleAspectFill
-        poster.layer.cornerRadius = 8
+        poster.layer.roundCorners(8)
         poster.clipsToBounds = true
         titleLabel.font = Self.titleFont
         titleLabel.numberOfLines = 2

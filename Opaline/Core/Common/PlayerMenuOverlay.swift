@@ -133,7 +133,7 @@ final class PlayerMenuOverlay: UIView {
 
     private func buildContent(title: String?, sourceRect: CGRect?) {
         panel.backgroundColor = panelColor
-        panel.layer.cornerRadius = 10
+        panel.layer.roundCorners(10)
         panel.layer.masksToBounds = true
         panel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(panel)

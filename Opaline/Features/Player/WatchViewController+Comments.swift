@@ -277,7 +277,7 @@ extension WatchViewController {
 
     private func renderPreviewSkeleton() {
         let row = UIView()
-        row.layer.cornerRadius = 8
+        row.layer.roundCorners(8)
         row.layer.masksToBounds = true
         row.heightAnchor.constraint(
             equalToConstant: 56

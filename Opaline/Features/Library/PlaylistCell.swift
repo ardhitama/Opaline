@@ -27,7 +27,7 @@ final class PlaylistCell: UITableViewCell {
     }
 
     private func setupUI() {
-        thumb.layer.cornerRadius = 6
+        thumb.layer.roundCorners(6)
         thumb.layer.masksToBounds = true
         thumb.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont.systemFont(

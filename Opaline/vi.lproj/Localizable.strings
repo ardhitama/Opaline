@@ -304,7 +304,9 @@
 "home.category.sports" = "Thể thao";
 "home.category.learning" = "Học tập";
 "home.category.fashion" = "Thời trang";
-"home.error.loadFailed" = "Không tải được nguồn cấp dữ liệu\nHãy kéo xuống để thử lại";
+"home.error.loadFailed" = "Không tải được nguồn cấp dữ liệu";
+"home.error.retry" = "Thử lại";
+"video.badge.live" = "Trực tiếp";
 "home.signIn" = "Đăng nhập để xem nội dung đề xuất cho bạn";
 
 /* ===== Channel ===== */
@@ -449,3 +451,16 @@
 "settings.row.resetIdentity" = "Đặt lại visitor identity";
 "library.downloads.empty" = "Các video bạn tải xuống sẽ xuất hiện tại đây";
 "player.error.noSources" = "Tất cả nguồn phát đều đang tắt. Hãy bật ít nhất một nguồn trong “Cài đặt → Gỡ lỗi → Nguồn phát”.";
+
+/* VoiceOver names for controls that show only an icon */
+"a11y.previous" = "Trước";
+"a11y.next" = "Tiếp theo";
+"a11y.play" = "Phát";
+"a11y.pause" = "Tạm dừng";
+"a11y.replay" = "Phát lại";
+"a11y.fullScreen" = "Toàn màn hình";
+"a11y.exitFullScreen" = "Thoát toàn màn hình";
+"a11y.minimize" = "Thu nhỏ";
+"a11y.back" = "Quay lại";
+"a11y.like" = "Thích";
+"a11y.dislike" = "Không thích";

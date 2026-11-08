@@ -46,7 +46,6 @@ final class ChannelSearchViewController: VideosViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         isLoadingInitial = false
-        spinner.stopAnimating()
         setupSearchBar()
         setupEmptyLabel()
         applyTheme()
@@ -126,7 +125,6 @@ final class ChannelSearchViewController: VideosViewController {
         query = text
         emptyLabel.isHidden = true
         isLoadingInitial = true
-        spinner.startAnimating()
         collectionView?.reloadData()
         service.fetchChannelSearch(
             channelId: channelId,
@@ -142,7 +140,6 @@ final class ChannelSearchViewController: VideosViewController {
     }
 
     private func applyResult(_ result: Result<FeedPage, Error>) {
-        spinner.stopAnimating()
         endRefreshing()
         switch result {
         case .success(let page):

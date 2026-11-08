@@ -4,7 +4,7 @@ import UIKit
 
 extension WatchViewController {
     private var downloadVideo: Video {
-        watchPage?.video ?? initialVideo
+        displayedVideo
     }
 
     /// Positive once the video is here, plain while it is on its way,

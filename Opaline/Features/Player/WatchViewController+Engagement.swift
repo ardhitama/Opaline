@@ -87,7 +87,7 @@ extension WatchViewController {
             btn.tintColor = theme.primaryText
         }
         playerContainer.backgroundColor = .black
-        playerStatusLabel.textColor = .lightGray
+        playerStatusLabel.textColor = theme.secondaryText
         applyThemeToSubscribeButton()
         if isViewLoaded, navigationController != nil {
             setupNavigationBar()
@@ -129,10 +129,32 @@ extension WatchViewController {
         view.setNeedsLayout()
     }
 
+    /// The text fades while the rows below it slide, rather than jumping.
     @objc
     func toggleDescription() {
+        view.layoutIfNeeded()
         descriptionExpanded.toggle()
+        let expanding = descriptionExpanded
         updateDescriptionUI()
+        descriptionLabel.isHidden = false
+        descriptionLabel.alpha = expanding ? 0 : 1
+        UIView.animate(
+            withDuration: 0.25,
+            delay: 0,
+            options: [.allowUserInteraction, .beginFromCurrentState],
+            animations: {
+                self.descriptionLabel.alpha = expanding ? 1 : 0
+                self.view.layoutIfNeeded()
+            },
+            completion: { finished in
+                // A second tap mid-animation finishes the job instead.
+                guard finished else {
+                    return
+                }
+                self.descriptionLabel.isHidden = !self.descriptionExpanded
+                self.descriptionLabel.alpha = 1
+            }
+        )
     }
 
     // MARK: - Like / Dislike

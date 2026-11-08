@@ -34,8 +34,8 @@ final class ThemeManager {
     private(set) var secondaryText = UIColor()
     private(set) var tertiaryText = UIColor()
 
-    /// The one accent, a neutral grey: a selected tab, the primary action,
-    /// links and text actions.
+    /// The one accent, a neutral grey: the primary action, links and text
+    /// actions.
     private(set) var accent = UIColor()
     /// Text and icons on `accent`, and on the status fills.
     private(set) var accentText = UIColor()
@@ -56,14 +56,31 @@ final class ThemeManager {
     private(set) var newContentDot = UIColor()
 
     private(set) var skeletonBase = UIColor()
-    private(set) var skeletonShimmer = UIColor()
     private(set) var skeletonBlock = UIColor()
+
+    /// Icons and titles on the bars and the selected tab. Bars are the
+    /// system's, and on Liquid Glass the system draws its own items in
+    /// `label`, so items the app draws itself take the same colour. iOS 12
+    /// has an opaque bar on `background` and takes the text colour.
+    let barContent: UIColor
+    /// The tabs that are not selected, a step below `barContent` so the
+    /// selected tab is the brightest. Ardvis puts the accent on the selected
+    /// tab, but its grey reads dimmer than the system's white tabs on glass,
+    /// which made the selection look disabled.
+    let barContentInactive: UIColor
 
     let statusBarStyle: UIStatusBarStyle = .lightContent
     /// For iOS 12, which has no dark appearance to give bars and keyboards.
     let barStyle: UIBarStyle = .black
 
     private init() {
+        if #available(iOS 13.0, *) {
+            barContent = .label
+            barContentInactive = .secondaryLabel
+        } else {
+            barContent = Self.hex(0xABB2BF)
+            barContentInactive = Self.hex(0x9398A1)
+        }
         rebuildCache()
         NotificationCenter.default.addObserver(
             self,
@@ -131,17 +148,17 @@ final class ThemeManager {
         newContentDot = info
 
         skeletonBase = surface
-        skeletonShimmer = selection
         skeletonBlock = elevatedSurface
     }
 
     func applyGlobal() {
-        // Bars draw their own Liquid Glass; an icon on them keeps the text's
-        // colour, and the selected tab takes the accent.
+        // Bars draw their own Liquid Glass and their items in the system's
+        // colour; the selected tab is the brightest of the tabs.
         let nav = UINavigationBar.appearance()
-        nav.tintColor = primaryText
-        nav.titleTextAttributes = [.foregroundColor: primaryText]
-        UITabBar.appearance().tintColor = accent
+        nav.tintColor = barContent
+        nav.titleTextAttributes = [.foregroundColor: barContent]
+        UITabBar.appearance().tintColor = barContent
+        UITabBar.appearance().unselectedItemTintColor = barContentInactive
         UISwitch.appearance().onTintColor = chromeAccent
         UITextField.appearance().keyboardAppearance = .dark
     }

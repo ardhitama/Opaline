@@ -29,7 +29,6 @@ class SubscriptionsViewController: UIViewController, ScrollableToTop {
     var seenVideoIds: Set<String> = []
     var sortDatesByVideoId: [String: Date] = [:]
     let tableView = UITableView()
-    let spinner = UIActivityIndicatorView(style: .white)
     let channelBar = ChannelAvatarBarView()
     var subscribedChannels: [SubscribedChannel] = []
     var selectedChannel: SubscribedChannel?
@@ -38,7 +37,11 @@ class SubscriptionsViewController: UIViewController, ScrollableToTop {
     var stashedContinuation: String?
     var stashedSeenVideoIds: Set<String> = []
     var isLoadingInitial = true
-    var signInPrompt: SignInEmptyStateView?
+    var signInPrompt: EmptyStateView?
+    /// The bar's leading item (the notifications bell) while a channel
+    /// filter puts its back chevron there; put back when the filter ends.
+    var itemBehindFilterBack: UIBarButtonItem?
+    var isFilterBackInstalled = false
     lazy var topBarHider = TopBarAutoHider(owner: self)
     // New-content dots (issue #13): derived state, never persisted.
     var newContentChannelIds: Set<String> = []
@@ -75,10 +78,10 @@ class SubscriptionsViewController: UIViewController, ScrollableToTop {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "subscriptions.title".localized
+        // No bar title until a channel is picked: the selected tab already
+        // says where this is.
         AppLog.subs("viewDidLoad")
         setupTableView()
-        setupSpinner()
         setupSignInPrompt()
         setupChannelBar()
         applyTheme()

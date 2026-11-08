@@ -9,7 +9,6 @@ extension ChannelViewController {
             applyChannelInfo(info)
         }
         if let page = cache.cachedChannelPage(channelId: cid) {
-            spinner.stopAnimating()
             applyChannelPage(page)
         }
     }
@@ -28,7 +27,6 @@ extension ChannelViewController {
     private func handleChannelResult(
         _ result: Result<ChannelPage, Error>
     ) {
-        spinner.stopAnimating()
         endRefreshing()
         switch result {
         case .success(let page):

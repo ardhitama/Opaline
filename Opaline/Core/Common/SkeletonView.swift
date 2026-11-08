@@ -1,7 +1,11 @@
 // swiftlint:disable:this file_name
 import UIKit
 
-/// Adds a shimmering skeleton overlay to any UIView.
+/// Covers any view with a still placeholder in the skeleton tone while its
+/// content loads. It does not shimmer: a loop says nothing a still shape
+/// doesn't, and it keeps moving for people who asked for less motion. The
+/// placeholder fades as the content arrives, so the swap reads as one
+/// change rather than a jump.
 extension UIView {
     private static let skeletonTag = 99_001
 
@@ -13,50 +17,37 @@ extension UIView {
         overlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         overlay.isUserInteractionEnabled = false
         addSubview(overlay)
-        overlay.startAnimating()
     }
 
     func hideSkeleton() {
-        viewWithTag(UIView.skeletonTag)?.removeFromSuperview()
+        guard let overlay = viewWithTag(UIView.skeletonTag) else {
+            return
+        }
+        // Untagged at once, so a skeleton shown again during the fade is a
+        // new one rather than this one on its way out.
+        overlay.tag = 0
+        UIView.animate(
+            withDuration: 0.2,
+            delay: 0,
+            options: [.beginFromCurrentState, .allowUserInteraction]
+        ) {
+            overlay.alpha = 0
+        } completion: { _ in
+            overlay.removeFromSuperview()
+        }
     }
 }
 
 // MARK: - Skeleton Overlay
 
 private final class SkeletonOverlayView: UIView {
-    private let gradientLayer = CAGradientLayer()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
-        let theme = ThemeManager.shared
-        backgroundColor = theme.skeletonBase
-        gradientLayer.colors = [
-            theme.skeletonBase.cgColor,
-            theme.skeletonShimmer.cgColor,
-            theme.skeletonBase.cgColor
-        ]
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-        gradientLayer.endPoint   = CGPoint(x: 1, y: 0.5)
-        gradientLayer.locations  = [-1, -0.5, 0]
-        layer.addSublayer(gradientLayer)
+        backgroundColor = ThemeManager.shared.skeletonBase
     }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) { fatalError("Not implemented") }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        gradientLayer.frame = bounds
-    }
-
-    func startAnimating() {
-        let anim = CABasicAnimation(keyPath: "locations")
-        anim.fromValue = [-1.0, -0.5, 0.0]
-        anim.toValue   = [1.0, 1.5, 2.0]
-        anim.duration  = 1.3
-        anim.repeatCount = .infinity
-        gradientLayer.add(anim, forKey: "shimmer")
-    }
 }
 
 // MARK: - Skeleton placeholder shapes
@@ -66,7 +57,7 @@ final class SkeletonBlockView: UIView {
     init(cornerRadius: CGFloat = 4) {
         super.init(frame: .zero)
         backgroundColor = ThemeManager.shared.skeletonBlock
-        layer.cornerRadius = cornerRadius
+        layer.roundCorners(cornerRadius)
         translatesAutoresizingMaskIntoConstraints = false
     }
 

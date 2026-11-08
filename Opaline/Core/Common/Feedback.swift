@@ -1,10 +1,14 @@
 import UIKit
 
 /// Tap feedback for every control in the app: a haptic where there is a
-/// Taptic Engine, and always a short visual pop. iPads have no Taptic
+/// Taptic Engine, and always a short visual press. iPads have no Taptic
 /// Engine — the animation (and, for confirmations, the icon swap) is the
 /// only signal that reaches every device.
 enum Feedback {
+    /// How far a pressed control sinks: enough to see on a small glyph,
+    /// little enough to read as a press rather than a bounce.
+    static let pressedScale: CGFloat = 0.95
+
     /// Fired on touch-down, where the finger expects the click.
     static func tap() {
         let generator = UIImpactFeedbackGenerator(style: .light)
@@ -29,18 +33,40 @@ enum Feedback {
         UINotificationFeedbackGenerator().notificationOccurred(.error)
     }
 
-    /// Scale dip + spring back. `.beginFromCurrentState` keeps repeated taps
-    /// from stacking into a jitter.
+    /// A settle for a control that changed without a finger still on it, such
+    /// as a newly selected tab or chip or a confirmation checkmark: it dips
+    /// and eases back without overshooting. Nothing moves under Reduce
+    /// Motion. `.beginFromCurrentState` keeps repeated taps from stacking
+    /// into a jitter.
     static func pop(_ view: UIView?) {
-        guard let view else {
+        guard let view, !UIAccessibility.isReduceMotionEnabled else {
             return
         }
-        view.transform = CGAffineTransform(scaleX: 0.88, y: 0.88)
+        view.transform = CGAffineTransform(scaleX: pressedScale, y: pressedScale)
+        release(view)
+    }
+
+    /// The press half of a tap: the control sinks while the finger is down.
+    static func press(_ view: UIView) {
+        guard !UIAccessibility.isReduceMotionEnabled else {
+            return
+        }
         UIView.animate(
-            withDuration: 0.35,
+            withDuration: 0.12,
             delay: 0,
-            usingSpringWithDamping: 0.45,
-            initialSpringVelocity: 6,
+            options: [.allowUserInteraction, .beginFromCurrentState, .curveEaseOut]
+        ) {
+            view.transform = CGAffineTransform(scaleX: pressedScale, y: pressedScale)
+        }
+    }
+
+    /// The release half: a critically damped spring back to rest.
+    static func release(_ view: UIView) {
+        UIView.animate(
+            withDuration: 0.3,
+            delay: 0,
+            usingSpringWithDamping: 1,
+            initialSpringVelocity: 0,
             options: [.allowUserInteraction, .beginFromCurrentState]
         ) {
             view.transform = .identity
@@ -76,13 +102,19 @@ enum Feedback {
 }
 
 extension UIControl {
-    /// Haptic + pop on touch-down for this control. One call per button is
-    /// the whole wiring.
+    /// Haptic on touch-down, and the control sinks while the finger is on it
+    /// and settles back when it lifts. One call per button is the whole
+    /// wiring.
     func addTapFeedback() {
         addTarget(
             TapFeedbackTarget.shared,
             action: #selector(TapFeedbackTarget.handle(_:)),
             for: .touchDown
+        )
+        addTarget(
+            TapFeedbackTarget.shared,
+            action: #selector(TapFeedbackTarget.handleRelease(_:)),
+            for: [.touchUpInside, .touchUpOutside, .touchCancel]
         )
     }
 }
@@ -95,6 +127,11 @@ private final class TapFeedbackTarget: NSObject {
     @objc
     func handle(_ sender: UIControl) {
         Feedback.tap()
-        Feedback.pop(sender)
+        Feedback.press(sender)
+    }
+
+    @objc
+    func handleRelease(_ sender: UIControl) {
+        Feedback.release(sender)
     }
 }

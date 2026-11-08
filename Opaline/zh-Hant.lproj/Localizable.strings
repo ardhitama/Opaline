@@ -353,7 +353,9 @@
 "home.category.learning" = "學習";
 "home.category.fashion" = "時尚";
 /* Error empty state (two lines) */
-"home.error.loadFailed" = "無法載入動態\n下拉重試";
+"home.error.loadFailed" = "無法載入動態";
+"home.error.retry" = "再試一次";
+"video.badge.live" = "直播";
 /* Signed-out empty state */
 "home.signIn" = "登入以查看推薦內容";
 
@@ -535,3 +537,16 @@
 "settings.row.resetIdentity" = "重設 visitor identity";
 "library.downloads.empty" = "你下載的影片會顯示在這裡";
 "player.error.noSources" = "所有播放來源都已關閉。請在「設定 → 除錯 → 播放來源」中至少開啟一個。";
+
+/* VoiceOver names for controls that show only an icon */
+"a11y.previous" = "上一個";
+"a11y.next" = "下一個";
+"a11y.play" = "播放";
+"a11y.pause" = "暫停";
+"a11y.replay" = "重播";
+"a11y.fullScreen" = "全螢幕";
+"a11y.exitFullScreen" = "結束全螢幕";
+"a11y.minimize" = "最小化";
+"a11y.back" = "返回";
+"a11y.like" = "喜歡";
+"a11y.dislike" = "不喜歡";

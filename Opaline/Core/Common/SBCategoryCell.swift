@@ -53,7 +53,7 @@ final class SBCategoryCell: UITableViewCell {
     }
 
     private func configureSwatch() {
-        colorSwatch.layer.cornerRadius = 3
+        colorSwatch.layer.roundCorners(3)
         colorSwatch.translatesAutoresizingMaskIntoConstraints = false
     }
 

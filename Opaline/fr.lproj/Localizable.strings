@@ -349,7 +349,9 @@
 "home.category.learning" = "Éducation";
 "home.category.fashion" = "Mode";
 /* Error empty state (two lines) */
-"home.error.loadFailed" = "Impossible de charger le fil\nGlissez vers le bas pour réessayer";
+"home.error.loadFailed" = "Impossible de charger le fil";
+"home.error.retry" = "Réessayer";
+"video.badge.live" = "En direct";
 /* Signed-out empty state */
 "home.signIn" = "Connectez-vous pour voir vos recommandations";
 
@@ -531,3 +533,16 @@
 "settings.row.resetIdentity" = "Réinitialiser le visitor identity";
 "library.downloads.empty" = "Les vidéos que vous téléchargez s'afficheront ici";
 "player.error.noSources" = "Toutes les sources de lecture sont désactivées. Activez-en au moins une dans « Paramètres → Débogage → Sources de lecture ».";
+
+/* VoiceOver names for controls that show only an icon */
+"a11y.previous" = "Précédente";
+"a11y.next" = "Suivante";
+"a11y.play" = "Lire";
+"a11y.pause" = "Pause";
+"a11y.replay" = "Revoir";
+"a11y.fullScreen" = "Plein écran";
+"a11y.exitFullScreen" = "Quitter le plein écran";
+"a11y.minimize" = "Réduire";
+"a11y.back" = "Retour";
+"a11y.like" = "J'aime";
+"a11y.dislike" = "Je n'aime pas";

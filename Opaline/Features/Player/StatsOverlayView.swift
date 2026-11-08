@@ -14,7 +14,7 @@ final class StatsOverlayView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.black.withAlphaComponent(0.72)
-        layer.cornerRadius = 6
+        layer.roundCorners(6)
         layer.masksToBounds = true
         setupLabel()
         setupCloseButton()

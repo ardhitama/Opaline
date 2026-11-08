@@ -353,7 +353,9 @@
 "home.category.learning" = "学习";
 "home.category.fashion" = "时尚";
 /* Error empty state (two lines) */
-"home.error.loadFailed" = "无法加载动态\n下拉重试";
+"home.error.loadFailed" = "无法加载动态";
+"home.error.retry" = "重试";
+"video.badge.live" = "直播";
 /* Signed-out empty state */
 "home.signIn" = "登录以查看推荐内容";
 
@@ -535,3 +537,16 @@
 "settings.row.resetIdentity" = "重置 visitor identity";
 "library.downloads.empty" = "你下载的视频将显示在这里";
 "player.error.noSources" = "所有播放源都已关闭。请在「设置 → 调试 → 播放源」中至少打开一个。";
+
+/* VoiceOver names for controls that show only an icon */
+"a11y.previous" = "上一个";
+"a11y.next" = "下一个";
+"a11y.play" = "播放";
+"a11y.pause" = "暂停";
+"a11y.replay" = "重播";
+"a11y.fullScreen" = "全屏";
+"a11y.exitFullScreen" = "退出全屏";
+"a11y.minimize" = "最小化";
+"a11y.back" = "返回";
+"a11y.like" = "喜欢";
+"a11y.dislike" = "不喜欢";

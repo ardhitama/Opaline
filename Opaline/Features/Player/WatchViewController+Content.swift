@@ -32,8 +32,8 @@ extension WatchViewController {
         )
         channelNameLabel.text = initialVideo.channelName
         channelMetaLabel.text = nil
-        subscribeButton.isHidden =
-            !OAuthClient.shared.isAnonymous
+        // Shown once the page says whether you are subscribed.
+        subscribeButton.isHidden = true
         subscribeButton.setTitle("common.subscribe".localized, for: .normal)
         descriptionText = ""
         descriptionLabel.attributedText = nil
@@ -89,6 +89,17 @@ extension WatchViewController {
 // MARK: - Watch Page
 
 extension WatchViewController {
+    /// Posted with the screen as its object when the video it shows, or what
+    /// is known about it, changes — the mini player mirrors it.
+    static let displayedVideoDidChange = Notification.Name(
+        "WatchViewController.displayedVideoDidChange"
+    )
+
+    /// The loaded page's video once it is in; a link opens with only the id.
+    var displayedVideo: Video {
+        watchPage?.video ?? initialVideo
+    }
+
     func loadWatchPage() {
         client.fetchWatchPage(
             video: initialVideo,
@@ -112,7 +123,6 @@ extension WatchViewController {
     func applyWatchPage(_ page: WatchPage) {
         watchPage = page
         cache.setWatchPage(page, videoId: initialVideo.id)
-        title = page.video.title
         titleLabel.text = page.video.title
         metaLabel.text = buildMetaText(
             viewCount: page.video.viewCount,
@@ -126,6 +136,7 @@ extension WatchViewController {
         updateTransportAvailability()
         startSideEffects(for: page.video.id)
         view.setNeedsLayout()
+        NotificationCenter.default.post(name: Self.displayedVideoDidChange, object: self)
     }
 
     /// RYD/SponsorBlock, playlist prefetch and the first comments page —
@@ -179,7 +190,9 @@ extension WatchViewController {
             for: .normal
         )
         isSubscribed = page.isSubscribed
-        subscribeButton.isHidden = false
+        // Signed out there is nothing to subscribe with; a greyed-out
+        // button would only take room from the channel name.
+        subscribeButton.isHidden = OAuthClient.shared.isAnonymous
         descriptionText = page.description ?? ""
         applyDescriptionText()
         descriptionExpanded = false
@@ -385,7 +398,7 @@ extension WatchViewController {
 
     /// Navigate within player (related, autoplay) — pushes current to history.
     func navigateTo(_ video: Video) {
-        let current = watchPage?.video ?? initialVideo
+        let current = displayedVideo
         videoHistory.append(current)
         loadVideoInternal(video, keepFullscreen: isPlayerFullscreen)
         updateLeftBarButton()
@@ -425,6 +438,7 @@ extension WatchViewController {
         loadInitialState()
         loadWatchPage()
         applyTheme()
+        NotificationCenter.default.post(name: Self.displayedVideoDidChange, object: self)
     }
 
     func resetVideoState() {
