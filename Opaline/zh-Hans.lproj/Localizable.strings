@@ -444,6 +444,7 @@
 "player.related.downloaded" = "其他已下载的视频";
 "settings.footer.debug" = "选择用哪些方式播放视频，以及按什么顺序尝试。";
 "settings.row.playbackChain" = "播放源";
+"settings.playbackChain.signInNeeded" = "登录后才能使用此播放源";
 "settings.playbackChain.footer" = "从上到下依次尝试，直到有一个能播放。拖动可调整顺序，不需要的可以关掉。";
 "settings.row.resetIdentity" = "重置 visitor identity";
 "library.downloads.empty" = "你下载的视频将显示在这里";

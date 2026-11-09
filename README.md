@@ -235,7 +235,7 @@ Opaline/
 
 ### Key Design Decisions
 
-- **Zero external dependencies** — Networking via a custom `HTTPTransport` abstraction over `URLSession`, images via custom `ThumbnailImageView`, playback via `AVPlayer`
+- **No package dependencies** — Networking via a custom `HTTPTransport` abstraction over `URLSession`, images via custom `ThumbnailImageView`, playback via `AVPlayer`. The only bundled third-party code is yt-dlp's EJS challenge solver, run in JavaScriptCore
 - **All UIKit, no SwiftUI** — Programmatic layout, no storyboards
 - **iOS 12+ support** — No SF Symbols, no SwiftUI, no Combine
 - **Manual JSON parsing** — `JSONSerialization` + dictionary traversal for YouTube Innertube API responses
@@ -248,6 +248,7 @@ Playback is built on a single `VideoSource` abstraction — each way of playing 
 1. **visionOS · byte ranges** — adaptive formats (360p–1080p AVC, up to 4K AV1 on supported hardware) are converted from DASH SIDX byte ranges into an HLS playlist for native `AVPlayer`.
 2. **visionOS · SABR** — the same client over YouTube's server-driven streaming protocol, for videos the byte-range path refuses.
 3. **Progressive 360p** — a direct MP4 URL for the restricted case.
+4. **TV · 360p** — signed in only: the TV client's MP4 under your account, for age-restricted and account-only videos. The URL's challenges are answered on the device, with the TV player the request was paired with.
 
 Quality selection is source-agnostic: the player UI simply renders whatever qualities the active source reports. Background audio is `AVAudioSession`-based and works across all sources.
 
@@ -281,6 +282,7 @@ Please follow the existing code style. SwiftLint is configured and runs as a bui
 ## Credits
 
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp) — invaluable reference for understanding YouTube's playback infrastructure
+- [yt-dlp/ejs](https://github.com/yt-dlp/ejs) — the on-device challenge solver (Unlicense; bundles [meriyah](https://github.com/meriyah/meriyah), ISC, and [astring](https://github.com/davidbonnet/astring), MIT)
 - [YouTubeLegacy](https://github.com/PoomSmart/YouTubeLegacy) — inspiration for keeping YouTube alive on older devices
 
 ## Legal

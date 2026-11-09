@@ -372,6 +372,7 @@
 "player.related.downloaded" = "Cũng đã tải xuống";
 "settings.footer.debug" = "Chọn những cách phát video và thứ tự thử chúng.";
 "settings.row.playbackChain" = "Nguồn phát";
+"settings.playbackChain.signInNeeded" = "Đăng nhập để dùng nguồn này";
 "settings.playbackChain.footer" = "Được thử lần lượt từ trên xuống cho đến khi một nguồn phát được. Kéo để sắp xếp lại, tắt nguồn bạn không muốn dùng.";
 "settings.row.resetIdentity" = "Đặt lại visitor identity";
 "library.downloads.empty" = "Các video bạn tải xuống sẽ xuất hiện tại đây";

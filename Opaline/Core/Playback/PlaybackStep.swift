@@ -10,6 +10,9 @@ struct PlaybackStep {
     let id: String
     /// What the settings screen and the stats overlay call this step.
     let title: String
+    /// Steps that need an account skip themselves when there is no session,
+    /// which is what keeps "are we signed in?" out of the playback code.
+    let requiresSignIn: Bool
     let make: (WatchService) -> VideoSource
 }
 
@@ -22,7 +25,8 @@ struct PlaybackStepRegistry {
     static let `default` = PlaybackStepRegistry(steps: [
         PlaybackStep(
             id: "visionos.range",
-            title: "visionOS · byte ranges"
+            title: "visionOS · byte ranges",
+            requiresSignIn: false
         ) { apiClient in
             innertube(
                 apiClient: apiClient,
@@ -33,7 +37,8 @@ struct PlaybackStepRegistry {
         },
         PlaybackStep(
             id: "visionos.sabr",
-            title: "visionOS · SABR"
+            title: "visionOS · SABR",
+            requiresSignIn: false
         ) { apiClient in
             innertube(
                 apiClient: apiClient,
@@ -44,9 +49,17 @@ struct PlaybackStepRegistry {
         },
         PlaybackStep(
             id: "progressive",
-            title: "Progressive 360p"
+            title: "Progressive 360p",
+            requiresSignIn: false
         ) { apiClient in
             ProgressiveSource(apiClient: apiClient)
+        },
+        PlaybackStep(
+            id: "tv.progressive",
+            title: "TV · 360p",
+            requiresSignIn: true
+        ) { apiClient in
+            TVProgressiveSource(apiClient: apiClient)
         }
     ])
 

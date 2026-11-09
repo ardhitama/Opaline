@@ -7,10 +7,14 @@ import Foundation
 /// same decision expressed as data, so it can be reordered on the device.
 enum PlaybackChainSettings {
     /// VisionOS first, both of its steps: it is the client googlevideo lets
-    /// play past the anonymous one-minute cut-off.
-    static let defaultOrder = ["visionos.range", "visionos.sabr", "progressive"]
-    /// Everything is on by default: a step that cannot run already skips
-    /// itself.
+    /// play past the anonymous one-minute cut-off. TV comes last: it only
+    /// adds what an account can watch and the others cannot, and it needs an
+    /// account to run at all.
+    static let defaultOrder = [
+        "visionos.range", "visionos.sabr", "progressive", "tv.progressive"
+    ]
+    /// Everything is on by default: a step that cannot run (TV without an
+    /// account) already skips itself.
     static let defaultEnabled = defaultOrder
 
     static var order: [String] {
@@ -38,7 +42,13 @@ enum PlaybackChainSettings {
             guard let stored else {
                 return Set(defaultEnabled)
             }
-            return Set(stored)
+            // The chain screen saves the order with every step it showed, so
+            // a step missing from the stored order was added later: it starts
+            // on, as it would in a fresh chain.
+            let storedOrder = UserDefaults.standard
+                .stringArray(forKey: UserDefaultsKeys.Debug.playbackChainOrder) ?? []
+            let added = defaultEnabled.filter { !storedOrder.contains($0) }
+            return Set(stored).union(added)
         }
         set {
             UserDefaults.standard.set(
@@ -47,13 +57,15 @@ enum PlaybackChainSettings {
         }
     }
 
-    /// The steps to try, in order: the enabled ones.
+    /// The steps to try, in order: enabled, and possible for this session.
     static func activeSteps(
-        from registry: PlaybackStepRegistry = .default
+        from registry: PlaybackStepRegistry = .default,
+        isSignedIn: Bool = OAuthClient.shared.isSignedIn
     ) -> [PlaybackStep] {
         let on = enabled
         return order
             .compactMap { registry.step(id: $0) }
             .filter { on.contains($0.id) }
+            .filter { isSignedIn || !$0.requiresSignIn }
     }
 }

@@ -58,6 +58,10 @@ protocol PlaybackClient {
     /// Whether the shared cookie jar rides along. Anonymous clients keep it
     /// out: a session-bound URL is not what they can play.
     var sendsCookies: Bool { get }
+    /// Whether its media URLs carry challenges `ChallengeSolver` has to
+    /// answer. Its `signatureCipher` formats are then unwrapped instead of
+    /// skipped.
+    var needsSignatureSolver: Bool { get }
     /// Whether its `/player` lists dubbed audio tracks. Measured, not assumed:
     /// visionOS lists the same 22 tracks as ios and plays them anonymously
     /// (2026-08-18), so a dub no longer needs an account.
@@ -86,6 +90,7 @@ protocol PlaybackClient {
 // MARK: - Shared behaviour
 
 extension PlaybackClient {
+    var needsSignatureSolver: Bool { false }
     var listsAudioTracks: Bool { false }
 
     func decoratePlayerBody(_ body: inout [String: Any]) {}

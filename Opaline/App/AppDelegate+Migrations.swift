@@ -9,7 +9,7 @@ extension AppDelegate {
     private static let removedServiceKeys = [
         "ryd_enabled", "ryd_userId_v2", "ryd_registered_v2",
         "sponsorblock_enabled",
-        "playback_livingRoomPoTokenId", "debug_serverBaseURL",
+        "debug_serverBaseURL",
         "notifications_appUpdates", "notifications_lastUpdateCheck",
         "notifications_featureInstallDate",
         "SignatureTimestamp.jsPath", "SignatureTimestamp.tvValue",

@@ -440,6 +440,7 @@
 "player.related.downloaded" = "Également téléchargées";
 "settings.footer.debug" = "Choisissez par quels moyens une vidéo est lue et dans quel ordre ils sont essayés.";
 "settings.row.playbackChain" = "Sources de lecture";
+"settings.playbackChain.signInNeeded" = "Connectez-vous pour utiliser cette source";
 "settings.playbackChain.footer" = "Essayées de haut en bas jusqu’à ce que l’une fonctionne. Faites glisser pour réordonner, désactivez celles dont vous ne voulez pas.";
 "settings.row.resetIdentity" = "Réinitialiser le visitor identity";
 "library.downloads.empty" = "Les vidéos que vous téléchargez s'afficheront ici";

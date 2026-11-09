@@ -440,6 +440,7 @@
 "player.related.downloaded" = "Também baixados";
 "settings.footer.debug" = "Escolha de que formas um vídeo é reproduzido e em que ordem elas são testadas.";
 "settings.row.playbackChain" = "Fontes de reprodução";
+"settings.playbackChain.signInNeeded" = "Faça login para usar esta fonte";
 "settings.playbackChain.footer" = "São testadas de cima para baixo até uma reproduzir. Arraste para reordenar e desative as que não quiser.";
 "settings.row.resetIdentity" = "Redefinir visitor identity";
 "library.downloads.empty" = "Os vídeos que você fizer o download aparecerão aqui";

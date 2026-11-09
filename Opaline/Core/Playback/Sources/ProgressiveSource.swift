@@ -55,25 +55,28 @@ final class ProgressiveSource: VideoSource {
         completion: @escaping (Result<PreparedPlayback, Error>) -> Void
     ) {
         if info.progressiveURL == nil, let hls = info.hlsManifestURL {
-            completion(.success(item(for: hls, info: info)))
+            completion(.success(Self.prepared(url: hls, info: info, client: client)))
             return
         }
         guard let url = info.progressiveURL else {
-            completion(.failure(
-                NSError(
-                    domain: "ProgressiveSource",
-                    code: 1,
-                    userInfo: [
-                        NSLocalizedDescriptionKey: "No progressive stream"
-                    ]
-                )
-            ))
+            completion(.failure(Self.noStream))
             return
         }
-        completion(.success(item(for: url, info: info)))
+        completion(.success(Self.prepared(url: url, info: info, client: client)))
     }
+}
 
-    private func item(for url: URL, info: DirectPlaybackInfo) -> PreparedPlayback {
+extension ProgressiveSource {
+    static let noStream = NSError(
+        domain: "ProgressiveSource",
+        code: 1,
+        userInfo: [NSLocalizedDescriptionKey: "No progressive stream"]
+    )
+
+    /// The single file, fetched the way `client` asked for it.
+    static func prepared(
+        url: URL, info: DirectPlaybackInfo, client: PlaybackClient
+    ) -> PreparedPlayback {
         let headers = client.streamHeaders(visitorData: info.visitorData)
         let asset = AVURLAsset(
             url: url, options: ["AVURLAssetHTTPHeaderFieldsKey": headers]

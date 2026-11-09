@@ -67,6 +67,15 @@ struct DirectPlaybackInfo {
     let hlsManifestURL: URL?
     let dashManifestURL: URL?
     let progressiveURL: URL?
+    /// The `s` challenge when the progressive format arrived as a
+    /// `signatureCipher`; `progressiveURL` is refused until the solved value
+    /// is added as `progressiveSigParam`.
+    let progressiveSigChallenge: String?
+    let progressiveSigParam: String?
+    /// How long after this response the server starts serving its media:
+    /// the pre-roll ad's length, to its skip offset when it has one. Zero
+    /// when there is no pre-roll.
+    let preRollSeconds: TimeInterval
     let videoURL: URL?
     let audioURL: URL?
     let serverAbrStreamingURL: URL?

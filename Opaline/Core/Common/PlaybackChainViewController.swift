@@ -88,7 +88,7 @@ extension PlaybackChainViewController: UITableViewDataSource, UITableViewDelegat
         _ tableView: UITableView, cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         let step = steps()[indexPath.row]
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
         cell.textLabel?.text = step.title
         cell.textLabel?.textColor = ThemeManager.shared.primaryText
         cell.backgroundColor = ThemeManager.shared.surface
@@ -96,6 +96,12 @@ extension PlaybackChainViewController: UITableViewDataSource, UITableViewDelegat
         cell.showsReorderControl = true
         let toggle = UISwitch()
         toggle.isOn = enabled.contains(step.id)
+        let signInNeeded = step.requiresSignIn && !OAuthClient.shared.isSignedIn
+        if signInNeeded {
+            cell.detailTextLabel?.text = "settings.playbackChain.signInNeeded".localized
+            cell.detailTextLabel?.textColor = ThemeManager.shared.secondaryText
+        }
+        toggle.isEnabled = !signInNeeded
         toggle.tag = indexPath.row
         toggle.addTarget(self, action: #selector(toggleStep(_:)), for: .valueChanged)
         cell.editingAccessoryView = toggle

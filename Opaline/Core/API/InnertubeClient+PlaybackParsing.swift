@@ -9,6 +9,9 @@ extension InnertubeClient {
         client: PlaybackClient,
         onBotCheck: () -> Void
     ) -> DirectPlaybackInfo? {
+        // Only a client whose challenges get solved can play a ciphered
+        // format; for the others it would be picked and then refused.
+        let json = client.needsSignatureSolver ? unwrappingSignatureCiphers(json) : json
         guard let info = parseDirectPlaybackInfo(json) else {
             logDirectPlaybackError(
                 json: json,

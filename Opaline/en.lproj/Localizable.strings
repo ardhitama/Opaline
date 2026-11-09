@@ -310,6 +310,7 @@
 
 /* Debug rows (values stay technical/English) */
 "settings.row.playbackChain" = "Playback sources";
+"settings.playbackChain.signInNeeded" = "Sign in to use this source";
 "settings.playbackChain.footer" = "Tried from top to bottom until one plays. Drag to reorder, switch off what you do not want.";
 "settings.row.resetIdentity" = "Reset visitor identity";
 "settings.row.mainThreadWatchdog" = "Main Thread Watchdog";

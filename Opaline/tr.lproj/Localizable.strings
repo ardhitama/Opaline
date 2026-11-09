@@ -444,6 +444,7 @@
 "player.related.downloaded" = "Diğer indirilenler";
 "settings.footer.debug" = "Bir videonun hangi yollarla oynatılacağını ve bunların hangi sırayla deneneceğini seçin.";
 "settings.row.playbackChain" = "Oynatma kaynakları";
+"settings.playbackChain.signInNeeded" = "Bu kaynağı kullanmak için oturum açın";
 "settings.playbackChain.footer" = "Biri oynatana kadar yukarıdan aşağıya denenir. Sıralamak için sürükleyin, istemediklerinizi kapatın.";
 "settings.row.resetIdentity" = "Visitor identity’yi sıfırla";
 "library.downloads.empty" = "İndirdiğiniz videolar burada gösterilir";

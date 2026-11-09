@@ -77,6 +77,13 @@ enum UserDefaultsKeys {
         static let autoZoomToFill = "player_autoZoomToFill"
     }
 
+    enum Playback {
+        /// The made-up television id the TV client presents once and keeps.
+        static let livingRoomPoTokenId = "playback_livingRoomPoTokenId"
+        /// The TV player last read from `youtube.com/tv` (`TVPlayerStore`).
+        static let tvPlayer = "playback_tvPlayer"
+    }
+
     enum AutoDub {
         static let enabled = "autoDub_enabled"
         static let ignoreAIDubs = "autoDub_ignoreAIDubs"

@@ -444,6 +444,7 @@
 "player.related.downloaded" = "他のダウンロード済み動画";
 "settings.footer.debug" = "動画をどの方法で再生するか、どの順で試すかを選びます。";
 "settings.row.playbackChain" = "再生ソース";
+"settings.playbackChain.signInNeeded" = "このソースを使うにはログインしてください";
 "settings.playbackChain.footer" = "上から順に試して、再生できたものが使われます。ドラッグで並べ替え、不要なものはオフにしてください。";
 "settings.row.resetIdentity" = "visitor identity をリセット";
 "library.downloads.empty" = "ダウンロードした動画がここに表示されます";

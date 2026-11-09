@@ -6,9 +6,11 @@ import Foundation
 // wrapped in a `signatureCipher` — `s=<challenge>&sp=<param>&url=<escaped>` —
 // instead of a direct `url`. Unwrapping moves the URL into `url` (so format
 // selection works unchanged) and stashes the challenge under synthetic keys
-// that `makeDashInfo` copies into `DashFormatInfo.sigChallenge`/`sigParam`.
-// Nothing on the device solves the challenge, so such a URL stays unplayable
-// until `<sp>=<solved>` is appended; downloads skip these formats.
+// that `makeDashInfo` copies into `DashFormatInfo.sigChallenge`/`sigParam`
+// (and the progressive pick into `DirectPlaybackInfo.progressiveSigChallenge`).
+// Such a URL stays unplayable until `<sp>=<solved>` is appended, so only
+// clients that `needsSignatureSolver` get their formats unwrapped; downloads
+// skip these formats.
 
 extension InnertubeClient {
     static let sigChallengeKey = "ytliteSigChallenge"

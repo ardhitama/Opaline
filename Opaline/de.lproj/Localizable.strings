@@ -440,6 +440,7 @@
 "player.related.downloaded" = "Ebenfalls heruntergeladen";
 "settings.footer.debug" = "Lege fest, welche Wiedergabewege genutzt werden und in welcher Reihenfolge sie probiert werden.";
 "settings.row.playbackChain" = "Wiedergabequellen";
+"settings.playbackChain.signInNeeded" = "Melde dich an, um diese Quelle zu nutzen";
 "settings.playbackChain.footer" = "Werden von oben nach unten durchprobiert, bis eine abspielt. Zum Umsortieren ziehen, nicht benötigte ausschalten.";
 "settings.row.resetIdentity" = "Visitor Identity zurücksetzen";
 "library.downloads.empty" = "Videos, die du herunterlädst, werden hier angezeigt";
